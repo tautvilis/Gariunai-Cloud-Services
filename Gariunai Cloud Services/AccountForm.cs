@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 
@@ -17,11 +16,13 @@ namespace Gariunai_Cloud_Services
         {
             this.previousForm = previousForm;
             InitializeComponent();
+            //load textbox text and picture from db
         }
 
 
         private void AccountForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Save();
             previousForm.Show();
         }
 
@@ -34,6 +35,17 @@ namespace Gariunai_Cloud_Services
                 string selectedFileName = openFileDialog1.FileName;
                 ovalPictureBox1.ImageLocation = selectedFileName;
             }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
+        {
+            //save textbox texts to db and picture
+            throw new NotImplementedException();
         }
     }
 }
