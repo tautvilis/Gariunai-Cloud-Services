@@ -75,6 +75,7 @@
             this.accountButton.TabIndex = 3;
             this.accountButton.Text = "Account";
             this.accountButton.UseVisualStyleBackColor = true;
+            this.accountButton.Click += new System.EventHandler(this.accountButton_Click);
             // 
             // specificShopButton
             // 

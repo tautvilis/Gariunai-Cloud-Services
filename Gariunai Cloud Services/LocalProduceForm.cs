@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,6 +35,13 @@ namespace Gariunai_Cloud_Services
             this.Hide();
             Form specificShopForm = new SpecificShopForm(this);
             specificShopForm.Show();
+        }
+
+        private void accountButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form accountForm = new AccountForm(this);
+            accountForm.Show();
         }
     }
 }
