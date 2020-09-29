@@ -12,16 +12,16 @@ namespace Gariunai_Cloud_Services
     {
         private readonly Form previousForm;
 
-        public SpecificShopForm(Form PreviousForm)
+        public SpecificShopForm()
         {
 
             InitializeComponent();
-            previousForm = PreviousForm;
+           // previousForm = PreviousForm;
         }
 
         private void SpecificShopForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            previousForm.Show();
+          //  previousForm.Show();
         }
     }
 }
