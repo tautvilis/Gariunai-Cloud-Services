@@ -5,6 +5,7 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using Gariunai_Cloud_Services.Entities;
+using System.IO;
 
 namespace Gariunai_Cloud_Services
 {
@@ -41,6 +42,25 @@ namespace Gariunai_Cloud_Services
             }
 
             return user;
+        }
+        public static bool checkIfUserExists(string username, string password)
+        {
+            username = "'"+username +"'";
+            password = "'" + password + "'";
+            var queryResult = ExecuteQuery("SELECT accounts.id FROM Accounts JOIN Passwords ON Accounts.Id = Passwords.UserName WHERE accounts.UserName =" + username + " AND Password ="+ password);
+            if (queryResult.Rows.Count ==1)
+            {
+                return true;
+            }
+            else if(queryResult.Rows.Count > 1)
+            {
+                throw new Exception();
+                //TODO create new custom exception
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static List<string> getProduceByShopId(int id)
