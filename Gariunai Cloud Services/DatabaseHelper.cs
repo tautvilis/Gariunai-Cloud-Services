@@ -105,7 +105,6 @@ namespace Gariunai_Cloud_Services
                     Debug.WriteLine("Such user already exits");
                 }
             }
-            
         }
         public static void AddProductToDB(string product) 
         {

@@ -1,3 +1,4 @@
+using Gariunai_Cloud_Services.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,27 +16,27 @@ namespace Gariunai_Cloud_Services
         static void Main()
         {
 
-            List<Gariunai_Cloud_Services.Entities.Business> res = DatabaseHelper.GetBusinesses();
-            System.Diagnostics.Debug.WriteLine(res.Count());
-
-            foreach (var shop in DatabaseHelper.GetBusinesses()) 
+            User user = new User
             {
-                System.Diagnostics.Debug.WriteLine("-------------------------");
-                System.Diagnostics.Debug.WriteLine("shop name = " + shop.Name);
-                System.Diagnostics.Debug.WriteLine("shop description  = " + shop.Description);
-                System.Diagnostics.Debug.WriteLine("Owner name = " + shop.Owner.Name);
-                System.Diagnostics.Debug.Write("Products = ");
-                foreach(var product in shop.Produce) 
-                {
-                    System.Diagnostics.Debug.Write(product + " ");
-                }
-                System.Diagnostics.Debug.Write("\n");
-            }
+                Name = "Janina Janiniene",
+                Email = "mociute@gmail.com",
+                Description = "Turiu 30 metu arbatos rinkimo patirties :)"
+            };
 
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Business business = new Business
+            {
+                Owner = user,
+                Name = "Mociutes arbatzoles",
+                Description = "Skanu, pigu, sveika",
+                Produce = new List<string> { "Ciobreliai", "Liepu ziedai", "Dilgeles", "Pelynai" }
+            };
+
+            DatabaseHelper.AddShopToDB(business);
+
+          /*  Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LocalProduceForm());
+            Application.Run(new LocalProduceForm());*/
         }
     }
 }
