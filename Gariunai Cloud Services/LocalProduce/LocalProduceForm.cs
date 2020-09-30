@@ -19,23 +19,25 @@ namespace Gariunai_Cloud_Services
         public LocalProduceForm()
         {
             InitializeComponent();
-            populateShops();
+            PopulateShops();
         }
 
-        private void populateShops()
+        private void PopulateShops()
         {
-            ListShop[] listShops = new ListShop[10];
+            List<Gariunai_Cloud_Services.Entities.Business> res = DatabaseHelper.GetBusinesses();
+            var listShops = new ListShop[res.Count()];
 
-            //Change with specific DB names
-            for (int i = 0; i < listShops.Length; i++)
+            var count = 0;
+            foreach (var shop in DatabaseHelper.GetBusinesses())
             {
-                listShops[i] = new ListShop();
-                listShops[i].Title = "Local Shop Title";
-                listShops[i].Description = "Local shop description";
-                
-                flowLayoutPanel1.Controls.Add(listShops[i]);
+                listShops[count] = new ListShop
+                {
+                    Title = shop.Name, Description = shop.Description, Owner = shop.Owner.Name
+                };
+                flowLayoutPanel1.Controls.Add(listShops[count]);
+                count++;
             }
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)

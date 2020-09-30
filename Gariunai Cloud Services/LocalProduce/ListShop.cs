@@ -18,6 +18,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
         private string _title;
         private string _description;
         private Image _icon;
+        private string _owner;
 
         [Category("Custom Props")]
         public string Title
@@ -44,6 +45,17 @@ namespace Gariunai_Cloud_Services.LocalProduce
             get { return _icon; }
             set { _icon = value;
                 ListShopImg.Image = value;
+            }
+        }
+
+        [Category("Custom Props")]
+        public string Owner
+        {
+            get { return _owner; }
+            set
+            {
+                _owner = value;
+                ListShopOwner.Text = value;
             }
         }
 

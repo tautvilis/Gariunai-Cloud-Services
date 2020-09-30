@@ -32,6 +32,7 @@
             this.ListShopTitle = new System.Windows.Forms.Label();
             this.ListShopDesc = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ListShopOwner = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ListShopImg)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +62,7 @@
             // 
             this.ListShopDesc.Location = new System.Drawing.Point(147, 37);
             this.ListShopDesc.Name = "ListShopDesc";
-            this.ListShopDesc.Size = new System.Drawing.Size(368, 65);
+            this.ListShopDesc.Size = new System.Drawing.Size(368, 54);
             this.ListShopDesc.TabIndex = 3;
             this.ListShopDesc.Text = "Short Description of the shop";
             this.ListShopDesc.Click += new System.EventHandler(this.ListShop_Click);
@@ -76,10 +77,20 @@
             this.panel1.TabIndex = 4;
             this.panel1.Click += new System.EventHandler(this.ListShop_Click);
             // 
+            // ListShopOwner
+            // 
+            this.ListShopOwner.AutoSize = true;
+            this.ListShopOwner.Location = new System.Drawing.Point(147, 95);
+            this.ListShopOwner.Name = "ListShopOwner";
+            this.ListShopOwner.Size = new System.Drawing.Size(42, 15);
+            this.ListShopOwner.TabIndex = 5;
+            this.ListShopOwner.Text = "Owner";
+            // 
             // ListShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ListShopOwner);
             this.Controls.Add(this.ListShopTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ListShopDesc);
@@ -99,5 +110,6 @@
         private System.Windows.Forms.Label ListShopTitle;
         private System.Windows.Forms.Label ListShopDesc;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label ListShopOwner;
     }
 }
