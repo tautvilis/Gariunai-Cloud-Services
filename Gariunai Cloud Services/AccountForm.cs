@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -46,6 +47,12 @@ namespace Gariunai_Cloud_Services
         {
             //save textbox texts to db and picture
             throw new NotImplementedException();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LogInForm logIn = new LogInForm();
+            logIn.ShowDialog();
         }
     }
 }

@@ -36,6 +36,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.displayName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ovalPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,11 +111,22 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Display name";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(640, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "LoginScreen";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AccountForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(746, 562);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.displayName);
             this.Controls.Add(this.saveButton);
@@ -123,7 +135,7 @@
             this.Controls.Add(this.ChangePictureButton);
             this.Controls.Add(this.ovalPictureBox1);
             this.Name = "AccountForm";
-            this.Text = "Support Your Locals";
+            this.Text = "LoginScreen";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AccountForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.ovalPictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -140,5 +152,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }
