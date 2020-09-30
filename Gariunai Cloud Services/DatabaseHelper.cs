@@ -5,6 +5,7 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using Gariunai_Cloud_Services.Entities;
+using System.Diagnostics;
 using System.IO;
 
 namespace Gariunai_Cloud_Services
@@ -15,7 +16,6 @@ namespace Gariunai_Cloud_Services
         {
             string directory = System.IO.Path.GetFullPath(@"..\..\..\"); //swich to SQLite ? because this feels like an ugly hack  
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"" + directory + "Database\\LocalDatabase.mdf\";Integrated Security=True";
-            
             using (var connection = new SqlConnection(connectionString))
             using (var adapter = new SqlDataAdapter(query, connection))
             {
@@ -24,7 +24,17 @@ namespace Gariunai_Cloud_Services
                 return result;
             }
         }
-
+        public static void ExecuteTransactQuery(string query) 
+        {
+            string directory = System.IO.Path.GetFullPath(@"..\..\..\"); //swich to SQLite ? because this feels like an ugly hack  
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"" + directory + "Database\\LocalDatabase.mdf\";Integrated Security=True";
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
         public static User GetUserById(int id)
         {
             User user = new User();
@@ -63,13 +73,11 @@ namespace Gariunai_Cloud_Services
                 return false;
             }
         }
-
         public static List<string> getProduceByShopId(int id)
         {
             List<string> produce = new List<string>();
 
             var queryResult = ExecuteQuery("SELECT p.product FROM shopproduce sp, products p WHERE sp.shop = " + id.ToString() + " AND sp.product = p.id");
-            
             foreach (DataRow row in queryResult.Rows)
             {
                 produce.Add((string) row.ItemArray[0]);
@@ -77,13 +85,11 @@ namespace Gariunai_Cloud_Services
 
             return produce;
         }
-
         public static List<Business> GetBusinesses()
         {
             List<Business> result = new List<Business>();
 
             var queryResult = ExecuteQuery("SELECT * FROM shops");
-
             foreach(DataRow row in queryResult.Rows)
             {
                 Business business = new Business();
@@ -99,6 +105,107 @@ namespace Gariunai_Cloud_Services
                 result.Add(business);
             }
             return result;
+        }
+        public static void AddAcountToDB(User account)
+        {
+            string query = 
+            $@"
+                INSERT INTO accounts
+                VALUES ('{account.Name}', '{account.Email}', '{account.Description}')
+            ";
+            try
+            {
+                ExecuteTransactQuery(query);
+            }
+            catch (SqlException ex) 
+            {
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    //TODO handle
+                    Debug.WriteLine("Such user already exits");
+                }
+            }
+        }
+        public static void AddProductToDB(string product) 
+        {
+            string query =
+            $@"
+                INSERT INTO products
+                VALUES ('{product}')
+            ";
+            try
+            {
+                ExecuteTransactQuery(query);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    //TODO handle
+                    Debug.WriteLine("Such product already exits");
+                }
+            }
+        }
+
+        public static void AddProductToShop(string ShopName, string product) 
+        {
+            //add product to product list
+            AddProductToDB(product);
+
+            //Add product to shop
+            string query = 
+            $@"
+                INSERT INTO shopproduce 
+                VALUES 
+                (
+                    (SELECT id FROM shops WHERE shopname = '{ShopName}'),
+                    (SELECT id FROM products WHERE product = '{product}')
+                )
+            ";
+            try
+            {
+                ExecuteTransactQuery(query);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    //TODO handle
+                    Debug.WriteLine("Shop already has this product");
+                }
+            }
+        }
+        public static void AddShopToDB(Business business) 
+        {
+            AddAcountToDB(business.Owner);
+            string query =
+            $@"
+                INSERT INTO shops
+                VALUES
+                (
+                    (SELECT id FROM accounts WHERE username = '{business.Owner.Name}'),
+                    '{business.Name}',
+                    '{business.Description}'
+                )
+            ";
+
+            try
+            {
+                ExecuteQuery(query);
+                foreach (var product in business.Produce) 
+                {
+                    AddProductToShop(business.Name, product);
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2601 || ex.Number == 2627)
+                {
+                    //TODO handle
+                    Debug.WriteLine("Such shop already exits");
+                }
+            }
+
         }
     }
 }
