@@ -31,11 +31,11 @@ namespace Gariunai_Cloud_Services
                 }
                 System.Diagnostics.Debug.Write("\n");
             }
-/*
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LocalProduceForm());*/
+            Application.Run(new LocalProduceForm());
         }
     }
 }
