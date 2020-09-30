@@ -45,6 +45,7 @@ namespace Gariunai_Cloud_Services
         }
         public static bool checkIfUserExists(string username, string password)
         {
+            //concencate so query works properly
             username = "'"+username +"'";
             password = "'" + password + "'";
             var queryResult = ExecuteQuery("SELECT accounts.id FROM Accounts JOIN Passwords ON Accounts.Id = Passwords.UserName WHERE accounts.UserName =" + username + " AND Password ="+ password);
