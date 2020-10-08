@@ -34,7 +34,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.signInButton = new System.Windows.Forms.Button();
             this.createNewButton = new System.Windows.Forms.Button();
-            this.correctPassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameBox
@@ -51,7 +50,6 @@
             this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(262, 27);
             this.passwordBox.TabIndex = 0;
-            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
             // 
             // label1
             // 
@@ -92,22 +90,11 @@
             this.createNewButton.UseVisualStyleBackColor = true;
             this.createNewButton.Click += new System.EventHandler(this.createNewButton_Click);
             // 
-            // correctPassword
-            // 
-            this.correctPassword.AutoSize = true;
-            this.correctPassword.Location = new System.Drawing.Point(117, 191);
-            this.correctPassword.Name = "correctPassword";
-            this.correctPassword.Size = new System.Drawing.Size(107, 20);
-            this.correctPassword.TabIndex = 4;
-            this.correctPassword.Text = "Password is ok.";
-            this.correctPassword.Visible = false;
-            // 
             // LogInForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 314);
-            this.Controls.Add(this.correctPassword);
             this.Controls.Add(this.createNewButton);
             this.Controls.Add(this.signInButton);
             this.Controls.Add(this.label2);
@@ -129,6 +116,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button signInButton;
         private System.Windows.Forms.Button createNewButton;
-        private System.Windows.Forms.Label correctPassword;
     }
 }
