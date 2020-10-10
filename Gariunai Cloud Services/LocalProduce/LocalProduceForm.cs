@@ -24,7 +24,7 @@ namespace Gariunai_Cloud_Services
 
         private void PopulateShops()
         {
-            List<Gariunai_Cloud_Services.Entities.Business> res = DatabaseHelper.GetBusinesses();
+            List<Gariunai_Cloud_Services.Entities.Shop> res = DatabaseHelper.GetBusinesses();
             var listShops = new ListShop[res.Count()];
 
             var count = 0;

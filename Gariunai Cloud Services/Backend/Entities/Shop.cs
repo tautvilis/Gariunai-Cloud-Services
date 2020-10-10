@@ -2,11 +2,12 @@
 
 namespace Gariunai_Cloud_Services.Entities
 {
-    class Business
+    class Shop
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<string> Produce { get; set; }
         public User Owner { get; set; }
+        public List<Produce> Produce { get; set; }
     }
 }
