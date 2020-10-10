@@ -8,6 +8,7 @@ using Gariunai_Cloud_Services.Entities;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gariunai_Cloud_Services
 {
@@ -27,7 +28,10 @@ namespace Gariunai_Cloud_Services
         public static List<Shop> GetBusinesses()
         {
             DataAccess db = new DataAccess();
-            return db.Businesses.ToList();
+            return db.Businesses
+                .Include(b => b.Owner)
+                .Include(b => b.Produce)
+                .ToList();
         }
 
         public static bool RegisterUser(User user, string password)

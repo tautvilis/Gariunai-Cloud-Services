@@ -19,7 +19,7 @@ namespace Gariunai_Cloud_Services
         private void signInButton_Click(object sender, EventArgs e)
         {
 
-            if (DatabaseHelper.checkIfUserExists(usernameBox.Text, passwordBox.Text) || usernameBox.Text == "1" && passwordBox.Text == "1")
+            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text) || usernameBox.Text == "1" && passwordBox.Text == "1")
             {
                 Form main = new LocalProduceForm();
                 main.Show();

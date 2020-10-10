@@ -24,18 +24,13 @@ namespace Gariunai_Cloud_Services
 
         private void PopulateShops()
         {
-            List<Gariunai_Cloud_Services.Entities.Shop> res = DatabaseHelper.GetBusinesses();
-            var listShops = new ListShop[res.Count()];
-
-            var count = 0;
             foreach (var shop in DatabaseHelper.GetBusinesses())
             {
-                listShops[count] = new ListShop
+                ListShop newShop = new ListShop
                 {
                     Title = shop.Name, Description = shop.Description, Owner = shop.Owner.Name
                 };
-                flowLayoutPanel1.Controls.Add(listShops[count]);
-                count++;
+                flowLayoutPanel1.Controls.Add(newShop);
             }
 
         }

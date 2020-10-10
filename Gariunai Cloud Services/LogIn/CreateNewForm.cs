@@ -53,7 +53,7 @@ namespace Gariunai_Cloud_Services.LogIn
 
         private void createNewButton_Click(object sender, EventArgs e)
         {
-            if (DatabaseHelper.checkIfUserExists(usernameBox.Text, passwordBox.Text) == false)
+            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text) == false)
             {
                 //TODO add user to db
                 this.Close();
