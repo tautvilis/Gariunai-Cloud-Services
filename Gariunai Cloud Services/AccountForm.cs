@@ -17,20 +17,19 @@ namespace Gariunai_Cloud_Services
         {
             this.previousForm = previousForm;
             InitializeComponent();
-            //load textbox text and picture from db
+            //TODO load textbox text and picture from db
         }
 
 
         private void AccountForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Save();
+            //Save();
             previousForm.Show();
         }
 
         private void ChangePictureButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg";
+            var openFileDialog1 = new OpenFileDialog {Filter = "Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string selectedFileName = openFileDialog1.FileName;
@@ -40,19 +39,14 @@ namespace Gariunai_Cloud_Services
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            Save();
+            //Save();
         }
 
         private void Save()
         {
-            //save textbox texts to db and picture
+            //TODO  save textbox texts to db and picture
             throw new NotImplementedException();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            LogInForm logIn = new LogInForm();
-            logIn.ShowDialog();
-        }
     }
 }
