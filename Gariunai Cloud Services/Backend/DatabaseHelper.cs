@@ -14,6 +14,9 @@ namespace Gariunai_Cloud_Services
 {
     class DatabaseHelper
     {
+        /// <summary>
+        /// Return true if user with given username and password exists in a database
+        /// </summary>
         public static bool CheckIfUserExists(string username, string password)
         {
             DataAccess db = new DataAccess();
@@ -25,6 +28,10 @@ namespace Gariunai_Cloud_Services
             return userCount != 0;
         }
 
+        /// <summary>
+        /// Get all shops in a database
+        /// </summary>
+        /// <returns>A List of Shop objects</returns>
         public static List<Shop> GetBusinesses()
         {
             DataAccess db = new DataAccess();
@@ -34,8 +41,19 @@ namespace Gariunai_Cloud_Services
                 .ToList();
         }
 
+        /// <summary>
+        /// Registers a new user
+        /// </summary>
+        /// <param name="user">User object name field is required</param>
+        /// <param name="password">Users password</param>
+        /// <returns>true if registration was successful</returns>
         public static bool RegisterUser(User user, string password)
         {
+            if (user.Name == null)
+            {
+                //TODO more informative return or exception
+                return false;            
+            }
             DataAccess db = new DataAccess();
             if (db.Users.Count(u => u.Name == user.Name || u.Email == user.Email) > 0)
             {
@@ -56,6 +74,12 @@ namespace Gariunai_Cloud_Services
             return true;
         }
 
+        /// <summary>
+        /// Adds a new shop to the database
+        /// </summary>
+        /// <param name="shop">shop name, must be unique</param>
+        /// <param name="ownerName">owners name, must be a registered user</param>
+        /// <returns>True if registration was succsessfull</returns>
         public static bool RegisterShop(Shop shop, string ownerName)
         {
             DataAccess db = new DataAccess();
@@ -80,6 +104,11 @@ namespace Gariunai_Cloud_Services
             return true;
         }
 
+        /// <summary>
+        /// Gets user by name from database
+        /// </summary>
+        /// <param name="name">User name</param>
+        /// <returns>User object if user exsits otherwise null</returns>
         public static User GetUserByName(string name) 
         {
             DataAccess db = new DataAccess();
@@ -87,6 +116,11 @@ namespace Gariunai_Cloud_Services
             return result;
         }
 
+        /// <summary>
+        /// Gets user by its id
+        /// </summary>
+        /// <param name="id">users id</param>
+        /// <returns>User object if user exsits otherwise null</returns>
         public static User GetUserById(int id)
         {
             DataAccess db = new DataAccess();
