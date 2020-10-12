@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gariunai_Cloud_Services.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -53,9 +54,8 @@ namespace Gariunai_Cloud_Services.LogIn
 
         private void createNewButton_Click(object sender, EventArgs e)
         {
-            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text) == false)
+            if (DatabaseHelper.RegisterUser(new User() { Name = usernameBox.Text }, passwordBox.Text))
             {
-                //TODO add user to db
                 this.Close();
             }
         }
