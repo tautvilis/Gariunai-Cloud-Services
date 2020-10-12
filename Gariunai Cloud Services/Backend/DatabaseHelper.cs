@@ -86,5 +86,12 @@ namespace Gariunai_Cloud_Services
             User result = db.Users.FirstOrDefault(u => u.Name == name);
             return result;
         }
+
+        public static User GetUserById(int id)
+        {
+            DataAccess db = new DataAccess();
+            User result = db.Users.FirstOrDefault(u => u.Id == id);
+            return result;
+        }
     }
 }

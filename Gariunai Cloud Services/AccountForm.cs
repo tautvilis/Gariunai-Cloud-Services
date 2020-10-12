@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Gariunai_Cloud_Services.Backend;
+using Gariunai_Cloud_Services.Entities;
+using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,13 +19,16 @@ namespace Gariunai_Cloud_Services
         {
             this.previousForm = previousForm;
             InitializeComponent();
-            //TODO load textbox text and picture from db
+
+            User currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
+            displayName.Text = currentUser.Name;
+            descriptionBox.Text = currentUser.Description;
         }
 
 
         private void AccountForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Save();
+            Save();
             previousForm.Show();
         }
 
@@ -39,13 +44,21 @@ namespace Gariunai_Cloud_Services
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            //Save();
+            Save();
         }
 
         private void Save()
         {
-            //TODO  save textbox texts to db and picture
-            throw new NotImplementedException();
+            //TODO save picture
+            User currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
+
+            if(DatabaseHelper.GetUserByName(displayName.Text) == null)
+                currentUser.Name = displayName.Text;
+
+            currentUser.Description = descriptionBox.Text;
+            var dataAccess = new DataAccess();
+            dataAccess.Update(currentUser);
+            dataAccess.SaveChanges();
         }
 
     }
