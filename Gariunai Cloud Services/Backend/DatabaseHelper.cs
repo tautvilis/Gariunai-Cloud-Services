@@ -19,7 +19,7 @@ namespace Gariunai_Cloud_Services
             DataAccess db = new DataAccess();
             string hash = password; //TODO hash
             var userCount = (from u in db.Users
-                             join p in db.Passwords on u.Name equals p.UserName
+                             join p in db.Passwords on u.Id equals p.UserId
                              where u.Name == username && p.Hash == hash
                              select new { u, p }).Count();
             return userCount != 0;
@@ -44,10 +44,15 @@ namespace Gariunai_Cloud_Services
             }
 
             //TODO hash
-            Password userPassword = new Password { Hash = password, UserName = user.Name };
             db.Add(user);
+            db.SaveChanges();
+
+            User newUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
+            Password userPassword = new Password { Hash = password, UserId = newUser.Id};
+            
             db.Add(userPassword);
             db.SaveChanges();
+
             return true;
         }
 
