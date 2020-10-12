@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.LogIn;
 
 namespace Gariunai_Cloud_Services
@@ -16,11 +17,12 @@ namespace Gariunai_Cloud_Services
             InitializeComponent();
         }
         
-        private void signInButton_Click(object sender, EventArgs e)
+        private void SignInButton_Click(object sender, EventArgs e)
         {
 
-            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text) || usernameBox.Text == "1" && passwordBox.Text == "1")
+            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text))
             {
+                LoginInfo.UserName = usernameBox.Text;
                 Form main = new LocalProduceForm();
                 main.Show();
                 this.Hide();
@@ -30,9 +32,8 @@ namespace Gariunai_Cloud_Services
                 var message = "User not found";
                 MessageBox.Show(message, "Error");
             }
-
         }
-        private void createNewButton_Click(object sender, EventArgs e)
+        private void CreateNewButton_Click(object sender, EventArgs e)
         {
             var createNew = new CreateNewForm();
             createNew.ShowDialog();

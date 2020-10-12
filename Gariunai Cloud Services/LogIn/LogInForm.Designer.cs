@@ -78,7 +78,7 @@
             this.signInButton.TabIndex = 2;
             this.signInButton.Text = "Sign in";
             this.signInButton.UseVisualStyleBackColor = true;
-            this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
+            this.signInButton.Click += new System.EventHandler(this.SignInButton_Click);
             // 
             // createNewButton
             // 
@@ -88,7 +88,7 @@
             this.createNewButton.TabIndex = 3;
             this.createNewButton.Text = "Create New Account";
             this.createNewButton.UseVisualStyleBackColor = true;
-            this.createNewButton.Click += new System.EventHandler(this.createNewButton_Click);
+            this.createNewButton.Click += new System.EventHandler(this.CreateNewButton_Click);
             // 
             // LogInForm
             // 
