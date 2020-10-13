@@ -54,25 +54,20 @@ namespace Gariunai_Cloud_Services
         {
 
             DataAccess db = new DataAccess();
-            var userCount = (from u in db.Users
-                             join p in db.Passwords on u.Name equals p.UserName
-                             where u.Name == username
-                             select new { u, p }).Count();
-            if (userCount == 0)
-                return false;
-            else
+            User user = db.Users.FirstOrDefault(u => u.Name == username);
+
+            if (user == null) 
             {
-                byte[] salt = (from u in db.Users
-                            join p in db.Passwords on u.Name equals p.UserName
-                            where u.Name == username
-                            select p.Salt).First();
-                var hash = GenerateSaltedHash(password, salt);
-                var hashMatch = (from u in db.Users
-                                 join p in db.Passwords on u.Name equals p.UserName
-                                 where (u.Name == username) && (p.Hash == hash)
-                                 select new { u, p }).Count();
-                return hashMatch == 1;
+                return false;
             }
+
+
+            Password passwordFromDb = db.Passwords.FirstOrDefault(p => p.UserId == user.Id);
+            Debug.WriteLine(user.Id);
+            var hash = GenerateSaltedHash(password, passwordFromDb.Salt);
+         
+            return hash.SequenceEqual(passwordFromDb.Hash);
+
         }
 
         public static List<Shop> GetBusinesses()
@@ -95,11 +90,23 @@ namespace Gariunai_Cloud_Services
             {
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
             }
+
+            if (DatabaseHelper.CheckIfUsernameTaken(user.Name))
+            {
+                return false;
+            }
+
             DataAccess db = new DataAccess();
+           
             var salt = CreateSalt();
             var hash = GenerateSaltedHash(password, salt);
-            Password userPassword = new Password { Hash = hash, UserName = user.Name, Salt = salt };
+            
             db.Add(user);
+            db.SaveChanges();
+
+            User newUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
+            Password userPassword = new Password { Hash = hash, UserId = newUser.Id, Salt = salt };
+
             db.Add(userPassword);
             db.SaveChanges();
             return true;
@@ -127,6 +134,30 @@ namespace Gariunai_Cloud_Services
             db.Add(shop);
             db.SaveChanges();
             return true;
+        }
+
+        /// <summary>
+        /// Gets user by name from database
+        /// </summary>
+        /// <param name="name">User name</param>
+        /// <returns>User object if user exsits otherwise null</returns>
+        public static User GetUserByName(string name)
+        {
+            DataAccess db = new DataAccess();
+            User result = db.Users.FirstOrDefault(u => u.Name == name);
+            return result;
+        }
+
+        /// <summary>
+        /// Gets user by its id
+        /// </summary>
+        /// <param name="id">users id</param>
+        /// <returns>User object if user exsits otherwise null</returns>
+        public static User GetUserById(int id)
+        {
+            DataAccess db = new DataAccess();
+            User result = db.Users.FirstOrDefault(u => u.Id == id);
+            return result;
         }
     }
 }

@@ -65,7 +65,6 @@ namespace Gariunai_Cloud_Services.LogIn
                     MessageBox.Show("New user created", "Sucess");
                     Close();
                 }
-
             }
             else
                 MessageBox.Show("Username already exists");

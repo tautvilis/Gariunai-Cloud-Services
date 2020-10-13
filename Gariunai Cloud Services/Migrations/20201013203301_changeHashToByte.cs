@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gariunai_Cloud_Services.Migrations
 {
-    public partial class first : Migration
+    public partial class changeHashToByte : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,8 +50,9 @@ namespace Gariunai_Cloud_Services.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
-                    Hash = table.Column<string>(nullable: true),
-                    Salt = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(nullable: true),
+                    Hash = table.Column<byte[]>(nullable: true),
+                    Salt = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {

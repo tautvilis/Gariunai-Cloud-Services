@@ -4,14 +4,16 @@ using Gariunai_Cloud_Services.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gariunai_Cloud_Services.Migrations
 {
     [DbContext(typeof(DataAccess))]
-    partial class DataAccessModelSnapshot : ModelSnapshot
+    [Migration("20201013203301_changeHashToByte")]
+    partial class changeHashToByte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,14 +28,17 @@ namespace Gariunai_Cloud_Services.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Hash")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Hash")
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("Salt")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Salt")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
