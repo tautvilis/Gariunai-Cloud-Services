@@ -42,6 +42,12 @@ namespace Gariunai_Cloud_Services
 
             return algorithm.ComputeHash(plainTextWithSaltBytes);
         }
+
+        /// <summary>
+        /// Checks if user has been registered with given username
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <returns>True if username is taken</returns>
         public static bool CheckIfUsernameTaken(string username)
         {
             DataAccess db = new DataAccess();
@@ -50,6 +56,13 @@ namespace Gariunai_Cloud_Services
             else
                 return false;
         }
+
+        /// <summary>
+        /// Checks if user exists and has a given password
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="password">users password</param>
+        /// <returns>True if user exists</returns>
         public static bool CheckIfUserExists(string username, string password)
         {
 
@@ -61,15 +74,17 @@ namespace Gariunai_Cloud_Services
                 return false;
             }
 
-
             Password passwordFromDb = db.Passwords.FirstOrDefault(p => p.UserId == user.Id);
             Debug.WriteLine(user.Id);
-            var hash = GenerateSaltedHash(password, passwordFromDb.Salt);
-         
-            return hash.SequenceEqual(passwordFromDb.Hash);
 
+            var hash = GenerateSaltedHash(password, passwordFromDb.Salt);
+            return hash.SequenceEqual(passwordFromDb.Hash);
         }
 
+        /// <summary>
+        /// Get all shops in database
+        /// </summary>
+        /// <returns>List of Shop objects</returns>
         public static List<Shop> GetBusinesses()
         {
             DataAccess db = new DataAccess();
@@ -79,22 +94,22 @@ namespace Gariunai_Cloud_Services
                 .ToList();
         }
 
+        /// <summary>
+        /// Adds new user to database
+        /// </summary>
+        /// <param name="user">User object, name field is required</param>
+        /// <param name="password">user password</param>
+        /// <returns>True if registration was successfull</returns>
         public static bool RegisterUser(User user, string password)
         {
-            if (user is null)
-            {
+            if (user is null || string.IsNullOrEmpty(user.Name))
                 throw new ArgumentNullException(nameof(user));
-            }
 
             if (string.IsNullOrEmpty(password))
-            {
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
-            }
 
             if (DatabaseHelper.CheckIfUsernameTaken(user.Name))
-            {
                 return false;
-            }
 
             DataAccess db = new DataAccess();
            
@@ -112,23 +127,25 @@ namespace Gariunai_Cloud_Services
             return true;
         }
 
+        /// <summary>
+        /// Adds new shop to database
+        /// </summary>
+        /// <param name="shop">Shop object name must be unuque</param>
+        /// <param name="ownerName">Owner name, should be a registered user</param>
+        /// <returns>True if registration was successful</returns>
         public static bool RegisterShop(Shop shop, string ownerName)
         {
             DataAccess db = new DataAccess();
 
             if(db.Businesses.Count(s => s.Name == shop.Name) > 0) 
-            {
                 //TODO throw exception or return something more informative
                 return false;
-            }
 
             User owner = db.Users.FirstOrDefault(u => u.Name == ownerName);
 
             if(owner == null)
-            {
                 //TODO throw exception or return something more informative
                 return false;
-            }
 
             shop.Owner = owner;
             db.Add(shop);
