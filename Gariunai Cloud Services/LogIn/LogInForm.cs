@@ -25,7 +25,7 @@ namespace Gariunai_Cloud_Services
                 LoginInfo.UserID = DatabaseHelper.GetUserByName(usernameBox.Text).Id;
                 Form main = new LocalProduceForm();
                 main.Show();
-                this.Hide();
+                Hide();
             }
             else
             {

@@ -16,10 +16,10 @@ namespace Gariunai_Cloud_Services.LogIn
             InitializeComponent();
         }
 
-        private void passwordBox_TextChanged(object sender, EventArgs e)
+        private void PasswordBox_TextChanged(object sender, EventArgs e)
         {
             label1.Visible = true;
-            var state = isPasswordOk(passwordBox.Text);
+            var state = IsPasswordOk(passwordBox.Text);
             if (state.Item1)
             {
                 label1.ForeColor = Color.Green;
@@ -33,7 +33,7 @@ namespace Gariunai_Cloud_Services.LogIn
             }
 
         }
-        private (bool, string) isPasswordOk(string password)
+        private (bool, string) IsPasswordOk(string password)
         {
             var message = "Password strength is ok";
             bool ispassok = true;
@@ -52,12 +52,23 @@ namespace Gariunai_Cloud_Services.LogIn
 
         }
 
-        private void createNewButton_Click(object sender, EventArgs e)
+        private void CreateNewButton_Click(object sender, EventArgs e)
         {
-            if (DatabaseHelper.RegisterUser(new User() { Name = usernameBox.Text }, passwordBox.Text))
+            if (DatabaseHelper.CheckIfUsernameTaken(usernameBox.Text) == false)
             {
-                this.Close();
+                var user = new User
+                {
+                    Name = usernameBox.Text
+                };
+                if (DatabaseHelper.RegisterUser(user, passwordBox.Text))
+                {
+                    MessageBox.Show("New user created", "Sucess");
+                    Close();
+                }
+
             }
+            else
+                MessageBox.Show("Username already exists");
         }
     }
 }

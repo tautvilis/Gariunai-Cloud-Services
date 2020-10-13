@@ -9,29 +9,72 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace Gariunai_Cloud_Services
 {
     class DatabaseHelper
     {
-        /// <summary>
-        /// Return true if user with given username and password exists in a database
-        /// </summary>
-        public static bool CheckIfUserExists(string username, string password)
+        private static int saltsize = 20;
+        private static byte[] CreateSalt()
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[saltsize];
+            rng.GetBytes(buff);
+            return buff;
+        }
+        private static byte[] GenerateSaltedHash(string plainText, byte[] salt)
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+
+            byte[] plainTextWithSaltBytes =
+              new byte[plainText.Length + salt.Length];
+
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                plainTextWithSaltBytes[i] = (byte)plainText[i];
+            }
+            for (int i = 0; i < salt.Length; i++)
+            {
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+            }
+
+            return algorithm.ComputeHash(plainTextWithSaltBytes);
+        }
+        public static bool CheckIfUsernameTaken(string username)
         {
             DataAccess db = new DataAccess();
-            string hash = password; //TODO hash
+            if (db.Users.Count(u => u.Name == username) > 0)
+                return true;
+            else
+                return false;
+        }
+        public static bool CheckIfUserExists(string username, string password)
+        {
+
+            DataAccess db = new DataAccess();
             var userCount = (from u in db.Users
-                             join p in db.Passwords on u.Id equals p.UserId
-                             where u.Name == username && p.Hash == hash
+                             join p in db.Passwords on u.Name equals p.UserName
+                             where u.Name == username
                              select new { u, p }).Count();
-            return userCount != 0;
+            if (userCount == 0)
+                return false;
+            else
+            {
+                byte[] salt = (from u in db.Users
+                            join p in db.Passwords on u.Name equals p.UserName
+                            where u.Name == username
+                            select p.Salt).First();
+                var hash = GenerateSaltedHash(password, salt);
+                var hashMatch = (from u in db.Users
+                                 join p in db.Passwords on u.Name equals p.UserName
+                                 where (u.Name == username) && (p.Hash == hash)
+                                 select new { u, p }).Count();
+                return hashMatch == 1;
+            }
         }
 
-        /// <summary>
-        /// Get all shops in a database
-        /// </summary>
-        /// <returns>A List of Shop objects</returns>
         public static List<Shop> GetBusinesses()
         {
             DataAccess db = new DataAccess();
@@ -41,45 +84,27 @@ namespace Gariunai_Cloud_Services
                 .ToList();
         }
 
-        /// <summary>
-        /// Registers a new user
-        /// </summary>
-        /// <param name="user">User object name field is required</param>
-        /// <param name="password">Users password</param>
-        /// <returns>true if registration was successful</returns>
         public static bool RegisterUser(User user, string password)
         {
-            if (user.Name == null)
+            if (user is null)
             {
-                //TODO more informative return or exception
-                return false;            
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
             }
             DataAccess db = new DataAccess();
-            if (db.Users.Count(u => u.Name == user.Name || u.Email == user.Email) > 0)
-            {
-                //todo throw exception or return something more informative
-                return false;
-            }
-
-            //TODO hash
+            var salt = CreateSalt();
+            var hash = GenerateSaltedHash(password, salt);
+            Password userPassword = new Password { Hash = hash, UserName = user.Name, Salt = salt };
             db.Add(user);
-            db.SaveChanges();
-
-            User newUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
-            Password userPassword = new Password { Hash = password, UserId = newUser.Id};
-            
             db.Add(userPassword);
             db.SaveChanges();
-
             return true;
         }
 
-        /// <summary>
-        /// Adds a new shop to the database
-        /// </summary>
-        /// <param name="shop">shop name, must be unique</param>
-        /// <param name="ownerName">owners name, must be a registered user</param>
-        /// <returns>True if registration was succsessfull</returns>
         public static bool RegisterShop(Shop shop, string ownerName)
         {
             DataAccess db = new DataAccess();
@@ -102,30 +127,6 @@ namespace Gariunai_Cloud_Services
             db.Add(shop);
             db.SaveChanges();
             return true;
-        }
-
-        /// <summary>
-        /// Gets user by name from database
-        /// </summary>
-        /// <param name="name">User name</param>
-        /// <returns>User object if user exsits otherwise null</returns>
-        public static User GetUserByName(string name) 
-        {
-            DataAccess db = new DataAccess();
-            User result = db.Users.FirstOrDefault(u => u.Name == name);
-            return result;
-        }
-
-        /// <summary>
-        /// Gets user by its id
-        /// </summary>
-        /// <param name="id">users id</param>
-        /// <returns>User object if user exsits otherwise null</returns>
-        public static User GetUserById(int id)
-        {
-            DataAccess db = new DataAccess();
-            User result = db.Users.FirstOrDefault(u => u.Id == id);
-            return result;
         }
     }
 }
