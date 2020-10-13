@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Backend\Migrations\20201010134443_makeUserNameKey.cs" />
-    <Compile Remove="Backend\Migrations\20201010134443_makeUserNameKey.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Backend\Database\Database.7z" />
   </ItemGroup>
 
