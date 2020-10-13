@@ -50,7 +50,7 @@
             this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(262, 27);
             this.passwordBox.TabIndex = 0;
-            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
+            this.passwordBox.TextChanged += new System.EventHandler(this.PasswordBox_TextChanged);
             // 
             // label1
             // 
@@ -70,7 +70,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Create New Account";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.createNewButton_Click);
+            this.button1.Click += new System.EventHandler(this.CreateNewButton_Click);
             // 
             // label2
             // 

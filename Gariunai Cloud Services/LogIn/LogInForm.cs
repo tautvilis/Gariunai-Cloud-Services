@@ -16,14 +16,14 @@ namespace Gariunai_Cloud_Services
             InitializeComponent();
         }
         
-        private void signInButton_Click(object sender, EventArgs e)
+        private void SignInButton_Click(object sender, EventArgs e)
         {
 
-            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text) || usernameBox.Text == "1" && passwordBox.Text == "1")
+            if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text))
             {
                 Form main = new LocalProduceForm();
                 main.Show();
-                this.Hide();
+                Hide();
             }
             else
             {
@@ -32,7 +32,7 @@ namespace Gariunai_Cloud_Services
             }
 
         }
-        private void createNewButton_Click(object sender, EventArgs e)
+        private void CreateNewButton_Click(object sender, EventArgs e)
         {
             var createNew = new CreateNewForm();
             createNew.ShowDialog();
