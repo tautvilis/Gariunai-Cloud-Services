@@ -9,8 +9,8 @@ namespace Gariunai_Cloud_Services.Entities
     {
         [Key]
         public string UserName { get; set; }
-        public String Hash { get; set; }
-        public String Salt { get; set; }
+        public byte[] Hash { get; set; }
+        public byte[] Salt { get; set; }
         public User User{ get; set;}
     }
 }

@@ -9,20 +9,70 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace Gariunai_Cloud_Services
 {
     class DatabaseHelper
     {
-        public static bool CheckIfUserExists(string username, string password)
+        private static int saltsize = 20;
+        private static byte[] CreateSalt()
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[saltsize];
+            rng.GetBytes(buff);
+            return buff;
+        }
+        private static byte[] GenerateSaltedHash(string plainText, byte[] salt)
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+
+            byte[] plainTextWithSaltBytes =
+              new byte[plainText.Length + salt.Length];
+
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                plainTextWithSaltBytes[i] = (byte)plainText[i];
+            }
+            for (int i = 0; i < salt.Length; i++)
+            {
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+            }
+
+            return algorithm.ComputeHash(plainTextWithSaltBytes);
+        }
+        public static bool CheckIfUsernameTaken(string username)
         {
             DataAccess db = new DataAccess();
-            string hash = password; //TODO hash
+            if (db.Users.Count(u => u.Name == username) > 0)
+                return true;
+            else
+                return false;
+        }
+        public static bool CheckIfUserExists(string username, string password)
+        {
+
+            DataAccess db = new DataAccess();
             var userCount = (from u in db.Users
                              join p in db.Passwords on u.Name equals p.UserName
-                             where u.Name == username && p.Hash == hash
+                             where u.Name == username
                              select new { u, p }).Count();
-            return userCount != 0;
+            if (userCount == 0)
+                return false;
+            else
+            {
+                byte[] salt = (from u in db.Users
+                            join p in db.Passwords on u.Name equals p.UserName
+                            where u.Name == username
+                            select p.Salt).First();
+                var hash = GenerateSaltedHash(password, salt);
+                var hashMatch = (from u in db.Users
+                                 join p in db.Passwords on u.Name equals p.UserName
+                                 where (u.Name == username) && (p.Hash == hash)
+                                 select new { u, p }).Count();
+                return hashMatch == 1;
+            }
         }
 
         public static List<Shop> GetBusinesses()
@@ -36,15 +86,19 @@ namespace Gariunai_Cloud_Services
 
         public static bool RegisterUser(User user, string password)
         {
-            DataAccess db = new DataAccess();
-            if (db.Users.Count(u => u.Name == user.Name || u.Email == user.Email) > 0)
+            if (user is null)
             {
-                //todo throw exception or return something more informative
-                return false;
+                throw new ArgumentNullException(nameof(user));
             }
 
-            //TODO hash
-            Password userPassword = new Password { Hash = password, UserName = user.Name };
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
+            }
+            DataAccess db = new DataAccess();
+            var salt = CreateSalt();
+            var hash = GenerateSaltedHash(password, salt);
+            Password userPassword = new Password { Hash = hash, UserName = user.Name, Salt = salt };
             db.Add(user);
             db.Add(userPassword);
             db.SaveChanges();
