@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.LocalProduce;
-using Microsoft.VisualBasic;
 
 namespace Gariunai_Cloud_Services
 {
@@ -24,6 +14,7 @@ namespace Gariunai_Cloud_Services
 
         private void PopulateShops()
         {
+            flowLayoutPanel1.Controls.Clear();
             foreach (var shop in DatabaseHelper.GetBusinesses())
             {
                 ListShop newShop = new ListShop
@@ -67,5 +58,9 @@ namespace Gariunai_Cloud_Services
             specificShopForm.Show();
         }
 
+        private void LocalProduceForm_Load(object sender, EventArgs e)
+        {
+            PopulateShops();
+        }
     }
 }

@@ -173,7 +173,11 @@ namespace Gariunai_Cloud_Services
         public static User GetUserById(int id)
         {
             DataAccess db = new DataAccess();
-            User result = db.Users.FirstOrDefault(u => u.Id == id);
+            User result = 
+                db.Users
+                    .Include(u => u.Businesses) 
+                    .ThenInclude(b => b.Produce)
+                    .FirstOrDefault(u => u.Id == id);
             return result;
         }
     }

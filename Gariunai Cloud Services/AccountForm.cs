@@ -61,5 +61,11 @@ namespace Gariunai_Cloud_Services
             dataAccess.SaveChanges();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form userShopsForm = new UserShopsForm(this);
+            userShopsForm.Show();
+        }
     }
 }
