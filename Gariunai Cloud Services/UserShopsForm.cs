@@ -49,6 +49,8 @@ namespace Gariunai_Cloud_Services
                 _editingNewShop = true;
                 _selectedShop = "";
                 buttonNewShop.Hide();
+
+                listViewProducts.Items.Clear();
                 ClearAllTexts();
             }
         }
@@ -71,6 +73,7 @@ namespace Gariunai_Cloud_Services
             }
 
             _editingNewShop = false;
+            buttonNewShop.Show();
         }
 
         private void UpdateFields(Shop shop) 
@@ -104,28 +107,18 @@ namespace Gariunai_Cloud_Services
 
         private void buttonSaveShop_Click(object sender, EventArgs e)
         {
+            DataAccess da = new DataAccess();
+            da.Attach(_user);
+
             if (_editingNewShop)
             {
-                Shop newShop = new Shop()
-                {
-                    Name = textBoxShopName.Text,
-                    Description = textBoxShortDescription.Text
-                };
-
-                bool registrationSuccessfull = DatabaseHelper.RegisterShop(newShop, _user.Name);
-                if(registrationSuccessfull)
-                {
-                    _selectedShop = newShop.Name;
-                    _editingNewShop = false;
-                    ReloadInfo();
-                    buttonNewShop.Show();
-                }
+                Shop newShop = GatherShopData();
+                _user.Businesses.Add(newShop);
+                _editingNewShop = false;
+                _selectedShop = newShop.Name;
             }
             else 
             {
-                DataAccess da = new DataAccess();
-                da.Attach(_user);
-
                 var newShop = GatherShopData();
                 var oldShop = _user.Businesses.FirstOrDefault(b => b.Name == _selectedShop);
                 oldShop.Name = newShop.Name;
@@ -133,11 +126,11 @@ namespace Gariunai_Cloud_Services
                 oldShop.Produce = newShop.Produce;
                 Debug.WriteLine(_user.Businesses[0].Produce.Count);
 
-                da.SaveChanges();
-
                 _selectedShop = newShop.Name;
-                ReloadInfo();
             }
+            da.SaveChanges();
+            ReloadInfo();
+            buttonNewShop.Show();
         }
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
