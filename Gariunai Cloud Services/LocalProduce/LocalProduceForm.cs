@@ -28,6 +28,7 @@ namespace Gariunai_Cloud_Services
 
         private void PopulateShops()
         {
+            flowLayoutPanel1.Controls.Clear();
             foreach (var shop in DatabaseHelper.GetBusinesses())
             {
 
@@ -58,6 +59,16 @@ namespace Gariunai_Cloud_Services
             this.Hide();
             Form accountForm = new AccountForm(this);
             accountForm.Show();
+        }
+
+        private void LocalProduceForm_Load(object sender, EventArgs e)
+        {
+            PopulateShops();
+        }
+
+        private void LocalProduceForm_Activated(object sender, EventArgs e)
+        {
+            PopulateShops();
         }
     }
 }
