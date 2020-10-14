@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Gariunai_Cloud_Services.Entities
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Name {get; set;}

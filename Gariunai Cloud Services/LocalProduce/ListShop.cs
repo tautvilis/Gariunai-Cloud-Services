@@ -5,41 +5,22 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Entities;
 
 namespace Gariunai_Cloud_Services.LocalProduce
 {
     public partial class ListShop : UserControl
     {
-        public ListShop()
+        private Form _parentForm;
+        public ListShop(Form parentForm)
         {
+            _parentForm = parentForm;
             InitializeComponent();
         }
 
-        private string _title;
-        private string _description;
         private Image _icon;
-        private string _owner;
-
-        [Category("Custom Props")]
-        public string Title
-        {
-            get { return _title; }
-            set { _title = value;
-                ListShopTitle.Text = value;
-            }
-        }
-
-        [Category("Custom Props")]
-        public string Description
-        {
-            get { return _description; }
-            set {
-                _description = value;
-                ListShopDesc.Text = value;
-            }
-        }
-
-        [Category("Custom Props")]
+        private Shop _business;
+        
         public Image Icon
         {
             get { return _icon; }
@@ -48,21 +29,23 @@ namespace Gariunai_Cloud_Services.LocalProduce
             }
         }
 
-        [Category("Custom Props")]
-        public string Owner
+        public Shop Shop
         {
-            get { return _owner; }
+            get => _business;
             set
             {
-                _owner = value;
-                ListShopOwner.Text = value;
+                _business = value;
+                ListShopDesc.Text = value.Description;
+                ListShopOwner.Text = value.Owner.Name;
+                ListShopTitle.Text = value.Name;
             }
         }
 
         public void ListShop_Click(object sender, EventArgs e)
         {
-            LocalProduceForm.OpenSpecificForm();
+            _parentForm.Hide();
+            Form specificShopForm = new SpecificShopForm(_parentForm, Shop);
+            specificShopForm.Show();
         }
-
     }
 }
