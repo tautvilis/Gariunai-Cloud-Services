@@ -38,6 +38,7 @@
             this.productList = new System.Windows.Forms.ListBox();
             this.PRODUCTS = new System.Windows.Forms.Label();
             this.homeBtn = new System.Windows.Forms.Button();
+            this.MainMap = new GMap.NET.WindowsForms.GMapControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -104,7 +105,7 @@
             // 
             this.shopDescription.Location = new System.Drawing.Point(219, 230);
             this.shopDescription.Name = "shopDescription";
-            this.shopDescription.Size = new System.Drawing.Size(409, 110);
+            this.shopDescription.Size = new System.Drawing.Size(211, 142);
             this.shopDescription.TabIndex = 2;
             this.shopDescription.Text = "label1";
             // 
@@ -112,15 +113,15 @@
             // 
             this.productList.FormattingEnabled = true;
             this.productList.ItemHeight = 15;
-            this.productList.Location = new System.Drawing.Point(12, 389);
+            this.productList.Location = new System.Drawing.Point(437, 248);
             this.productList.Name = "productList";
-            this.productList.Size = new System.Drawing.Size(188, 94);
+            this.productList.Size = new System.Drawing.Size(188, 124);
             this.productList.TabIndex = 3;
             // 
             // PRODUCTS
             // 
             this.PRODUCTS.AutoSize = true;
-            this.PRODUCTS.Location = new System.Drawing.Point(12, 357);
+            this.PRODUCTS.Location = new System.Drawing.Point(437, 230);
             this.PRODUCTS.Name = "PRODUCTS";
             this.PRODUCTS.Size = new System.Drawing.Size(66, 15);
             this.PRODUCTS.TabIndex = 4;
@@ -137,12 +138,40 @@
             this.homeBtn.UseVisualStyleBackColor = true;
             this.homeBtn.Click += new System.EventHandler(this.homeBtn_Click);
             // 
+            // MainMap
+            // 
+            this.MainMap.Bearing = 0F;
+            this.MainMap.CanDragMap = false;
+            this.MainMap.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.MainMap.EmptyTileColor = System.Drawing.Color.Navy;
+            this.MainMap.GrayScaleMode = false;
+            this.MainMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.MainMap.LevelsKeepInMemory = 5;
+            this.MainMap.Location = new System.Drawing.Point(0, 378);
+            this.MainMap.MarkersEnabled = true;
+            this.MainMap.MaxZoom = 2;
+            this.MainMap.MinZoom = 2;
+            this.MainMap.MouseWheelZoomEnabled = false;
+            this.MainMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.MainMap.Name = "MainMap";
+            this.MainMap.NegativeMode = false;
+            this.MainMap.PolygonsEnabled = true;
+            this.MainMap.RetryLoadTile = 0;
+            this.MainMap.RoutesEnabled = true;
+            this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.MainMap.ShowTileGridLines = false;
+            this.MainMap.Size = new System.Drawing.Size(640, 136);
+            this.MainMap.TabIndex = 6;
+            this.MainMap.Zoom = 0D;
+            // 
             // SpecificShopForm
             // 
             this.AccessibleName = "followBtn";
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 514);
+            this.Controls.Add(this.MainMap);
             this.Controls.Add(this.homeBtn);
             this.Controls.Add(this.PRODUCTS);
             this.Controls.Add(this.productList);
@@ -175,5 +204,6 @@
         private System.Windows.Forms.ListBox productList;
         private System.Windows.Forms.Label PRODUCTS;
         private System.Windows.Forms.Button homeBtn;
+        private GMap.NET.WindowsForms.GMapControl MainMap;
     }
 }
