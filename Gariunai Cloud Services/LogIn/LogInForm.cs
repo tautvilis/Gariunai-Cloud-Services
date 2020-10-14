@@ -15,6 +15,7 @@ namespace Gariunai_Cloud_Services
         public LogInForm()
         {
             InitializeComponent();
+            usernameBox.Focus();
         }
         
         private void SignInButton_Click(object sender, EventArgs e)

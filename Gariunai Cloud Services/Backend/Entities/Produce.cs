@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Gariunai_Cloud_Services.Entities
 {   
-    class Produce
+    public class Produce
     {
         public int Id { get; set; }
         public String Name { get; set; }

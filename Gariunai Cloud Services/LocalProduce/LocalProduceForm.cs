@@ -9,13 +9,17 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Entities;
 using Gariunai_Cloud_Services.LocalProduce;
+using Microsoft.CSharp;
 using Microsoft.VisualBasic;
 
 namespace Gariunai_Cloud_Services
 {
     public partial class LocalProduceForm : Form
     {
+
+        
         public LocalProduceForm()
         {
             InitializeComponent();
@@ -26,9 +30,10 @@ namespace Gariunai_Cloud_Services
         {
             foreach (var shop in DatabaseHelper.GetBusinesses())
             {
-                ListShop newShop = new ListShop
+
+                ListShop newShop = new ListShop(this)
                 {
-                    Title = shop.Name, Description = shop.Description, Owner = shop.Owner.Name
+                    Shop = shop
                 };
                 flowLayoutPanel1.Controls.Add(newShop);
             }
@@ -47,12 +52,6 @@ namespace Gariunai_Cloud_Services
 
         }
 
-        //public void button5_Click(object sender, EventArgs e)
-        //{
-        //    this.Hide();
-        //    Form specificShopForm = new SpecificShopForm(this);
-        //    specificShopForm.Show();
-        //}
 
         private void accountButton_Click(object sender, EventArgs e)
         {
@@ -60,12 +59,5 @@ namespace Gariunai_Cloud_Services
             Form accountForm = new AccountForm(this);
             accountForm.Show();
         }
-
-        public static void OpenSpecificForm()
-        {
-            Form specificShopForm = new SpecificShopForm();
-            specificShopForm.Show();
-        }
-
     }
 }
