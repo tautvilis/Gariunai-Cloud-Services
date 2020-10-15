@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
             this.displayName = new System.Windows.Forms.TextBox();
+            this.buttonShops = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ovalPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +87,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(506, 381);
+            this.saveButton.Location = new System.Drawing.Point(533, 381);
             this.saveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(108, 32);
@@ -104,11 +105,22 @@
             this.displayName.Size = new System.Drawing.Size(157, 29);
             this.displayName.TabIndex = 5;
             // 
+            // buttonShops
+            // 
+            this.buttonShops.Location = new System.Drawing.Point(12, 381);
+            this.buttonShops.Name = "buttonShops";
+            this.buttonShops.Size = new System.Drawing.Size(104, 32);
+            this.buttonShops.TabIndex = 6;
+            this.buttonShops.Text = "My shops";
+            this.buttonShops.UseVisualStyleBackColor = true;
+            this.buttonShops.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AccountForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 422);
+            this.Controls.Add(this.buttonShops);
             this.Controls.Add(this.displayName);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.label1);
@@ -133,5 +145,6 @@
         private System.Windows.Forms.TextBox descriptionBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button buttonShops;
     }
 }

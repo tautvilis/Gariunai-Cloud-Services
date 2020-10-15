@@ -104,6 +104,8 @@
             this.Controls.Add(this.localProduceButton);
             this.Name = "LocalProduceForm";
             this.Text = "Support Your Locals";
+            this.Activated += new System.EventHandler(this.LocalProduceForm_Activated);
+            this.Load += new System.EventHandler(this.LocalProduceForm_Load);
             this.ResumeLayout(false);
 
         }
