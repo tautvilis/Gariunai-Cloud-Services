@@ -1,30 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
-using Gariunai_Cloud_Services.Entities;
+using Gariunai_Cloud_Services.Backend.Entities;
+using Gariunai_Cloud_Services.SpecificShop;
 
 namespace Gariunai_Cloud_Services.LocalProduce
 {
     public partial class ListShop : UserControl
     {
-        private Form _parentForm;
+        private readonly Form _parentForm;
+        private Shop _business;
+
+        private Image _icon;
+
         public ListShop(Form parentForm)
         {
             _parentForm = parentForm;
             InitializeComponent();
         }
 
-        private Image _icon;
-        private Shop _business;
-        
         public Image Icon
         {
-            get { return _icon; }
-            set { _icon = value;
+            get => _icon;
+            set
+            {
+                _icon = value;
                 ListShopImg.Image = value;
             }
         }

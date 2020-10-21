@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Gariunai_Cloud_Services.Entities
+namespace Gariunai_Cloud_Services.Backend.Entities
 {
     public class Shop
     {
