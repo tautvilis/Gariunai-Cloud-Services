@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Windows.Forms;
-using Gariunai_Cloud_Services.Backend.Entities;
+using Gariunai_Cloud_Services.Entities;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 
-namespace Gariunai_Cloud_Services.SpecificShop
+namespace Gariunai_Cloud_Services
 {
     public partial class SpecificShopForm : Form
     {
-        private readonly Form _previousForm;
-        private readonly GMapOverlay _top = new GMapOverlay();
-        private GMapMarker _currentMarker;
+        private Form _previousForm;
+
+        readonly GMapOverlay _top = new GMapOverlay();
+        GMapMarker _currentMarker;
 
         public SpecificShopForm(Form previousForm, Shop shop)
         {
@@ -20,21 +21,23 @@ namespace Gariunai_Cloud_Services.SpecificShop
             _previousForm = previousForm;
             shopDescription.Text = shop.Description;
             //pictureBox1.Image = shop.Image;
-            foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
-
+            foreach (var produce in shop.Produce)
+            {
+                productList.Items.Add(produce.Name);
+            }
             Setmap();
         }
 
         private void SpecificShopForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Hide();
             _previousForm.Show();
+            Hide();
         }
 
-        private void homeBtn_Click(object sender, EventArgs e)
+        private void HomeBtn_Click(object sender, EventArgs e)
         {
-            Hide();
             _previousForm.Show();
+            Hide();
         }
 
         private void Setmap()

@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Gariunai_Cloud_Services.Backend;
+using Gariunai_Cloud_Services.Entities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using Gariunai_Cloud_Services.Backend;
-using Gariunai_Cloud_Services.Backend.Entities;
 
 namespace Gariunai_Cloud_Services
 {
     public partial class UserShopsForm : Form
     {
-        private readonly Form _parentForm;
-        private bool _editingNewShop;
-        private string _selectedShop;
-        private User _user;
 
+        private Form _parentForm;
+        private User _user;
+        private String _selectedShop;
+        private bool _editingNewShop;
         public UserShopsForm(Form parentForm)
         {
             InitializeComponent();
@@ -27,11 +27,14 @@ namespace Gariunai_Cloud_Services
         {
             listViewShops.Items.Clear();
             _user = DatabaseHelper.GetUserById(LoginInfo.UserID);
-            foreach (var shop in _user.Businesses) listViewShops.Items.Add(shop.Name);
+            foreach (Shop shop in _user.Businesses)
+            {
+                listViewShops.Items.Add(shop.Name);
+            }
         }
-
         private void UserShopsForm_Load(object sender, EventArgs e)
         {
+           
         }
 
         private void UserShopsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -39,9 +42,9 @@ namespace Gariunai_Cloud_Services
             _parentForm.Show();
         }
 
-        private void buttonNewShop_Click(object sender, EventArgs e)
+        private void ButtonNewShop_Click(object sender, EventArgs e)
         {
-            if (!_editingNewShop)
+            if(!_editingNewShop)
             {
                 _editingNewShop = true;
                 _selectedShop = "";
@@ -54,13 +57,16 @@ namespace Gariunai_Cloud_Services
 
         private void ClearAllTexts()
         {
-            foreach (var tb in Controls.OfType<TextBox>()) tb.Clear();
+            foreach (TextBox tb in this.Controls.OfType<TextBox>())
+            {
+                tb.Clear();
+            }
         }
 
         private void listViewShops_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedItems = listViewShops.SelectedItems;
-            if (selectedItems.Count > 0)
+            if(selectedItems.Count > 0) 
             {
                 _selectedShop = selectedItems[0].Text;
                 UpdateFields(_user.Businesses.Find(s => s.Name == _selectedShop));
@@ -70,43 +76,48 @@ namespace Gariunai_Cloud_Services
             buttonNewShop.Show();
         }
 
-        private void UpdateFields(Shop shop)
+        private void UpdateFields(Shop shop) 
         {
             textBoxShopName.Text = shop.Name;
             textBoxShortDescription.Text = shop.Description;
 
             listViewProducts.Items.Clear();
-            foreach (var product in shop.Produce) listViewProducts.Items.Add(product.Name);
+            foreach(Produce product in shop.Produce)
+            {
+                listViewProducts.Items.Add(product.Name);
+            }
         }
 
         private Shop GatherShopData()
         {
-            var shop = new Shop
+            Shop shop = new Shop()
             {
                 Name = textBoxShopName.Text,
                 Description = textBoxShortDescription.Text,
-                Produce = new List<Produce>()
+                Produce = new List<Produce>(){ }
             };
 
-            foreach (ListViewItem product in listViewProducts.Items)
-                shop.Produce.Add(new Produce {Name = product.Text});
+            foreach(ListViewItem product in listViewProducts.Items)
+            {
+                shop.Produce.Add(new Produce() { Name = product.Text });
+            }
 
             return shop;
         }
 
         private void buttonSaveShop_Click(object sender, EventArgs e)
         {
-            var da = new DataAccess();
+            DataAccess da = new DataAccess();
             da.Attach(_user);
 
             if (_editingNewShop)
             {
-                var newShop = GatherShopData();
+                Shop newShop = GatherShopData();
                 _user.Businesses.Add(newShop);
                 _editingNewShop = false;
                 _selectedShop = newShop.Name;
             }
-            else
+            else 
             {
                 var newShop = GatherShopData();
                 var oldShop = _user.Businesses.FirstOrDefault(b => b.Name == _selectedShop);
@@ -117,7 +128,6 @@ namespace Gariunai_Cloud_Services
 
                 _selectedShop = newShop.Name;
             }
-
             da.SaveChanges();
             ReloadInfo();
             buttonNewShop.Show();
@@ -125,19 +135,24 @@ namespace Gariunai_Cloud_Services
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
         {
-            var newProduct = textBoxProduct.Text;
+            string newProduct = textBoxProduct.Text;
 
             if (!string.IsNullOrEmpty(newProduct))
             {
-                var alreadyExists = false;
+                bool alreadyExists = false;
                 foreach (ListViewItem currentProduct in listViewProducts.Items)
+                {
                     if (currentProduct.Text == newProduct)
                     {
                         alreadyExists = true;
                         break;
                     }
+                }
 
-                if (!alreadyExists) listViewProducts.Items.Add(newProduct);
+                if(!alreadyExists)
+                {
+                    listViewProducts.Items.Add(newProduct);
+                }
             }
         }
     }

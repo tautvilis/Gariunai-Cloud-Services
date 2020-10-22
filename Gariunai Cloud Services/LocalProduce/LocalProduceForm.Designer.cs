@@ -1,4 +1,4 @@
-﻿namespace Gariunai_Cloud_Services.LocalProduce
+﻿namespace Gariunai_Cloud_Services
 {
     partial class LocalProduceForm
     {
@@ -45,7 +45,7 @@
             this.localProduceButton.Text = "Local Produce";
             this.localProduceButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.localProduceButton.UseVisualStyleBackColor = true;
-            this.localProduceButton.Click += new System.EventHandler(this.button1_Click);
+            this.localProduceButton.Click += new System.EventHandler(this.Button1_Click);
             // 
             // followFeedButton
             // 
@@ -57,7 +57,7 @@
             this.followFeedButton.Text = "Follow Feed";
             this.followFeedButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.followFeedButton.UseVisualStyleBackColor = true;
-            this.followFeedButton.Click += new System.EventHandler(this.button2_Click);
+            this.followFeedButton.Click += new System.EventHandler(this.Button2_Click);
             // 
             // homeButton
             // 
@@ -79,7 +79,7 @@
             this.accountButton.TabIndex = 3;
             this.accountButton.Text = "Account";
             this.accountButton.UseVisualStyleBackColor = true;
-            this.accountButton.Click += new System.EventHandler(this.accountButton_Click);
+            this.accountButton.Click += new System.EventHandler(this.AccountButton_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -105,6 +105,7 @@
             this.Name = "LocalProduceForm";
             this.Text = "Support Your Locals";
             this.Activated += new System.EventHandler(this.LocalProduceForm_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LocalProduceForm_FormClosed);
             this.Load += new System.EventHandler(this.LocalProduceForm_Load);
             this.ResumeLayout(false);
 

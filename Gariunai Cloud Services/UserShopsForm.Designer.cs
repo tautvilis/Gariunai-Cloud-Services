@@ -90,7 +90,7 @@ namespace Gariunai_Cloud_Services
             this.buttonNewShop.TabIndex = 2;
             this.buttonNewShop.Text = "New shop";
             this.buttonNewShop.UseVisualStyleBackColor = true;
-            this.buttonNewShop.Click += new System.EventHandler(this.buttonNewShop_Click);
+            this.buttonNewShop.Click += new System.EventHandler(this.ButtonNewShop_Click);
             // 
             // textBoxShopName
             // 

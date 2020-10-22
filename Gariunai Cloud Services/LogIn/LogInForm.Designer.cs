@@ -1,4 +1,4 @@
-﻿namespace Gariunai_Cloud_Services.LogIn
+﻿namespace Gariunai_Cloud_Services
 {
     partial class LogInForm
     {

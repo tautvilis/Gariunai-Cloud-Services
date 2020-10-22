@@ -1,4 +1,4 @@
-﻿namespace Gariunai_Cloud_Services.SpecificShop
+﻿namespace Gariunai_Cloud_Services
 {
     partial class SpecificShopForm
     {
@@ -136,7 +136,7 @@
             this.homeBtn.TabIndex = 5;
             this.homeBtn.Text = "HOME";
             this.homeBtn.UseVisualStyleBackColor = true;
-            this.homeBtn.Click += new System.EventHandler(this.homeBtn_Click);
+            this.homeBtn.Click += new System.EventHandler(this.HomeBtn_Click);
             // 
             // MainMap
             // 

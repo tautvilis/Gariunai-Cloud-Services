@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.IO;
-using Gariunai_Cloud_Services.Backend.Entities;
-using Microsoft.EntityFrameworkCore;
 
-namespace Gariunai_Cloud_Services.Backend
+namespace Gariunai_Cloud_Services.Entities
 {
-    internal class DataAccess : DbContext
+    class DataAccess : DbContext
     {
         public DbSet<Shop> Businesses { get; set; }
         public DbSet<User> Users { get; set; }
@@ -15,9 +14,9 @@ namespace Gariunai_Cloud_Services.Backend
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             //TODO find better solution
-            var projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
-            options.UseSqlServer(
-                $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"{projectDir}\\Backend\\Database\\GariunaiCloudDB.mdf\";Integrated Security=True");
+            string projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
+            options.UseSqlServer(connectionString: $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"{projectDir}\\Backend\\Database\\GariunaiCloudDB.mdf\";Integrated Security=True");
         }
+          
     }
 }
