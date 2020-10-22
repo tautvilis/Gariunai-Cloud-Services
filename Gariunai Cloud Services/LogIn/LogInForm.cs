@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
-using Gariunai_Cloud_Services.LogIn;
+using Gariunai_Cloud_Services.LocalProduce;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.LogIn
 {
     public partial class LogInForm : Form
     {
@@ -17,10 +12,9 @@ namespace Gariunai_Cloud_Services
             InitializeComponent();
             usernameBox.Focus();
         }
-        
+
         private void SignInButton_Click(object sender, EventArgs e)
         {
-
             if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text))
             {
                 LoginInfo.UserID = DatabaseHelper.GetUserByName(usernameBox.Text).Id;
@@ -34,6 +28,7 @@ namespace Gariunai_Cloud_Services
                 MessageBox.Show(message, "Error");
             }
         }
+
         private void CreateNewButton_Click(object sender, EventArgs e)
         {
             var createNew = new CreateNewForm();

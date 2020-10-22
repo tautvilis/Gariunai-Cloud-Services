@@ -1,4 +1,4 @@
-﻿namespace Gariunai_Cloud_Services
+﻿namespace Gariunai_Cloud_Services.SpecificShop
 {
     partial class SpecificShopForm
     {

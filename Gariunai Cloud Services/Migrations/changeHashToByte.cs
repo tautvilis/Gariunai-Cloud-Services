@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gariunai_Cloud_Services.Migrations
 {
@@ -8,8 +7,8 @@ namespace Gariunai_Cloud_Services.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
+                "Users",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
@@ -17,14 +16,11 @@ namespace Gariunai_Cloud_Services.Migrations
                     Email = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Users", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Businesses",
-                columns: table => new
+                "Businesses",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
@@ -36,16 +32,16 @@ namespace Gariunai_Cloud_Services.Migrations
                 {
                     table.PrimaryKey("PK_Businesses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Businesses_Users_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
+                        "FK_Businesses_Users_OwnerId",
+                        x => x.OwnerId,
+                        "Users",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Passwords",
-                columns: table => new
+                "Passwords",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
@@ -58,16 +54,16 @@ namespace Gariunai_Cloud_Services.Migrations
                 {
                     table.PrimaryKey("PK_Passwords", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Passwords_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
+                        "FK_Passwords_Users_UserId",
+                        x => x.UserId,
+                        "Users",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produce",
-                columns: table => new
+                "Produce",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
@@ -78,42 +74,42 @@ namespace Gariunai_Cloud_Services.Migrations
                 {
                     table.PrimaryKey("PK_Produce", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produce_Businesses_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Businesses",
-                        principalColumn: "Id",
+                        "FK_Produce_Businesses_ShopId",
+                        x => x.ShopId,
+                        "Businesses",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Businesses_OwnerId",
-                table: "Businesses",
-                column: "OwnerId");
+                "IX_Businesses_OwnerId",
+                "Businesses",
+                "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Passwords_UserId",
-                table: "Passwords",
-                column: "UserId");
+                "IX_Passwords_UserId",
+                "Passwords",
+                "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produce_ShopId",
-                table: "Produce",
-                column: "ShopId");
+                "IX_Produce_ShopId",
+                "Produce",
+                "ShopId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Passwords");
+                "Passwords");
 
             migrationBuilder.DropTable(
-                name: "Produce");
+                "Produce");
 
             migrationBuilder.DropTable(
-                name: "Businesses");
+                "Businesses");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                "Users");
         }
     }
 }

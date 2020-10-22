@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace Gariunai_Cloud_Services.Entities
-{   
+﻿namespace Gariunai_Cloud_Services.Backend.Entities
+{
     public class Produce
     {
         public int Id { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; }
     }
 }

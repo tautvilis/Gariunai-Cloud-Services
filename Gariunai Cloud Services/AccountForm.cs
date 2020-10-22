@@ -1,13 +1,6 @@
-﻿using Gariunai_Cloud_Services.Backend;
-using Gariunai_Cloud_Services.Entities;
-using System;
-using System.Buffers;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
 
 namespace Gariunai_Cloud_Services
 {
@@ -20,7 +13,7 @@ namespace Gariunai_Cloud_Services
             this.previousForm = previousForm;
             InitializeComponent();
 
-            User currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
+            var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
             displayName.Text = currentUser.Name;
             descriptionBox.Text = currentUser.Description;
         }
@@ -37,7 +30,7 @@ namespace Gariunai_Cloud_Services
             var openFileDialog1 = new OpenFileDialog {Filter = "Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string selectedFileName = openFileDialog1.FileName;
+                var selectedFileName = openFileDialog1.FileName;
                 ovalPictureBox1.ImageLocation = selectedFileName;
             }
         }
@@ -50,9 +43,9 @@ namespace Gariunai_Cloud_Services
         private void Save()
         {
             //TODO save picture
-            User currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
+            var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
 
-            if(DatabaseHelper.GetUserByName(displayName.Text) == null)
+            if (DatabaseHelper.GetUserByName(displayName.Text) == null)
                 currentUser.Name = displayName.Text;
 
             currentUser.Description = descriptionBox.Text;
@@ -63,7 +56,7 @@ namespace Gariunai_Cloud_Services
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             Form userShopsForm = new UserShopsForm(this);
             userShopsForm.Show();
         }
