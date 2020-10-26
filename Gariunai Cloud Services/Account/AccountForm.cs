@@ -1,28 +1,29 @@
-﻿using Gariunai_Cloud_Services.Backend;
-using Gariunai_Cloud_Services.Entities;
-using System;
+﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
+using Gariunai_Cloud_Services.Entities;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.Account
 {
     public partial class AccountForm : Form
     {
-        private readonly Form previousForm;
-        private bool pictureChanged = false;
+        private readonly Form _previousForm;
+        private bool _pictureChanged;
         public AccountForm(Form previousForm)
         {
-            this.previousForm = previousForm;
+            _previousForm = previousForm;
             InitializeComponent();
 
-            var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
+            var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserId);
             displayName.Text = currentUser.Name;
             descriptionBox.Text = currentUser.Description;
             if(currentUser.Image != null)
                 ovalPictureBox1.Image = ByteArrayToImage(currentUser.Image);
             else
-                ovalPictureBox1.ImageLocation = Path.Combine(Application.StartupPath, "Resources\\empty-profile-picture-png-2.png");;
+                ovalPictureBox1.ImageLocation = Path.Combine(Application.StartupPath, "Resources\\empty-profile-picture-png-2.png");
 
         }
 
@@ -30,17 +31,17 @@ namespace Gariunai_Cloud_Services
         private void AccountForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Save();
-            previousForm.Show();
+            _previousForm.Show();
         }
 
         private void ChangePictureButton_Click(object sender, EventArgs e)
         {
-            var openFileDialog1 = new OpenFileDialog {Filter = "Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
+            var openFileDialog1 = new OpenFileDialog {Filter = @"Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string selectedFileName = openFileDialog1.FileName;
+                var selectedFileName = openFileDialog1.FileName;
                 ovalPictureBox1.ImageLocation = selectedFileName;
-                pictureChanged = true;
+                _pictureChanged = true;
             }
         }
 
@@ -51,13 +52,13 @@ namespace Gariunai_Cloud_Services
 
         private void Save()
         {
-            var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserID);
+            var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserId);
             var image = ovalPictureBox1.Image;
 
 
             if (DatabaseHelper.GetUserByName(displayName.Text) == null)
                 currentUser.Name = displayName.Text;
-            if(pictureChanged == true)
+            if(_pictureChanged)
                 currentUser.Image = ImageToByteArray(image);
             currentUser.Description = descriptionBox.Text;
             var dataAccess = new DataAccess();
@@ -67,7 +68,7 @@ namespace Gariunai_Cloud_Services
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             var userShopsForm = new UserShopsForm(this);
             userShopsForm.Show();
         }
@@ -75,7 +76,7 @@ namespace Gariunai_Cloud_Services
         {
             using (var ms = new MemoryStream())
             {
-                imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+                imageIn.Save(ms, ImageFormat.Gif);
 
                 return ms.ToArray();
             }

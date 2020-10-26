@@ -1,10 +1,10 @@
-﻿using Gariunai_Cloud_Services.Backend;
-using Gariunai_Cloud_Services.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
+using Gariunai_Cloud_Services.Entities;
 
 namespace Gariunai_Cloud_Services
 {
@@ -26,15 +26,11 @@ namespace Gariunai_Cloud_Services
         private void ReloadInfo()
         {
             listViewShops.Items.Clear();
-            _user = DatabaseHelper.GetUserById(LoginInfo.UserID);
+            _user = DatabaseHelper.GetUserById(LoginInfo.UserId);
             foreach (Shop shop in _user.Businesses)
             {
                 listViewShops.Items.Add(shop.Name);
             }
-        }
-        private void UserShopsForm_Load(object sender, EventArgs e)
-        {
-           
         }
 
         private void UserShopsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -57,7 +53,7 @@ namespace Gariunai_Cloud_Services
 
         private void ClearAllTexts()
         {
-            foreach (TextBox tb in this.Controls.OfType<TextBox>())
+            foreach (TextBox tb in Controls.OfType<TextBox>())
             {
                 tb.Clear();
             }
@@ -90,16 +86,16 @@ namespace Gariunai_Cloud_Services
 
         private Shop GatherShopData()
         {
-            Shop shop = new Shop()
+            Shop shop = new Shop
             {
                 Name = textBoxShopName.Text,
                 Description = textBoxShortDescription.Text,
-                Produce = new List<Produce>(){ }
+                Produce = new List<Produce>()
             };
 
             foreach(ListViewItem product in listViewProducts.Items)
             {
-                shop.Produce.Add(new Produce() { Name = product.Text });
+                shop.Produce.Add(new Produce { Name = product.Text });
             }
 
             return shop;

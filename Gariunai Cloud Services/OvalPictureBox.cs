@@ -12,8 +12,8 @@ namespace Gariunai_Cloud_Services
             base.OnResize(e);
             using (var gp = new GraphicsPath())
             {
-                gp.AddEllipse(new Rectangle(0, 0, this.Width - 1, this.Height - 1));
-                this.Region = new Region(gp);
+                gp.AddEllipse(new Rectangle(0, 0, Width - 1, Height - 1));
+                Region = new Region(gp);
             }
         }
     }

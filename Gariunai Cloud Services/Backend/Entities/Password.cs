@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace Gariunai_Cloud_Services.Entities
+﻿namespace Gariunai_Cloud_Services.Entities
 {
     class Password
     {

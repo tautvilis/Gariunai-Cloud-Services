@@ -1,11 +1,14 @@
-﻿namespace Gariunai_Cloud_Services
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Gariunai_Cloud_Services
 {
     partial class LocalProduceForm
     {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -113,11 +116,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button localProduceButton;
-        private System.Windows.Forms.Button followFeedButton;
-        private System.Windows.Forms.Button homeButton;
-        private System.Windows.Forms.Button accountButton;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Button localProduceButton;
+        private Button followFeedButton;
+        private Button homeButton;
+        private Button accountButton;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

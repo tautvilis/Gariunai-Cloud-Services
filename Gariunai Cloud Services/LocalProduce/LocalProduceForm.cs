@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Account;
 using Gariunai_Cloud_Services.LocalProduce;
 
 namespace Gariunai_Cloud_Services
@@ -31,7 +32,7 @@ namespace Gariunai_Cloud_Services
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             Form followFeedForm = new FollowFeedForm(this);
             followFeedForm.Show();
         }
@@ -44,7 +45,7 @@ namespace Gariunai_Cloud_Services
 
         private void AccountButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             Form accountForm = new AccountForm(this);
             accountForm.Show();
         }

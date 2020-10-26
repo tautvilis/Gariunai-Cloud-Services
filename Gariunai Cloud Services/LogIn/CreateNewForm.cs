@@ -1,7 +1,7 @@
-﻿using Gariunai_Cloud_Services.Entities;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Entities;
 
 namespace Gariunai_Cloud_Services.LogIn
 {

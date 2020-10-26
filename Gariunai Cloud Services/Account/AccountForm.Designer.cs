@@ -1,11 +1,14 @@
-﻿namespace Gariunai_Cloud_Services
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Gariunai_Cloud_Services.Account
 {
     partial class AccountForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -139,11 +142,11 @@
         #endregion
 
         private OvalPictureBox ovalPictureBox1;
-        private System.Windows.Forms.Button ChangePictureButton;
-        private System.Windows.Forms.TextBox displayName;
-        private System.Windows.Forms.TextBox descriptionBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button buttonShops;
+        private Button ChangePictureButton;
+        private TextBox displayName;
+        private TextBox descriptionBox;
+        private Label label1;
+        private Button saveButton;
+        private Button buttonShops;
     }
 }

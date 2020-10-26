@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Gariunai_Cloud_Services
 {
@@ -7,7 +8,7 @@ namespace Gariunai_Cloud_Services
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -272,26 +273,26 @@ namespace Gariunai_Cloud_Services
 
         #endregion
 
-        private System.Windows.Forms.ListView listViewShops;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonNewShop;
-        private System.Windows.Forms.TextBox textBoxShopName;
-        private System.Windows.Forms.TextBox textBoxShortDescription;
-        private System.Windows.Forms.ListView listViewProducts;
-        private System.Windows.Forms.TextBox textBoxLongDescription;
-        private System.Windows.Forms.TextBox textBoxProduct;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonSaveShop;
-        private System.Windows.Forms.Button vaiduolis;
-        private System.Windows.Forms.Button buttonAddProduct;
-        private System.Windows.Forms.TextBox textAdress;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textPhoneNumber;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private ListView listViewShops;
+        private Label label1;
+        private Button buttonNewShop;
+        private TextBox textBoxShopName;
+        private TextBox textBoxShortDescription;
+        private ListView listViewProducts;
+        private TextBox textBoxLongDescription;
+        private TextBox textBoxProduct;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Button buttonSaveShop;
+        private Button vaiduolis;
+        private Button buttonAddProduct;
+        private TextBox textAdress;
+        private Label label6;
+        private TextBox textPhoneNumber;
+        private Label label7;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

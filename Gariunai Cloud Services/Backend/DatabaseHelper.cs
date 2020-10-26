@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using Gariunai_Cloud_Services.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gariunai_Cloud_Services
 {
@@ -47,8 +47,7 @@ namespace Gariunai_Cloud_Services
             DataAccess db = new DataAccess();
             if (db.Users.Count(u => u.Name == username) > 0)
                 return true;
-            else
-                return false;
+            return false;
         }
 
         /// <summary>
@@ -102,7 +101,7 @@ namespace Gariunai_Cloud_Services
             if (string.IsNullOrEmpty(password))
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
 
-            if (DatabaseHelper.CheckIfUsernameTaken(user.Name))
+            if (CheckIfUsernameTaken(user.Name))
                 return false;
 
             DataAccess db = new DataAccess();

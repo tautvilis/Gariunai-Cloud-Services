@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Gariunai_Cloud_Services.Entities
 {   
     public class Produce

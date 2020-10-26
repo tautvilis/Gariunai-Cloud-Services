@@ -18,7 +18,7 @@ namespace Gariunai_Cloud_Services
 
             if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text))
             {
-                LoginInfo.UserID = DatabaseHelper.GetUserByName(usernameBox.Text).Id;
+                LoginInfo.UserId = DatabaseHelper.GetUserByName(usernameBox.Text).Id;
                 Form main = new LocalProduceForm();
                 main.Show();
                 Hide();
