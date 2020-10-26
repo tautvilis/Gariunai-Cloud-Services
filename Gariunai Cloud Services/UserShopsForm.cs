@@ -70,7 +70,9 @@ namespace Gariunai_Cloud_Services
         {
             textBoxShopName.Text = shop.Name;
             textBoxShortDescription.Text = shop.Description;
-
+            textBoxLongDescription.Text = shop.LongDescription;
+            textPhoneNumber.Text = shop.Contacts;
+            textAdress.Text = shop.Location;
             listViewProducts.Items.Clear();
             foreach (var product in shop.Produce) listViewProducts.Items.Add(product.Name);
         }
@@ -81,7 +83,10 @@ namespace Gariunai_Cloud_Services
             {
                 Name = textBoxShopName.Text,
                 Description = textBoxShortDescription.Text,
-                Produce = new List<Produce>()
+                Produce = new List<Produce>(),
+                LongDescription = textBoxLongDescription.Text,
+                Location = textAdress.Text,
+                Contacts = textPhoneNumber.Text
             };
 
             foreach (ListViewItem product in listViewProducts.Items)
@@ -93,25 +98,27 @@ namespace Gariunai_Cloud_Services
         private void buttonSaveShop_Click(object sender, EventArgs e)
         {
             var da = new DataAccess();
+            var updatedShop = GatherShopData();
+            
             da.Attach(_user);
 
             if (_editingNewShop)
             {
-                var newShop = GatherShopData();
-                _user.Businesses.Add(newShop);
+                _user.Businesses.Add(updatedShop);
+                _selectedShop = updatedShop.Name;
                 _editingNewShop = false;
-                _selectedShop = newShop.Name;
             }
             else
             {
-                var newShop = GatherShopData();
                 var oldShop = _user.Businesses.FirstOrDefault(b => b.Name == _selectedShop);
-                oldShop.Name = newShop.Name;
-                oldShop.Description = newShop.Description;
-                oldShop.Produce = newShop.Produce;
-                Debug.WriteLine(_user.Businesses[0].Produce.Count);
+                oldShop.Name = updatedShop.Name;
+                oldShop.Description = updatedShop.Description;
+                oldShop.Produce = updatedShop.Produce;
+                oldShop.Contacts = updatedShop.Contacts;
+                oldShop.LongDescription = updatedShop.Description;
+                oldShop.Location = updatedShop.Location;
 
-                _selectedShop = newShop.Name;
+                _selectedShop = updatedShop.Name;
             }
 
             da.SaveChanges();
@@ -123,17 +130,15 @@ namespace Gariunai_Cloud_Services
         {
             var newProduct = textBoxProduct.Text;
 
-            if (!string.IsNullOrEmpty(newProduct))
-            {
-                var alreadyExists = false;
-                foreach (ListViewItem currentProduct in listViewProducts.Items)
-                    if (currentProduct.Text == newProduct)
-                    {
-                        alreadyExists = true;
-                        break;
-                    }
+            if (string.IsNullOrEmpty(newProduct)) return;
+            
+            var alreadyExists = listViewProducts.Items.Cast<ListViewItem>()
+                .Any(currentProduct => currentProduct.Text == newProduct);
 
-                if (!alreadyExists) listViewProducts.Items.Add(newProduct);
+            if (!alreadyExists)
+            {
+                listViewProducts.Items.Add(newProduct);
+                textBoxProduct.Clear();
             }
         }
     }
