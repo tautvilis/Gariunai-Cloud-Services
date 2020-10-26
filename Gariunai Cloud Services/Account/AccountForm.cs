@@ -12,6 +12,7 @@ namespace Gariunai_Cloud_Services.Account
     {
         private readonly Form _previousForm;
         private bool _pictureChanged;
+
         public AccountForm(Form previousForm)
         {
             _previousForm = previousForm;
@@ -20,11 +21,11 @@ namespace Gariunai_Cloud_Services.Account
             var currentUser = DatabaseHelper.GetUserById(LoginInfo.UserId);
             displayName.Text = currentUser.Name;
             descriptionBox.Text = currentUser.Description;
-            if(currentUser.Image != null)
+            if (currentUser.Image != null)
                 ovalPictureBox1.Image = ByteArrayToImage(currentUser.Image);
             else
-                ovalPictureBox1.ImageLocation = Path.Combine(Application.StartupPath, "Resources\\empty-profile-picture-png-2.png");
-
+                ovalPictureBox1.ImageLocation =
+                    Path.Combine(Application.StartupPath, "Resources\\empty-profile-picture-png-2.png");
         }
 
 
@@ -36,7 +37,8 @@ namespace Gariunai_Cloud_Services.Account
 
         private void ChangePictureButton_Click(object sender, EventArgs e)
         {
-            var openFileDialog1 = new OpenFileDialog {Filter = @"Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
+            var openFileDialog1 = new OpenFileDialog
+                {Filter = @"Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var selectedFileName = openFileDialog1.FileName;
@@ -58,7 +60,7 @@ namespace Gariunai_Cloud_Services.Account
 
             if (DatabaseHelper.GetUserByName(displayName.Text) == null)
                 currentUser.Name = displayName.Text;
-            if(_pictureChanged)
+            if (_pictureChanged)
                 currentUser.Image = ImageToByteArray(image);
             currentUser.Description = descriptionBox.Text;
             var dataAccess = new DataAccess();
@@ -72,6 +74,7 @@ namespace Gariunai_Cloud_Services.Account
             var userShopsForm = new UserShopsForm(this);
             userShopsForm.Show();
         }
+
         public byte[] ImageToByteArray(Image imageIn)
         {
             using (var ms = new MemoryStream())
@@ -85,14 +88,13 @@ namespace Gariunai_Cloud_Services.Account
         public Image ByteArrayToImage(byte[] byteArrayIn)
         {
             if (byteArrayIn != null)
-            {
                 using (var ms = new MemoryStream(byteArrayIn))
                 {
                     var returnImage = Image.FromStream(ms);
 
                     return returnImage;
                 }
-            }
+
             return null;
         }
     }

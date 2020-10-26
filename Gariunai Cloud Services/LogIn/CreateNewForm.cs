@@ -20,32 +20,31 @@ namespace Gariunai_Cloud_Services.LogIn
             {
                 label1.ForeColor = Color.Green;
                 label1.Text = state.Item2;
-
             }
+
             if (!state.Item1)
             {
                 label1.ForeColor = Color.Red;
                 label1.Text = state.Item2;
             }
-
         }
+
         private (bool, string) IsPasswordOk(string password)
         {
             var message = "Password strength is ok";
-            bool ispassok = true;
+            var ispassok = true;
             if (password.Length < 5)
             {
                 ispassok = false;
                 message = "Password too short";
-
             }
             else if (password.Contains(" "))
             {
                 ispassok = false;
                 message = "Password cannot contain spaces";
             }
-            return (ispassok, message);
 
+            return (ispassok, message);
         }
 
         private void CreateNewButton_Click(object sender, EventArgs e)
@@ -63,7 +62,9 @@ namespace Gariunai_Cloud_Services.LogIn
                 }
             }
             else
+            {
                 MessageBox.Show("Username already exists");
+            }
         }
     }
 }
