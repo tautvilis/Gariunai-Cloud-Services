@@ -1,11 +1,14 @@
-﻿namespace Gariunai_Cloud_Services.LogIn
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Gariunai_Cloud_Services.LogIn
 {
     partial class CreateNewForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -110,11 +113,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox usernameBox;
-        private System.Windows.Forms.TextBox passwordBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private TextBox usernameBox;
+        private TextBox passwordBox;
+        private Label label1;
+        private Button button1;
+        private Label label2;
+        private Label label3;
     }
 }

@@ -1,11 +1,15 @@
-﻿namespace Gariunai_Cloud_Services.SpecificShop
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using GMap.NET.WindowsForms;
+
+namespace Gariunai_Cloud_Services
 {
     partial class SpecificShopForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -136,7 +140,7 @@
             this.homeBtn.TabIndex = 5;
             this.homeBtn.Text = "HOME";
             this.homeBtn.UseVisualStyleBackColor = true;
-            this.homeBtn.Click += new System.EventHandler(this.homeBtn_Click);
+            this.homeBtn.Click += new System.EventHandler(this.HomeBtn_Click);
             // 
             // MainMap
             // 
@@ -194,16 +198,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button contactBtn;
-        private System.Windows.Forms.Button followBtn;
-        private System.Windows.Forms.Label shopDescription;
-        private System.Windows.Forms.ListBox productList;
-        private System.Windows.Forms.Label PRODUCTS;
-        private System.Windows.Forms.Button homeBtn;
-        private GMap.NET.WindowsForms.GMapControl MainMap;
+        private Panel panel1;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
+        private Button contactBtn;
+        private Button followBtn;
+        private Label shopDescription;
+        private ListBox productList;
+        private Label PRODUCTS;
+        private Button homeBtn;
+        private GMapControl MainMap;
     }
 }

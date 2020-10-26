@@ -1,11 +1,13 @@
-﻿namespace Gariunai_Cloud_Services
+﻿using System.ComponentModel;
+
+namespace Gariunai_Cloud_Services
 {
     partial class FollowFeedForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.

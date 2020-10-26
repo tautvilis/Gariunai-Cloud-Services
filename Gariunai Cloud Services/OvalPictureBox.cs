@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Gariunai_Cloud_Services
 {
-    internal class OvalPictureBox : PictureBox
+    class OvalPictureBox : PictureBox
     {
         protected override void OnResize(EventArgs e)
         {

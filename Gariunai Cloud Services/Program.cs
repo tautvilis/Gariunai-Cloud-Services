@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Gariunai_Cloud_Services.Backend;
-using Gariunai_Cloud_Services.Backend.Entities;
-using Gariunai_Cloud_Services.LogIn;
+using Gariunai_Cloud_Services.Entities;
 
 namespace Gariunai_Cloud_Services
 {
@@ -25,7 +23,8 @@ namespace Gariunai_Cloud_Services
 
         private static void seed()
         {
-            User[] users = {
+            User[] users =
+            {
                 new User {Name = "Admin", Email = "Admin@email.com"},
                 new User {Name = "User", Email = "user@mail.com"},
                 new User {Name = "Owner1", Email = "ownner1@email.com", Description = "Turiu Parduotuve 1"},
@@ -34,7 +33,8 @@ namespace Gariunai_Cloud_Services
                 new User {Name = "Owner4", Email = "ownner4@email.com", Description = "Turiu Parduotuve 4"},
                 new User {Name = "Owner5", Email = "ownner5@email.com", Description = "Turiu Parduotuve 5"}
             };
-            Shop[] shops = {
+            Shop[] shops =
+            {
                 new Shop
                 {
                     Name = "Braskiu kioskas", Description = "sviezios letuviskos, braskes",
@@ -74,7 +74,6 @@ namespace Gariunai_Cloud_Services
                 }
             };
             foreach (var user in users) DatabaseHelper.RegisterUser(user, user.Name);
-
             DatabaseHelper.RegisterShop(shops[0], "Owner1");
             DatabaseHelper.RegisterShop(shops[1], "Owner2");
             DatabaseHelper.RegisterShop(shops[2], "Owner3");

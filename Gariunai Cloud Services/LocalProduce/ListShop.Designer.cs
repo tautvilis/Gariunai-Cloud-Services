@@ -1,11 +1,14 @@
-﻿namespace Gariunai_Cloud_Services.LocalProduce
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Gariunai_Cloud_Services.LocalProduce
 {
     partial class ListShop
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -106,10 +109,10 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox ListShopImg;
-        private System.Windows.Forms.Label ListShopTitle;
-        private System.Windows.Forms.Label ListShopDesc;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label ListShopOwner;
+        private PictureBox ListShopImg;
+        private Label ListShopTitle;
+        private Label ListShopDesc;
+        private Panel panel1;
+        private Label ListShopOwner;
     }
 }
