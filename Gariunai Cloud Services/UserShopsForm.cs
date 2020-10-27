@@ -10,11 +10,11 @@ namespace Gariunai_Cloud_Services
 {
     public partial class UserShopsForm : Form
     {
-
         private Form _parentForm;
         private User _user;
-        private String _selectedShop;
+        private string _selectedShop;
         private bool _editingNewShop;
+
         public UserShopsForm(Form parentForm)
         {
             InitializeComponent();
@@ -27,10 +27,7 @@ namespace Gariunai_Cloud_Services
         {
             listViewShops.Items.Clear();
             _user = DatabaseHelper.GetUserById(LoginInfo.UserId);
-            foreach (Shop shop in _user.Businesses)
-            {
-                listViewShops.Items.Add(shop.Name);
-            }
+            foreach (var shop in _user.Businesses) listViewShops.Items.Add(shop.Name);
         }
 
         private void UserShopsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -40,7 +37,7 @@ namespace Gariunai_Cloud_Services
 
         private void ButtonNewShop_Click(object sender, EventArgs e)
         {
-            if(!_editingNewShop)
+            if (!_editingNewShop)
             {
                 _editingNewShop = true;
                 _selectedShop = "";
@@ -53,16 +50,13 @@ namespace Gariunai_Cloud_Services
 
         private void ClearAllTexts()
         {
-            foreach (TextBox tb in Controls.OfType<TextBox>())
-            {
-                tb.Clear();
-            }
+            foreach (var tb in Controls.OfType<TextBox>()) tb.Clear();
         }
 
         private void listViewShops_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedItems = listViewShops.SelectedItems;
-            if(selectedItems.Count > 0) 
+            if (selectedItems.Count > 0)
             {
                 _selectedShop = selectedItems[0].Text;
                 UpdateFields(_user.Businesses.Find(s => s.Name == _selectedShop));
@@ -72,58 +66,61 @@ namespace Gariunai_Cloud_Services
             buttonNewShop.Show();
         }
 
-        private void UpdateFields(Shop shop) 
+        private void UpdateFields(Shop shop)
         {
             textBoxShopName.Text = shop.Name;
             textBoxShortDescription.Text = shop.Description;
-
+            textBoxLongDescription.Text = shop.LongDescription;
+            textPhoneNumber.Text = shop.Contacts;
+            textAdress.Text = shop.Location;
             listViewProducts.Items.Clear();
-            foreach(Produce product in shop.Produce)
-            {
-                listViewProducts.Items.Add(product.Name);
-            }
+            foreach (var product in shop.Produce) listViewProducts.Items.Add(product.Name);
         }
 
         private Shop GatherShopData()
         {
-            Shop shop = new Shop
+            var shop = new Shop
             {
                 Name = textBoxShopName.Text,
                 Description = textBoxShortDescription.Text,
-                Produce = new List<Produce>()
+                Produce = new List<Produce>(),
+                LongDescription = textBoxLongDescription.Text,
+                Location = textAdress.Text,
+                Contacts = textPhoneNumber.Text
             };
 
-            foreach(ListViewItem product in listViewProducts.Items)
-            {
-                shop.Produce.Add(new Produce { Name = product.Text });
-            }
+            foreach (ListViewItem product in listViewProducts.Items)
+                shop.Produce.Add(new Produce {Name = product.Text});
 
             return shop;
         }
 
         private void buttonSaveShop_Click(object sender, EventArgs e)
         {
-            DataAccess da = new DataAccess();
+            var da = new DataAccess();
+            var updatedShop = GatherShopData();
+            
             da.Attach(_user);
 
             if (_editingNewShop)
             {
-                Shop newShop = GatherShopData();
-                _user.Businesses.Add(newShop);
+                _user.Businesses.Add(updatedShop);
+                _selectedShop = updatedShop.Name;
                 _editingNewShop = false;
-                _selectedShop = newShop.Name;
             }
-            else 
+            else
             {
-                var newShop = GatherShopData();
                 var oldShop = _user.Businesses.FirstOrDefault(b => b.Name == _selectedShop);
-                oldShop.Name = newShop.Name;
-                oldShop.Description = newShop.Description;
-                oldShop.Produce = newShop.Produce;
-                Debug.WriteLine(_user.Businesses[0].Produce.Count);
+                oldShop.Name = updatedShop.Name;
+                oldShop.Description = updatedShop.Description;
+                oldShop.Produce = updatedShop.Produce;
+                oldShop.Contacts = updatedShop.Contacts;
+                oldShop.LongDescription = updatedShop.Description;
+                oldShop.Location = updatedShop.Location;
 
-                _selectedShop = newShop.Name;
+                _selectedShop = updatedShop.Name;
             }
+
             da.SaveChanges();
             ReloadInfo();
             buttonNewShop.Show();
@@ -131,24 +128,17 @@ namespace Gariunai_Cloud_Services
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
         {
-            string newProduct = textBoxProduct.Text;
+            var newProduct = textBoxProduct.Text;
 
-            if (!string.IsNullOrEmpty(newProduct))
+            if (string.IsNullOrEmpty(newProduct)) return;
+            
+            var alreadyExists = listViewProducts.Items.Cast<ListViewItem>()
+                .Any(currentProduct => currentProduct.Text == newProduct);
+
+            if (!alreadyExists)
             {
-                bool alreadyExists = false;
-                foreach (ListViewItem currentProduct in listViewProducts.Items)
-                {
-                    if (currentProduct.Text == newProduct)
-                    {
-                        alreadyExists = true;
-                        break;
-                    }
-                }
-
-                if(!alreadyExists)
-                {
-                    listViewProducts.Items.Add(newProduct);
-                }
+                listViewProducts.Items.Add(newProduct);
+                textBoxProduct.Clear();
             }
         }
     }

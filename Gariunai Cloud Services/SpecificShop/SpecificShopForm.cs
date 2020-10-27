@@ -12,8 +12,8 @@ namespace Gariunai_Cloud_Services
     {
         private Form _previousForm;
 
-        readonly GMapOverlay _top = new GMapOverlay();
-        GMapMarker _currentMarker;
+        private readonly GMapOverlay _top = new GMapOverlay();
+        private GMapMarker _currentMarker;
 
         public SpecificShopForm(Form previousForm, Shop shop)
         {
@@ -21,10 +21,7 @@ namespace Gariunai_Cloud_Services
             _previousForm = previousForm;
             shopDescription.Text = shop.Description;
             //pictureBox1.Image = shop.Image;
-            foreach (var produce in shop.Produce)
-            {
-                productList.Items.Add(produce.Name);
-            }
+            foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
             Setmap();
         }
 

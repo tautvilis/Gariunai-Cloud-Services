@@ -7,8 +7,6 @@ namespace Gariunai_Cloud_Services
 {
     public partial class LocalProduceForm : Form
     {
-
-        
         public LocalProduceForm()
         {
             InitializeComponent();
@@ -20,14 +18,12 @@ namespace Gariunai_Cloud_Services
             flowLayoutPanel1.Controls.Clear();
             foreach (var shop in DatabaseHelper.GetBusinesses())
             {
-
-                ListShop newShop = new ListShop(this)
+                var newShop = new ListShop(this)
                 {
                     Shop = shop
                 };
                 flowLayoutPanel1.Controls.Add(newShop);
             }
-
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -39,7 +35,6 @@ namespace Gariunai_Cloud_Services
 
         private void Button1_Click(object sender, EventArgs e)
         {
-
         }
 
 

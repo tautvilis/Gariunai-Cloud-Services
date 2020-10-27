@@ -12,10 +12,9 @@ namespace Gariunai_Cloud_Services
             InitializeComponent();
             usernameBox.Focus();
         }
-        
+
         private void SignInButton_Click(object sender, EventArgs e)
         {
-
             if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text))
             {
                 LoginInfo.UserId = DatabaseHelper.GetUserByName(usernameBox.Text).Id;
@@ -29,6 +28,7 @@ namespace Gariunai_Cloud_Services
                 MessageBox.Show(message, "Error");
             }
         }
+
         private void CreateNewButton_Click(object sender, EventArgs e)
         {
             var createNew = new CreateNewForm();

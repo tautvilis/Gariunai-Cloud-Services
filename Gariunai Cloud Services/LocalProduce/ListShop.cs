@@ -8,6 +8,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
     public partial class ListShop : UserControl
     {
         private Form _parentForm;
+
         public ListShop(Form parentForm)
         {
             _parentForm = parentForm;
@@ -16,11 +17,13 @@ namespace Gariunai_Cloud_Services.LocalProduce
 
         private Image _icon;
         private Shop _business;
-        
+
         public Image Icon
         {
-            get { return _icon; }
-            set { _icon = value;
+            get => _icon;
+            set
+            {
+                _icon = value;
                 ListShopImg.Image = value;
             }
         }
