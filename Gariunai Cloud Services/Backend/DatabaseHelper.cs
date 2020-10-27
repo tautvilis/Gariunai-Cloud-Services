@@ -73,9 +73,10 @@ namespace Gariunai_Cloud_Services
         public static List<Shop> GetBusinesses()
         {
             var db = new DataAccess();
-            return db.Businesses
+            return db.Shops
                 .Include(b => b.Owner)
                 .Include(b => b.Produce)
+                .Include(b => b.Followers)
                 .ToList();
         }
 
@@ -122,7 +123,7 @@ namespace Gariunai_Cloud_Services
         {
             var db = new DataAccess();
 
-            if (db.Businesses.Count(s => s.Name == shop.Name) > 0)
+            if (db.Shops.Count(s => s.Name == shop.Name) > 0)
                 //TODO throw exception or return something more informative
                 return false;
 
@@ -160,10 +161,88 @@ namespace Gariunai_Cloud_Services
             var db = new DataAccess();
             var result =
                 db.Users
+                    .Include(u => u.Follow)
                     .Include(u => u.Businesses)
                     .ThenInclude(b => b.Produce)
                     .FirstOrDefault(u => u.Id == id);
             return result;
+        }
+        
+        
+        /// <summary>
+        /// Get shops info by its id
+        /// </summary>
+        /// <param name="id">shop id</param>
+        /// <returns>Shop object</returns>
+        public static Shop GetShopById(int id)
+        {
+            return new DataAccess().Shops
+                .Include(b => b.Owner)
+                .Include(b => b.Produce)
+                .Include(b => b.Followers)
+                .FirstOrDefault(s => s.Id == id);
+        }
+        
+        
+        /// <summary>
+        /// If user follows given shop - unfollows, otherwise - follows
+        /// </summary>
+        /// <param name="userId">users id</param>
+        /// <param name="shopId">shops id</param>
+        public static void ChangeFollowStatus(int userId, int shopId)
+        {
+            var db = new DataAccess();
+
+            if (db.Users.Count(u => u.Id == userId) == 0)
+            {
+                throw new ArgumentException($"user with id : {userId} does not exist");
+            }
+            if (db.Shops.Count(s => s.Id == shopId) == 0)
+            {
+                throw new ArgumentException($"shop with id : {userId} does not exist");
+            }
+            
+            var currentFollow = db.Follows.FirstOrDefault(f => f.UserId == userId && f.ShopId == shopId);
+
+            if (currentFollow == null)
+            {
+                var newFollow = new Follow()
+                {
+                    UserId = userId,
+                    ShopId = shopId,
+                    CreatedTime = DateTime.Now
+                };
+                db.Follows.Add(newFollow);
+            } 
+            else
+            {
+                db.Follows.Remove(currentFollow);
+            }
+            db.SaveChanges();
+        }
+        
+        
+        /// <summary>
+        /// Checks current follow status
+        /// </summary>
+        /// <param name="userId">users id</param>
+        /// <param name="shopId">shops id</param>
+        /// <returns>true if given user follows given shop </returns>
+        public static bool GetFollowStatus(int userId, int shopId)
+        {
+            var db = new DataAccess();
+
+            if (db.Users.Count(u => u.Id == userId) == 0)
+            {
+                throw new ArgumentException($"user with id : {userId} does not exist");
+            }
+            if (db.Shops.Count(s => s.Id == shopId) == 0)
+            {
+                throw new ArgumentException($"shop with id : {userId} does not exist");
+            }
+            
+            var follow = db.Follows.FirstOrDefault(f => f.UserId == userId && f.ShopId == shopId);
+            return follow != null;
         }
     }
 }
