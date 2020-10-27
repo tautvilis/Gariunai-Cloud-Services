@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using GMap.NET.WindowsForms;
 
@@ -104,6 +105,7 @@ namespace Gariunai_Cloud_Services
             this.followBtn.TabIndex = 1;
             this.followBtn.Text = "FOLLOW";
             this.followBtn.UseVisualStyleBackColor = true;
+            this.followBtn.Click += new EventHandler(this.FollowBtn_Click);
             // 
             // shopDescription
             // 

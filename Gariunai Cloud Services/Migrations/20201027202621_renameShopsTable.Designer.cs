@@ -4,14 +4,16 @@ using Gariunai_Cloud_Services.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gariunai_Cloud_Services.Migrations
 {
     [DbContext(typeof(DataAccess))]
-    partial class DataAccessModelSnapshot : ModelSnapshot
+    [Migration("20201027202621_renameShopsTable")]
+    partial class renameShopsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
