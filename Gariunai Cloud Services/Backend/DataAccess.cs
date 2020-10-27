@@ -10,6 +10,8 @@ namespace Gariunai_Cloud_Services.Entities
         public DbSet<User> Users { get; set; }
         public DbSet<Produce> Produce { get; set; }
         public DbSet<Password> Passwords { get; set; }
+        public DbSet<Follow> Follows { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

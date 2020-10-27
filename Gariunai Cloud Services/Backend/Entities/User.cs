@@ -10,5 +10,6 @@ namespace Gariunai_Cloud_Services.Entities
         public string Description { get; set; }
         public byte[] Image { get; set; }
         public List<Shop> Businesses { get; set; }
+        public List<Follow> Follow { get; set; }
     }
 }

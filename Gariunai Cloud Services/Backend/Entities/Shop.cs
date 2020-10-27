@@ -12,5 +12,7 @@ namespace Gariunai_Cloud_Services.Entities
         public string Location { get; set; }
         public User Owner { get; set; }
         public List<Produce> Produce { get; set; }
+        public List<Follow> Followers { get; set; }
+        public List<Notification> Notifications { get; set; }
     }
 }
