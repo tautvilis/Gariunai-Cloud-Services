@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 using Gariunai_Cloud_Services.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -219,6 +220,19 @@ namespace Gariunai_Cloud_Services
                 db.Follows.Remove(currentFollow);
             }
             db.SaveChanges();
+        }
+
+        public static int GetFollowers(Shop shop)
+        {
+            var db = new DataAccess();
+            if (db.Shops.Count(s => s.Id == shop.Id) == 0)
+            {
+                throw new ArgumentException($"shop with id : {shop.Id} does not exist");
+            }
+            var sh = db.Shops.FirstOrDefault(f => f.Id == shop.Id);
+            var followerCount = sh.Followers.Count();
+            MessageBox.Show(followerCount.ToString());
+            return followerCount;
         }
         
         

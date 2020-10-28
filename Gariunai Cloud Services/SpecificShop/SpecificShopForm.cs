@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
@@ -9,7 +7,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.SpecificShop
 {
     public partial class SpecificShopForm : Form
     {

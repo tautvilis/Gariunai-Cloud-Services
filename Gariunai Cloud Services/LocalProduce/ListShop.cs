@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Entities;
+using Gariunai_Cloud_Services.SpecificShop;
 
 namespace Gariunai_Cloud_Services.LocalProduce
 {
