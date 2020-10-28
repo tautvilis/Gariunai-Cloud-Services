@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Web.UI.MobileControls;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -231,6 +232,27 @@ namespace Gariunai_Cloud_Services
             var followerCount = db.Follows.Count(f => f.ShopId == shop.Id);
             return followerCount;
         }
+
+        public static List<Notification> GetNotifications(User user)
+        {
+            var shops = GetFollowedShops(user);
+            var notifications = new List<Notification>();
+            foreach (var s in shops.Where(s => s.Notifications != null))
+            {
+                notifications.AddRange(s.Notifications);
+            }
+            return notifications;
+        }
+
+        private static List<Shop> GetFollowedShops(User user)
+        {
+            var db = new DataAccess();
+            var followsId = db.Follows.Where(n => n.UserId == user.Id ).Select(f => f.ShopId).ToList();
+            var followedShops = db.Shops.Where(s => followsId.Contains(s.Id)).Include(s => s.Notifications).ToList();
+            return followedShops;
+            
+        }
+        
         
         
         /// <summary>
@@ -255,5 +277,6 @@ namespace Gariunai_Cloud_Services
             var follow = db.Follows.FirstOrDefault(f => f.UserId == userId && f.ShopId == shopId);
             return follow != null;
         }
+        
     }
 }

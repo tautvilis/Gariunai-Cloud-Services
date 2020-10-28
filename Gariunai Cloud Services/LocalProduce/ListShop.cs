@@ -41,7 +41,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
             }
         }
 
-        public void ListShop_Click(object sender, EventArgs e)
+        private void ListShop_Click(object sender, EventArgs e)
         {
             _parentForm.Hide();
             Form specificShopForm = new SpecificShopForm(_parentForm, Shop);
