@@ -44,6 +44,8 @@ namespace Gariunai_Cloud_Services.SpecificShop
             this.PRODUCTS = new System.Windows.Forms.Label();
             this.homeBtn = new System.Windows.Forms.Button();
             this.MainMap = new GMap.NET.WindowsForms.GMapControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -105,7 +107,7 @@ namespace Gariunai_Cloud_Services.SpecificShop
             this.followBtn.TabIndex = 1;
             this.followBtn.Text = "FOLLOW";
             this.followBtn.UseVisualStyleBackColor = true;
-            this.followBtn.Click += new EventHandler(this.FollowBtn_Click);
+            this.followBtn.Click += new System.EventHandler(this.FollowBtn_Click);
             // 
             // shopDescription
             // 
@@ -171,12 +173,32 @@ namespace Gariunai_Cloud_Services.SpecificShop
             this.MainMap.TabIndex = 6;
             this.MainMap.Zoom = 0D;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 357);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Followers: ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(70, 357);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(13, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "0";
+            // 
             // SpecificShopForm
             // 
             this.AccessibleName = "followBtn";
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 514);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.MainMap);
             this.Controls.Add(this.homeBtn);
             this.Controls.Add(this.PRODUCTS);
@@ -211,5 +233,7 @@ namespace Gariunai_Cloud_Services.SpecificShop
         private Label PRODUCTS;
         private Button homeBtn;
         private GMapControl MainMap;
+        private Label label1;
+        private Label label2;
     }
 }
