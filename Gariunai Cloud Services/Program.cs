@@ -37,7 +37,7 @@ namespace Gariunai_Cloud_Services
             {
                 new Shop
                 {
-                    Name = "Braskiu kioskas", Description = "sviezios letuviskos, braskes",
+                    Name = "Braškių kioskas", Description = "sviezios letuviskos, braskes",
                     Produce = new List<Produce> {new Produce {Name = "Brakses"}}
                 },
                 new Shop

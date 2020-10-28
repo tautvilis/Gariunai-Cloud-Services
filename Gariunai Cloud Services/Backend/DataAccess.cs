@@ -6,7 +6,7 @@ namespace Gariunai_Cloud_Services.Entities
 {
     internal sealed class DataAccess : DbContext
     {
-        public DbSet<Shop> Businesses { get; set; }
+        public DbSet<Shop> Shops { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Produce> Produce { get; set; }
         public DbSet<Password> Passwords { get; set; }

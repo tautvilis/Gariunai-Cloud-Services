@@ -142,7 +142,7 @@ namespace Gariunai_Cloud_Services.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Businesses");
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("Gariunai_Cloud_Services.Entities.User", b =>
