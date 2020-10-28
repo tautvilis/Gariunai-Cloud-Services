@@ -27,6 +27,7 @@ namespace Gariunai_Cloud_Services.SpecificShop
             foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
             Setmap();
             _updateView();
+            SetFollowerLabel();
         }
 
         private void SpecificShopForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -62,11 +63,17 @@ namespace Gariunai_Cloud_Services.SpecificShop
             DatabaseHelper.ChangeFollowStatus(LoginInfo.UserId, _shop.Id);
             _shop = DatabaseHelper.GetShopById(_shop.Id);
             _updateView();
+            SetFollowerLabel();
         }
 
         private void _updateView()
         {
             followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id)  ? "UNFOLLOW" : "FOLLOW";
+        }
+
+        private void SetFollowerLabel()
+        {
+            label2.Text = DatabaseHelper.GetFollowers(_shop).ToString();
         }
     }
 }

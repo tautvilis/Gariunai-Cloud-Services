@@ -221,7 +221,6 @@ namespace Gariunai_Cloud_Services
             }
             db.SaveChanges();
         }
-
         public static int GetFollowers(Shop shop)
         {
             var db = new DataAccess();
@@ -229,9 +228,7 @@ namespace Gariunai_Cloud_Services
             {
                 throw new ArgumentException($"shop with id : {shop.Id} does not exist");
             }
-            var sh = db.Shops.FirstOrDefault(f => f.Id == shop.Id);
-            var followerCount = sh.Followers.Count();
-            MessageBox.Show(followerCount.ToString());
+            var followerCount = db.Follows.Count(f => f.ShopId == shop.Id);
             return followerCount;
         }
         
