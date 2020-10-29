@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
@@ -8,6 +11,8 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Gariunai_Cloud_Services
 {
@@ -18,6 +23,8 @@ namespace Gariunai_Cloud_Services
 
         private readonly GMapOverlay _top = new GMapOverlay();
         private GMapMarker _currentMarker;
+        private long _latCO;
+        private long _longCO;
 
         public SpecificShopForm(Form previousForm, Shop shop)
         {
@@ -45,8 +52,9 @@ namespace Gariunai_Cloud_Services
 
         private void Setmap()
         {
+            
             MainMap.MapProvider = GMapProviders.LithuaniaMap;
-            MainMap.Position = new PointLatLng(54.685740, 25.286622);
+            MainMap.Position = new PointLatLng(_latCO, _longCO);
             MainMap.MinZoom = 0;
             MainMap.MaxZoom = 20;
             MainMap.Zoom = 11;
@@ -70,5 +78,7 @@ namespace Gariunai_Cloud_Services
         {
             followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id)  ? "UNFOLLOW" : "FOLLOW";
         }
+
+
     }
 }

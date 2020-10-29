@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Account;
+using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.LocalProduce;
 
 namespace Gariunai_Cloud_Services
@@ -20,7 +21,8 @@ namespace Gariunai_Cloud_Services
             {
                 var newShop = new ListShop(this)
                 {
-                    Shop = shop
+                    Shop = shop,
+                    Distance = Coordinates.GetDistance(shop.Location)
                 };
                 flowLayoutPanel1.Controls.Add(newShop);
             }

@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
 
 namespace Gariunai_Cloud_Services
 {
     internal static class Program
     {
+        
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -14,11 +19,13 @@ namespace Gariunai_Cloud_Services
         [STAThread]
         private static void Main()
         {
+            
             seed();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LogInForm());
+            
         }
 
         private static void seed()
@@ -79,5 +86,6 @@ namespace Gariunai_Cloud_Services
             DatabaseHelper.RegisterShop(shops[2], "Owner3");
             DatabaseHelper.RegisterShop(shops[3], "Owner4");
         }
+
     }
 }

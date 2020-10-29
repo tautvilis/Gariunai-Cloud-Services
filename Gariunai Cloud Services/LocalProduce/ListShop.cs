@@ -17,6 +17,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
 
         private Image _icon;
         private Shop _business;
+        private string _distance;
 
         public Image Icon
         {
@@ -39,6 +40,17 @@ namespace Gariunai_Cloud_Services.LocalProduce
                 ListShopTitle.Text = value.Name;
             }
         }
+
+        public string Distance
+        {
+            get => _distance;
+            set
+            {
+                _distance = value;
+                ListShopDistance.Text = value;
+            }
+        }
+        
 
         public void ListShop_Click(object sender, EventArgs e)
         {

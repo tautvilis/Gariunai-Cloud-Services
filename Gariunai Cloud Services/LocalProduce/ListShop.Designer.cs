@@ -11,7 +11,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
         private IContainer components = null;
 
         /// <summary> 
-        /// Clean up any resources being used.
+        /// Clean up any ssssresources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -36,6 +36,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
             this.ListShopDesc = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ListShopOwner = new System.Windows.Forms.Label();
+            this.ListShopDistance = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ListShopImg)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +71,15 @@ namespace Gariunai_Cloud_Services.LocalProduce
             this.ListShopDesc.Text = "Short Description of the shop";
             this.ListShopDesc.Click += new System.EventHandler(this.ListShop_Click);
             // 
+            // ListShopDistance
+            // 
+            this.ListShopDesc.Location = new System.Drawing.Point(147, 80);
+            this.ListShopDesc.Name = "ListShopDistance";
+            this.ListShopDesc.Size = new System.Drawing.Size(39, 21);
+            this.ListShopDesc.TabIndex = 3;
+            this.ListShopDesc.Text = "Distance";
+            this.ListShopDesc.Click += new System.EventHandler(this.ListShop_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -97,6 +107,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
             this.Controls.Add(this.ListShopTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ListShopDesc);
+            this.Controls.Add(this.ListShopDistance);
             this.Name = "ListShop";
             this.Size = new System.Drawing.Size(573, 116);
             this.Click += new System.EventHandler(this.ListShop_Click);
@@ -114,5 +125,6 @@ namespace Gariunai_Cloud_Services.LocalProduce
         private Label ListShopDesc;
         private Panel panel1;
         private Label ListShopOwner;
+        private Label ListShopDistance;
     }
 }
