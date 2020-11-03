@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
@@ -9,7 +7,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.SpecificShop
 {
     public partial class SpecificShopForm : Form
     {
@@ -29,6 +27,7 @@ namespace Gariunai_Cloud_Services
             foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
             Setmap();
             _updateView();
+            SetFollowerLabel();
         }
 
         private void SpecificShopForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -64,11 +63,17 @@ namespace Gariunai_Cloud_Services
             DatabaseHelper.ChangeFollowStatus(LoginInfo.UserId, _shop.Id);
             _shop = DatabaseHelper.GetShopById(_shop.Id);
             _updateView();
+            SetFollowerLabel();
         }
 
         private void _updateView()
         {
             followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id)  ? "UNFOLLOW" : "FOLLOW";
+        }
+
+        private void SetFollowerLabel()
+        {
+            label2.Text = DatabaseHelper.GetFollowers(_shop).ToString();
         }
     }
 }

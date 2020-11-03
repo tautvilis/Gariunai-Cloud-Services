@@ -38,7 +38,8 @@ namespace Gariunai_Cloud_Services
                 new Shop
                 {
                     Name = "Braškių kioskas", Description = "sviezios letuviskos, braskes",
-                    Produce = new List<Produce> {new Produce {Name = "Brakses"}}
+                    Produce = new List<Produce> {new Produce {Name = "Braskes"}},
+                    Notifications = new List<Notification> {new Notification{Id = 1, Description = "fake description", ShopId = 1, Title = "Engaging Title"}}
                 },
                 new Shop
                 {
@@ -49,7 +50,8 @@ namespace Gariunai_Cloud_Services
                             new Produce {Name = "Melynes"},
                             new Produce {Name = "Bruknes"},
                             new Produce {Name = "Gervuoges"}
-                        }
+                        },
+                    Notifications = new List<Notification> {new Notification{Id = 2, Description = "fake description", ShopId = 2, Title = "Engaging Title"}}
                 },
                 new Shop
                 {

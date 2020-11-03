@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Entities;
+using Gariunai_Cloud_Services.SpecificShop;
 
 namespace Gariunai_Cloud_Services.LocalProduce
 {
@@ -40,7 +41,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
             }
         }
 
-        public void ListShop_Click(object sender, EventArgs e)
+        private void ListShop_Click(object sender, EventArgs e)
         {
             _parentForm.Hide();
             Form specificShopForm = new SpecificShopForm(_parentForm, Shop);
