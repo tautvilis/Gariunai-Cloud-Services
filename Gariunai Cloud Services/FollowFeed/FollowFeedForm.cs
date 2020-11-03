@@ -24,14 +24,14 @@ namespace Gariunai_Cloud_Services
 
         private void PopulateFeed()
         {
-            flowLayoutPanel1.Controls.Clear();
+            FlowLayoutPanel.Controls.Clear();
             foreach (var notification in DatabaseHelper.GetNotifications(currentuser))
             {
                 var newPost = new ListFollow()
                 {
                     Notification = notification
                 };
-                flowLayoutPanel1.Controls.Add(newPost);
+                FlowLayoutPanel.Controls.Add(newPost);
             }
         }
         

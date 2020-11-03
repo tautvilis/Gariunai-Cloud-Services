@@ -31,27 +31,41 @@ namespace Gariunai_Cloud_Services
         private void InitializeComponent()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.FlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Controls.Add(this.FlowLayoutPanel);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(603, 294);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // FlowLayoutPanel
+            // 
+            this.FlowLayoutPanel.AutoScroll = true;
+            this.FlowLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.FlowLayoutPanel.Name = "FlowLayoutPanel";
+            this.FlowLayoutPanel.Size = new System.Drawing.Size(600, 289);
+            this.FlowLayoutPanel.TabIndex = 0;
+            // 
             // FollowFeedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 292);
+            this.ClientSize = new System.Drawing.Size(600, 304);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FollowFeedForm";
             this.Text = "Support Your Locals";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FollowFeedForm_FormClosing);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.FlowLayoutPanel FlowLayoutPanel;
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 

@@ -60,6 +60,9 @@ namespace Gariunai_Cloud_Services.Migrations
                     b.Property<int>("ShopId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 

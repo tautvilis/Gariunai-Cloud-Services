@@ -17,7 +17,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="ListFollow.cs">
+    <Compile Update="FollowFeed\ListFollow.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
