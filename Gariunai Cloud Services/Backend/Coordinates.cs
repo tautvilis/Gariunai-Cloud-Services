@@ -5,93 +5,78 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
-using System.Net.Sockets;
+using System.Device.Location;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
+using Gariunai_Cloud_Services.Entities;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GoogleMaps.LocationServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Gariunai_Cloud_Services.Backend
 {
+
     public class Coordinates
     {
 
-        class shopCoords
+        public class Coords
         {
-            public double longitude;
-            public double latitude;
+            public double Longitude;
+            public double Latitude;
         }
 
-        class userCoords
-        {
-            public double longitude;
-            public double latitude;
-        }
 
-        internal static async void GetCoordinatesAsync(string address)
+        private static Coords GetCoords(string address)
         {
-
-            var reg = new Regex("[., /]");
-            address = reg.Replace(address, "+");
+            var mod = "&key=b2fed39c20974a4ca2ef3dbd25cabfe0&pretty=1&limit=1";
+            var addressEncoded = HttpUtility.UrlEncode(address);
             Debug.WriteLine(address);
 
-            try
+            using var client = new WebClient();
+            var httpResult = client.DownloadString("https://api.opencagedata.com/geocode/v1/json?q=" + 
+                                                       addressEncoded + mod);
+            var obj = JObject.Parse(httpResult);
+
+            var coords = new Coords()
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("user-agent",
-                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                var httpResult = await httpClient.GetAsync(
-                    "https://nominatim.openstreetmap.org/search?q=" + address +"&format=json&addressdetails=1");
-                try
-                {
-                    var result = await httpResult.Content.ReadAsStringAsync();
-                    var coordinates = (JArray)JsonConvert.DeserializeObject(result);
-                    var latString = ((JValue)coordinates[0]["lat"]).Value as string;
-                    var longString = ((JValue)coordinates[0]["lon"]).Value as string;
+                Latitude = (double)obj.SelectToken("results[0].geometry.lat"),
+                Longitude = (double)obj.SelectToken("results[0].geometry.lng")
+            };
 
-                    Debug.WriteLine("Coordinates are: {0} {1}", latString, longString);
+            return coords;
 
-                    var coords = new shopCoords {latitude = Convert.ToDouble(latString), longitude = Convert.ToDouble(longString)};
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
-            }
-            catch (HttpRequestException e)
-            {
-                Debug.WriteLine("exception \n" + e.Message);
-            }
         }
 
 
-        private static void GetIpLocation()
+        private static Coords GetIpLocation()
         {
-            var client = new WebClient();
+            using var client = new WebClient();
             client.Headers.Add("user-agent", "Mozilla / 5.0(Windows NT 10.0; WOW64) "
                                              + "AppleWebKit / 537.36(KHTML, like Gecko)" + "Chrome / 85.0.4183.83 Safari / 537.36");
             var getExternalIp = client.DownloadString("http://checkip.dyndns.org/");
             var removeChars = new Regex("[^0-9.]");
             var externalIp = removeChars.Replace(getExternalIp, "");
-            
+
+
             var url = "http://api.ipstack.com/" + externalIp + "?access_key=f16f539429f878f06def52e0e36a81d9";
-            var request = System.Net.WebRequest.Create(url);
+            using var request = new WebClient();
+            var json = request.DownloadString(url);
 
-            using var wrs = request.GetResponse();
-            using var stream = wrs.GetResponseStream();
-            using var reader = new StreamReader(stream);
-
-            var json = reader.ReadToEnd();
             var obj = JObject.Parse(json);
 
-            var coords = new userCoords
+            var coords = new Coords()
             {
-                latitude = (double) obj["latitude"], longitude = (double) obj["longitude"]
+                Latitude = (double)obj["latitude"],
+                Longitude = (double)obj["longitude"]
             };
 
+            return coords;
         }
 
         private static double GetCoordsDistance(double longitude, double latitude, double otherLongitude, double otherLatitude)
@@ -109,14 +94,36 @@ namespace Gariunai_Cloud_Services.Backend
             return t;
         }
 
-        public static string GetDistance(string address)
+        public static double[] GetDistance(string address)
         {
-            GetCoordinatesAsync(address);
-            GetIpLocation();
-            var shop = new shopCoords();
-            var user = new userCoords();
+            Debug.WriteLine(address);
+            if (address != null)
+            {
+                var shop = GetCoords(address);
+                var user = GetIpLocation();
+                var sCoords = new GeoCoordinate(shop.Latitude, shop.Longitude);
+                var uCoords = new GeoCoordinate(user.Latitude, user.Longitude);
 
-            return Convert.ToString(GetCoordsDistance(user.longitude, user.latitude, shop.longitude, shop.latitude)) ;
+                var coords = new double[4];
+                coords[0] = shop.Latitude;
+                coords[1] = shop.Longitude;
+                coords[2] = user.Latitude;
+                coords[3] = user.Longitude;
+
+                var distance = sCoords.GetDistanceTo(uCoords)/1000;
+                Debug.WriteLine(coords);
+
+                //return String.Format("{0:0.00} km",distance);
+                return coords;
+
+            }
+            else
+            {
+                return new double[0];
+            }
+
+            
+
         }
     }
 }

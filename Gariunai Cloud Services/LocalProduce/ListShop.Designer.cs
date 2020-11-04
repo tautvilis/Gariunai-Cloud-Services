@@ -44,7 +44,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
             // ListShopImg
             // 
             this.ListShopImg.BackColor = System.Drawing.Color.Black;
-            this.ListShopImg.Location = new System.Drawing.Point(19, 12);
+            this.ListShopImg.Location = new System.Drawing.Point(20, 16);
             this.ListShopImg.Name = "ListShopImg";
             this.ListShopImg.Size = new System.Drawing.Size(89, 90);
             this.ListShopImg.TabIndex = 0;
@@ -64,17 +64,8 @@ namespace Gariunai_Cloud_Services.LocalProduce
             // 
             // ListShopDesc
             // 
-            this.ListShopDesc.Location = new System.Drawing.Point(147, 37);
-            this.ListShopDesc.Name = "ListShopDesc";
-            this.ListShopDesc.Size = new System.Drawing.Size(368, 54);
-            this.ListShopDesc.TabIndex = 3;
-            this.ListShopDesc.Text = "Short Description of the shop";
-            this.ListShopDesc.Click += new System.EventHandler(this.ListShop_Click);
-            // 
-            // ListShopDistance
-            // 
             this.ListShopDesc.Location = new System.Drawing.Point(147, 80);
-            this.ListShopDesc.Name = "ListShopDistance";
+            this.ListShopDesc.Name = "ListShopDesc";
             this.ListShopDesc.Size = new System.Drawing.Size(39, 21);
             this.ListShopDesc.TabIndex = 3;
             this.ListShopDesc.Text = "Distance";
@@ -98,6 +89,14 @@ namespace Gariunai_Cloud_Services.LocalProduce
             this.ListShopOwner.Size = new System.Drawing.Size(42, 15);
             this.ListShopOwner.TabIndex = 5;
             this.ListShopOwner.Text = "Owner";
+            // 
+            // ListShopDistance
+            // 
+            this.ListShopDistance.Location = new System.Drawing.Point(445, 95);
+            this.ListShopDistance.Name = "ListShopDistance";
+            this.ListShopDistance.Size = new System.Drawing.Size(103, 15);
+            this.ListShopDistance.TabIndex = 6;
+            this.ListShopDistance.Text = "Distance";
             // 
             // ListShop
             // 

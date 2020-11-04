@@ -1,36 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
+using Gariunai_Cloud_Services.LocalProduce;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Gariunai_Cloud_Services
 {
     public partial class SpecificShopForm : Form
     {
-        private Form _previousForm;
-        private Shop _shop;
-
+        private readonly Form _previousForm;
         private readonly GMapOverlay _top = new GMapOverlay();
         private GMapMarker _currentMarker;
-        private long _latCO;
-        private long _longCO;
+        private double _latCO;
+        private double _longCO;
+        private Shop _shop;
+        
 
-        public SpecificShopForm(Form previousForm, Shop shop)
+        public SpecificShopForm(Form previousForm, Shop shop, double lng, double lat)
         {
             InitializeComponent();
             _previousForm = previousForm;
             _shop = shop;
+            _latCO = lat;
+            _longCO = lng;
             shopDescription.Text = shop.Description;
             //pictureBox1.Image = shop.Image;
             foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
@@ -52,7 +48,6 @@ namespace Gariunai_Cloud_Services
 
         private void Setmap()
         {
-            
             MainMap.MapProvider = GMapProviders.LithuaniaMap;
             MainMap.Position = new PointLatLng(_latCO, _longCO);
             MainMap.MinZoom = 0;
@@ -76,9 +71,7 @@ namespace Gariunai_Cloud_Services
 
         private void _updateView()
         {
-            followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id)  ? "UNFOLLOW" : "FOLLOW";
+            followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id) ? "UNFOLLOW" : "FOLLOW";
         }
-
-
     }
 }

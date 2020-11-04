@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Device.Location;
+using System.Linq;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Account;
 using Gariunai_Cloud_Services.Backend;
@@ -17,16 +19,16 @@ namespace Gariunai_Cloud_Services
         private void PopulateShops()
         {
             flowLayoutPanel1.Controls.Clear();
-            foreach (var shop in DatabaseHelper.GetBusinesses())
+            foreach (var newShop in DatabaseHelper.GetBusinesses().Select(shop => new ListShop(this)
             {
-                var newShop = new ListShop(this)
-                {
-                    Shop = shop,
-                    Distance = Coordinates.GetDistance(shop.Location)
-                };
+                Shop = shop,
+                Distance = ListShop.CalculateDistance(shop.Location)
+            }))
+            {
                 flowLayoutPanel1.Controls.Add(newShop);
             }
         }
+
 
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -48,11 +50,6 @@ namespace Gariunai_Cloud_Services
         }
 
         private void LocalProduceForm_Load(object sender, EventArgs e)
-        {
-            PopulateShops();
-        }
-
-        private void LocalProduceForm_Activated(object sender, EventArgs e)
         {
             PopulateShops();
         }
