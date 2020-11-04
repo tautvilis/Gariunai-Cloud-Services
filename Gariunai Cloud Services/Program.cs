@@ -14,14 +14,14 @@ namespace Gariunai_Cloud_Services
         [STAThread]
         private static void Main()
         {
-            seed();
+            Seed();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LogInForm());
         }
 
-        private static void seed()
+        private static void Seed()
         {
             User[] users =
             {
