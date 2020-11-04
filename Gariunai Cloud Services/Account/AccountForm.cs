@@ -24,8 +24,10 @@ namespace Gariunai_Cloud_Services.Account
             if (currentUser.Image != null)
                 ovalPictureBox1.Image = ByteArrayToImage(currentUser.Image);
             else
+            {
                 ovalPictureBox1.ImageLocation =
                     Path.Combine(Application.StartupPath, "Resources\\empty-profile-picture-png-2.png");
+            }
         }
 
 
