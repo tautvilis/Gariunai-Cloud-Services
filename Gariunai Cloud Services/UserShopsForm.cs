@@ -156,7 +156,7 @@ namespace Gariunai_Cloud_Services
             {
                 Title = TextBoxNotificationTitle.Text,
                 Description = TextBoxNotificationDescription.Text,
-                TimeCreated = DateTime.Now
+                
             };
             
             var db = new DataAccess();
