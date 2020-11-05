@@ -18,7 +18,9 @@ namespace Gariunai_Cloud_Services.LogIn
             ConfigurePasswordBox(item1, item2);
         }
 
-        private void ConfigurePasswordBox(bool state = false, string message = "Error checking if password is viable. Password has to be longer than 5 characters and cannot contain spaces")
+        private void ConfigurePasswordBox(bool state = false,
+            string message =
+                "Error checking if password is viable. Password has to be longer than 5 characters and cannot contain spaces")
         {
             label1.Visible = true;
             if (state)
@@ -26,7 +28,7 @@ namespace Gariunai_Cloud_Services.LogIn
                 label1.ForeColor = Color.Green;
                 label1.Text = message;
             }
-            else if(!state)
+            else
             {
                 label1.ForeColor = Color.Red;
                 label1.Text = message;
