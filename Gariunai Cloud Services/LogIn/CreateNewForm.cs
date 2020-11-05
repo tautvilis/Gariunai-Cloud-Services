@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
 
 namespace Gariunai_Cloud_Services.LogIn
@@ -14,28 +15,22 @@ namespace Gariunai_Cloud_Services.LogIn
 
         private void PasswordBox_TextChanged(object sender, EventArgs e)
         {
-            var (item1, item2) = IsPasswordOk(passwordBox.Text);
-            ConfigurePasswordBox(item1, item2);
-        }
-
-        private void ConfigurePasswordBox(bool state = false,
-            string message =
-                "Error checking if password is viable. Password has to be longer than 5 characters and cannot contain spaces")
-        {
             label1.Visible = true;
-            if (state)
+            var state = IsPasswordOk(passwordBox.Text);
+            if (state.Item1)
             {
                 label1.ForeColor = Color.Green;
-                label1.Text = message;
+                label1.Text = state.Item2;
             }
-            else
+
+            if (!state.Item1)
             {
                 label1.ForeColor = Color.Red;
-                label1.Text = message;
+                label1.Text = state.Item2;
             }
         }
-        
-        private static (bool, string) IsPasswordOk(string password)
+
+        private (bool, string) IsPasswordOk(string password)
         {
             var message = "Password strength is ok";
             var ispassok = true;

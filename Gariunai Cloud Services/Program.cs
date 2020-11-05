@@ -19,7 +19,7 @@ namespace Gariunai_Cloud_Services
         [STAThread]
         private static void Main()
         { 
-            seed();
+            Seed();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

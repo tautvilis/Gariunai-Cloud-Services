@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Web.UI.MobileControls;
-using System.Windows.Forms;
 using Gariunai_Cloud_Services.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.Backend
 {
-    internal class DatabaseHelper
+    internal static class DatabaseHelper
     {
         private static int saltsize = 20;
 
@@ -29,8 +27,10 @@ namespace Gariunai_Cloud_Services
             var plainTextWithSaltBytes =
                 new byte[plainText.Length + salt.Length];
 
-            for (var i = 0; i < plainText.Length; i++) plainTextWithSaltBytes[i] = (byte) plainText[i];
-            for (var i = 0; i < salt.Length; i++) plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+            for (var i = 0; i < plainText.Length; i++) 
+                plainTextWithSaltBytes[i] = (byte) plainText[i];
+            for (var i = 0; i < salt.Length; i++) 
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
 
             return algorithm.ComputeHash(plainTextWithSaltBytes);
         }
@@ -59,8 +59,7 @@ namespace Gariunai_Cloud_Services
             var db = new DataAccess();
             var user = db.Users.FirstOrDefault(u => u.Name == username);
 
-            if (user == null) 
-                return false;
+            if (user == null) return false;
 
             var passwordFromDb = db.Passwords.FirstOrDefault(p => p.UserId == user.Id);
             Debug.WriteLine(user.Id);
@@ -73,7 +72,7 @@ namespace Gariunai_Cloud_Services
         /// Get all shops in database
         /// </summary>
         /// <returns>List of Shop objects</returns>
-        public static List<Shop> GetBusinesses()
+        public static IEnumerable<Shop> GetBusinesses()
         {
             var db = new DataAccess();
             return db.Shops

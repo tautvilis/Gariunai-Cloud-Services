@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.FollowFeed
 {
     public partial class ListFollow : UserControl
     {

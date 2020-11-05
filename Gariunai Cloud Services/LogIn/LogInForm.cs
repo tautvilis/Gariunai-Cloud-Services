@@ -19,13 +19,13 @@ namespace Gariunai_Cloud_Services
             if (DatabaseHelper.CheckIfUserExists(usernameBox.Text, passwordBox.Text))
             {
                 LoginInfo.UserId = DatabaseHelper.GetUserByName(usernameBox.Text).Id;
-                Form main = new LocalProduceForm();
+                var main = new LocalProduceForm();
                 main.Show();
                 Hide();
             }
             else
             {
-                const string message = "User not found";
+                var message = "User not found";
                 MessageBox.Show(message, "Error");
             }
         }
