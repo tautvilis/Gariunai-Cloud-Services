@@ -15,8 +15,8 @@ namespace Gariunai_Cloud_Services
         private readonly Form _previousForm;
         private readonly GMapOverlay _top = new GMapOverlay();
         private GMapMarker _currentMarker;
-        private double _latCO;
-        private double _longCO;
+        private double _latitude;
+        private double _longitude;
         private Shop _shop;
         
 
@@ -25,8 +25,8 @@ namespace Gariunai_Cloud_Services
             InitializeComponent();
             _previousForm = previousForm;
             _shop = shop;
-            _latCO = lat;
-            _longCO = lng;
+            _latitude = lat;
+            _longitude = lng;
             shopDescription.Text = shop.Description;
             //pictureBox1.Image = shop.Image;
             foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
@@ -49,7 +49,7 @@ namespace Gariunai_Cloud_Services
         private void Setmap()
         {
             MainMap.MapProvider = GMapProviders.LithuaniaMap;
-            MainMap.Position = new PointLatLng(_latCO, _longCO);
+            MainMap.Position = new PointLatLng(_latitude, _longitude);
             MainMap.MinZoom = 0;
             MainMap.MaxZoom = 20;
             MainMap.Zoom = 11;

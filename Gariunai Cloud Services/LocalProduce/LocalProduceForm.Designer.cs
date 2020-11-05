@@ -107,7 +107,6 @@ namespace Gariunai_Cloud_Services
             this.Controls.Add(this.localProduceButton);
             this.Name = "LocalProduceForm";
             this.Text = "Support Your Locals";
-            this.Activated += new System.EventHandler(this.LocalProduceForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LocalProduceForm_FormClosed);
             this.Load += new System.EventHandler(this.LocalProduceForm_Load);
             this.ResumeLayout(false);

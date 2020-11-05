@@ -58,36 +58,38 @@ namespace Gariunai_Cloud_Services.LocalProduce
             }
         }
 
-        private class Coords
+        struct Coords
         {
-            public double Longitude;
-            public double Latitude;
+            private Coords(double lng, double lat)
+            {
+                longitude = lng;
+                latitude = lat;
+            }
+
+            public double longitude { get; set; }
+            public double latitude { get; set; }
         }
 
 
         public static string CalculateDistance(string address)
         {
             var coordinates = Coordinates.GetDistance(address);
+            var shopCoords = new Coords();
+            var userCoords = new Coords();
             if (coordinates != null && coordinates.Length != 0)
             {
-                var shopCoords = new Coords()
-                {
-                    Latitude = coordinates[0],
-                    Longitude = coordinates[1]
-                };
-                var user = new Coords()
-                {
-                    Latitude = coordinates[2],
-                    Longitude = coordinates[3]
-                };
 
-                _latitude = shopCoords.Latitude;
-                _longitude = shopCoords.Longitude;
+                shopCoords.latitude = coordinates[0];
+                shopCoords.longitude = coordinates[1];
 
-                var sCoords = new GeoCoordinate(shopCoords.Latitude, shopCoords.Longitude);
-                var uCoords = new GeoCoordinate(user.Latitude, user.Longitude);
+                userCoords.latitude = coordinates[2];
+                userCoords.longitude = coordinates[3];
+                _latitude = shopCoords.latitude;
+                _longitude = shopCoords.longitude;
+
+                var sCoords = new GeoCoordinate(shopCoords.latitude, shopCoords.longitude);
+                var uCoords = new GeoCoordinate(userCoords.latitude, userCoords.longitude);
                 var distance = sCoords.GetDistanceTo(uCoords) / 1000;
-
                 return String.Format("{0:0.00} km", distance);
             }
             else
@@ -98,7 +100,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
         }
 
 
-        public void ListShop_Click(object sender, EventArgs e)
+        private void ListShop_Click(object sender, EventArgs e)
         {
             _parentForm.Hide();
             Form specificShopForm = new SpecificShopForm(_parentForm, Shop, _longitude, _latitude);

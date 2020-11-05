@@ -59,9 +59,9 @@ namespace Gariunai_Cloud_Services.Backend
             using var client = new WebClient();
             client.Headers.Add("user-agent", "Mozilla / 5.0(Windows NT 10.0; WOW64) "
                                              + "AppleWebKit / 537.36(KHTML, like Gecko)" + "Chrome / 85.0.4183.83 Safari / 537.36");
-            var getExternalIp = client.DownloadString("http://checkip.dyndns.org/");
+            var responseString = client.DownloadString("http://checkip.dyndns.org/");
             var removeChars = new Regex("[^0-9.]");
-            var externalIp = removeChars.Replace(getExternalIp, "");
+            var externalIp = removeChars.Replace(responseString, "");
 
 
             var url = "http://api.ipstack.com/" + externalIp + "?access_key=f16f539429f878f06def52e0e36a81d9";
@@ -110,10 +110,6 @@ namespace Gariunai_Cloud_Services.Backend
                 coords[2] = user.Latitude;
                 coords[3] = user.Longitude;
 
-                var distance = sCoords.GetDistanceTo(uCoords)/1000;
-                Debug.WriteLine(coords);
-
-                //return String.Format("{0:0.00} km",distance);
                 return coords;
 
             }
