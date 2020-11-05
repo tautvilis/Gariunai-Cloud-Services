@@ -18,9 +18,9 @@ namespace Gariunai_Cloud_Services
         /// 
         [STAThread]
         private static void Main()
-        {
-            
+        { 
             seed();
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -28,7 +28,7 @@ namespace Gariunai_Cloud_Services
             
         }
 
-        private static void seed()
+        private static void Seed()
         {
             User[] users =
             {
@@ -45,7 +45,7 @@ namespace Gariunai_Cloud_Services
                 new Shop
                 {
                     Name = "Braškių kioskas", Description = "sviezios letuviskos, braskes",
-                    Produce = new List<Produce> {new Produce {Name = "Brakses"}}
+                    Produce = new List<Produce> {new Produce {Name = "Braskes"}}
                 },
                 new Shop
                 {
@@ -56,7 +56,7 @@ namespace Gariunai_Cloud_Services
                             new Produce {Name = "Melynes"},
                             new Produce {Name = "Bruknes"},
                             new Produce {Name = "Gervuoges"}
-                        }
+                        },
                 },
                 new Shop
                 {
@@ -80,6 +80,7 @@ namespace Gariunai_Cloud_Services
                     }
                 }
             };
+            
             foreach (var user in users) DatabaseHelper.RegisterUser(user, user.Name);
             DatabaseHelper.RegisterShop(shops[0], "Owner1");
             DatabaseHelper.RegisterShop(shops[1], "Owner2");

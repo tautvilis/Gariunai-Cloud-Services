@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
+using Gariunai_Cloud_Services.LocalProduce;
 using Gariunai_Cloud_Services.LogIn;
 
 namespace Gariunai_Cloud_Services
@@ -24,7 +25,7 @@ namespace Gariunai_Cloud_Services
             }
             else
             {
-                var message = "User not found";
+                const string message = "User not found";
                 MessageBox.Show(message, "Error");
             }
         }

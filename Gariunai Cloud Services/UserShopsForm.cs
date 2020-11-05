@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gariunai_Cloud_Services
 {
@@ -140,6 +141,31 @@ namespace Gariunai_Cloud_Services
                 listViewProducts.Items.Add(newProduct);
                 textBoxProduct.Clear();
             }
+        }
+
+        private void SendNotification_ButtonClick(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(TextBoxNotificationDescription.Text)
+                || string.IsNullOrEmpty(TextBoxNotificationTitle.Text))
+            {
+                return;
+            }
+            
+            var notification = new Notification()
+            {
+                Title = TextBoxNotificationTitle.Text,
+                Description = TextBoxNotificationDescription.Text,
+                
+            };
+            
+            var db = new DataAccess();
+            var shop = db.Shops
+                .Include(s => s.Notifications)
+                .FirstOrDefault(s => s.Name == _selectedShop);
+            db.Attach(shop);
+            shop.Notifications.Add(notification);
+            db.SaveChanges();
         }
     }
 }

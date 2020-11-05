@@ -6,7 +6,7 @@ using Gariunai_Cloud_Services.Account;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.LocalProduce;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.LocalProduce
 {
     public partial class LocalProduceForm : Form
     {

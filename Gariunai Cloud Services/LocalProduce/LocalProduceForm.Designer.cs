@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.LocalProduce
 {
     partial class LocalProduceForm
     {

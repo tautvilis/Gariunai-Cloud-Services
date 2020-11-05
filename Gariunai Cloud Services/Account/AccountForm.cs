@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
-
+using CustomExtensions;
 namespace Gariunai_Cloud_Services.Account
 {
     public partial class AccountForm : Form
@@ -24,8 +24,10 @@ namespace Gariunai_Cloud_Services.Account
             if (currentUser.Image != null)
                 ovalPictureBox1.Image = ByteArrayToImage(currentUser.Image);
             else
+            {
                 ovalPictureBox1.ImageLocation =
                     Path.Combine(Application.StartupPath, "Resources\\empty-profile-picture-png-2.png");
+            }
         }
 
 
@@ -39,10 +41,9 @@ namespace Gariunai_Cloud_Services.Account
         {
             var openFileDialog1 = new OpenFileDialog
                 {Filter = @"Image files (*.png, *.jpeg, *.jpg)|*.png;*.jpeg;*.jpg"};
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
-                var selectedFileName = openFileDialog1.FileName;
-                ovalPictureBox1.ImageLocation = selectedFileName;
+                ovalPictureBox1.ImageLocation = openFileDialog1.FileName;
                 _pictureChanged = true;
             }
         }
@@ -62,7 +63,7 @@ namespace Gariunai_Cloud_Services.Account
                 currentUser.Name = displayName.Text;
             if (_pictureChanged)
                 currentUser.Image = ImageToByteArray(image);
-            currentUser.Description = descriptionBox.Text;
+            currentUser.Description = descriptionBox.Text.NormalizeWhiteSpace();
             var dataAccess = new DataAccess();
             dataAccess.Update(currentUser);
             dataAccess.SaveChanges();
@@ -75,27 +76,23 @@ namespace Gariunai_Cloud_Services.Account
             userShopsForm.Show();
         }
 
-        public byte[] ImageToByteArray(Image imageIn)
+        private byte[] ImageToByteArray(Image imageIn)
         {
-            using (var ms = new MemoryStream())
-            {
-                imageIn.Save(ms, ImageFormat.Gif);
+            using var ms = new MemoryStream();
+            imageIn.Save(ms, ImageFormat.Gif);
 
-                return ms.ToArray();
-            }
+            return ms.ToArray();
         }
 
-        public Image ByteArrayToImage(byte[] byteArrayIn)
+        private Image ByteArrayToImage(byte[] byteArrayIn)
         {
-            if (byteArrayIn != null)
-                using (var ms = new MemoryStream(byteArrayIn))
-                {
-                    var returnImage = Image.FromStream(ms);
+            if (byteArrayIn == null) 
+                return null;
+            using var ms = new MemoryStream(byteArrayIn);
+            var returnImage = Image.FromStream(ms);
 
-                    return returnImage;
-                }
+            return returnImage;
 
-            return null;
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Web.UI.MobileControls;
+using System.Windows.Forms;
 using Gariunai_Cloud_Services.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,7 +59,8 @@ namespace Gariunai_Cloud_Services
             var db = new DataAccess();
             var user = db.Users.FirstOrDefault(u => u.Name == username);
 
-            if (user == null) return false;
+            if (user == null) 
+                return false;
 
             var passwordFromDb = db.Passwords.FirstOrDefault(p => p.UserId == user.Id);
             Debug.WriteLine(user.Id);
@@ -102,14 +105,13 @@ namespace Gariunai_Cloud_Services
             var salt = CreateSalt();
             var hash = GenerateSaltedHash(password, salt);
 
-            db.Add(user);
-            db.SaveChanges();
+            AddEntityToDb(user);
 
             var newUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
             var userPassword = new Password {Hash = hash, UserId = newUser.Id, Salt = salt};
 
-            db.Add(userPassword);
-            db.SaveChanges();
+            AddEntityToDb(userPassword);
+            
             return true;
         }
 
@@ -220,8 +222,37 @@ namespace Gariunai_Cloud_Services
             }
             db.SaveChanges();
         }
-        
-        
+        public static int GetFollowers(Shop shop)
+        {
+            var db = new DataAccess();
+            if (db.Shops.Count(s => s.Id == shop.Id) == 0)
+            {
+                throw new ArgumentException($"shop with id : {shop.Id} does not exist");
+            }
+            var followerCount = db.Follows.Count(f => f.ShopId == shop.Id);
+            return followerCount;
+        }
+
+        public static List<Notification> GetNotifications(User user)
+        {
+            var shops = GetFollowedShops(user);
+            var notifications = new List<Notification>();
+            foreach (var s in shops.Where(s => s.Notifications != null))
+            {
+                notifications.AddRange(s.Notifications);
+            }
+            return notifications;
+        }
+
+        private static List<Shop> GetFollowedShops(User user)
+        {
+            var db = new DataAccess();
+            var followsId = db.Follows.Where(n => n.UserId == user.Id ).Select(f => f.ShopId).ToList();
+            var followedShops = db.Shops.Where(s => followsId.Contains(s.Id)).Include(s => s.Notifications).ToList();
+            return followedShops;
+            
+        }
+
         /// <summary>
         /// Checks current follow status
         /// </summary>
@@ -243,6 +274,13 @@ namespace Gariunai_Cloud_Services
             
             var follow = db.Follows.FirstOrDefault(f => f.UserId == userId && f.ShopId == shopId);
             return follow != null;
+        }
+
+        public static void AddEntityToDb<T>(T entity)
+        {
+            var db = new DataAccess();
+            db.Add(entity);
+            db.SaveChanges();
         }
     }
 }

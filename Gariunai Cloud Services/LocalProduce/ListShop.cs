@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
+using Gariunai_Cloud_Services.SpecificShop;
 
 namespace Gariunai_Cloud_Services.LocalProduce
 {
@@ -96,9 +97,7 @@ namespace Gariunai_Cloud_Services.LocalProduce
             {
                 return "0 km";
             }
-
         }
-
 
         private void ListShop_Click(object sender, EventArgs e)
         {
