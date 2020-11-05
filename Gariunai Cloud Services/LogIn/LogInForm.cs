@@ -25,7 +25,7 @@ namespace Gariunai_Cloud_Services
             }
             else
             {
-                var message = "User not found";
+                const string message = "User not found";
                 MessageBox.Show(message, "Error");
             }
         }

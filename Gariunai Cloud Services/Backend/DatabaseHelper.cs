@@ -59,7 +59,8 @@ namespace Gariunai_Cloud_Services
             var db = new DataAccess();
             var user = db.Users.FirstOrDefault(u => u.Name == username);
 
-            if (user == null) return false;
+            if (user == null) 
+                return false;
 
             var passwordFromDb = db.Passwords.FirstOrDefault(p => p.UserId == user.Id);
             Debug.WriteLine(user.Id);
