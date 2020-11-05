@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.Entities;
+using Gariunai_Cloud_Services.LocalProduce;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -11,17 +12,21 @@ namespace Gariunai_Cloud_Services.SpecificShop
 {
     public partial class SpecificShopForm : Form
     {
-        private Form _previousForm;
-        private Shop _shop;
-
+        private readonly Form _previousForm;
         private readonly GMapOverlay _top = new GMapOverlay();
         private GMapMarker _currentMarker;
+        private double _latitude;
+        private double _longitude;
+        private Shop _shop;
+        
 
-        public SpecificShopForm(Form previousForm, Shop shop)
+        public SpecificShopForm(Form previousForm, Shop shop, double lng, double lat)
         {
             InitializeComponent();
             _previousForm = previousForm;
             _shop = shop;
+            _latitude = lat;
+            _longitude = lng;
             shopDescription.Text = shop.Description;
             //pictureBox1.Image = shop.Image;
             foreach (var produce in shop.Produce) productList.Items.Add(produce.Name);
@@ -45,7 +50,7 @@ namespace Gariunai_Cloud_Services.SpecificShop
         private void Setmap()
         {
             MainMap.MapProvider = GMapProviders.LithuaniaMap;
-            MainMap.Position = new PointLatLng(54.685740, 25.286622);
+            MainMap.Position = new PointLatLng(_latitude, _longitude);
             MainMap.MinZoom = 0;
             MainMap.MaxZoom = 20;
             MainMap.Zoom = 11;
@@ -68,7 +73,7 @@ namespace Gariunai_Cloud_Services.SpecificShop
 
         private void _updateView()
         {
-            followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id)  ? "UNFOLLOW" : "FOLLOW";
+            followBtn.Text = DatabaseHelper.GetFollowStatus(LoginInfo.UserId, _shop.Id) ? "UNFOLLOW" : "FOLLOW";
         }
 
         private void SetFollowerLabel()
