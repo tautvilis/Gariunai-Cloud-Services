@@ -105,14 +105,13 @@ namespace Gariunai_Cloud_Services
             var salt = CreateSalt();
             var hash = GenerateSaltedHash(password, salt);
 
-            db.Add(user);
-            db.SaveChanges();
+            AddEntityToDb(user);
 
             var newUser = db.Users.FirstOrDefault(u => u.Name == user.Name);
             var userPassword = new Password {Hash = hash, UserId = newUser.Id, Salt = salt};
 
-            db.Add(userPassword);
-            db.SaveChanges();
+            AddEntityToDb(userPassword);
+            
             return true;
         }
 
@@ -253,9 +252,7 @@ namespace Gariunai_Cloud_Services
             return followedShops;
             
         }
-        
-        
-        
+
         /// <summary>
         /// Checks current follow status
         /// </summary>
@@ -278,6 +275,12 @@ namespace Gariunai_Cloud_Services
             var follow = db.Follows.FirstOrDefault(f => f.UserId == userId && f.ShopId == shopId);
             return follow != null;
         }
-        
+
+        public static void AddEntityToDb<T>(T entity)
+        {
+            var db = new DataAccess();
+            db.Add(entity);
+            db.SaveChanges();
+        }
     }
 }

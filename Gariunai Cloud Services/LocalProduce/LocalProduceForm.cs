@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using Gariunai_Cloud_Services.Account;
 
@@ -15,12 +16,12 @@ namespace Gariunai_Cloud_Services.LocalProduce
         private void PopulateShops()
         {
             flowLayoutPanel1.Controls.Clear();
-            foreach (var shop in DatabaseHelper.GetBusinesses())
+            var allShops = new Shops();
+            foreach (var newShop in allShops.Select(shop => new ListShop(this)
             {
-                var newShop = new ListShop(this)
-                {
-                    Shop = shop
-                };
+                Shop = shop
+            }))
+            {
                 flowLayoutPanel1.Controls.Add(newShop);
             }
         }
