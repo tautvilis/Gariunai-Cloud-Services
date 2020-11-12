@@ -5,26 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gariunai Cloud Services", "Gariunai Cloud Services\Gariunai Cloud Services.csproj", "{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Gariunai-cloud-angular", "Gariunai-cloud-angular\", "{6DA3A151-3D20-4DAA-A889-AD20790B2404}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_50391"
-		Debug.AspNetCompiler.PhysicalPath = "Gariunai-cloud-angular\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50391\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_50391"
-		Release.AspNetCompiler.PhysicalPath = "Gariunai-cloud-angular\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50391\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "50391"
-		SlnRelativePath = "Gariunai-cloud-angular\"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angularweb", "angularweb\angularweb.csproj", "{6E01FC58-F53B-42E9-A596-CA8399CE2A38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +17,10 @@ Global
 		{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DA3A151-3D20-4DAA-A889-AD20790B2404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DA3A151-3D20-4DAA-A889-AD20790B2404}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DA3A151-3D20-4DAA-A889-AD20790B2404}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DA3A151-3D20-4DAA-A889-AD20790B2404}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
