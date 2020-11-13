@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using GMap.NET.WindowsForms;
 
 namespace Gariunai_Cloud_Services.SpecificShop
 {
@@ -43,7 +42,6 @@ namespace Gariunai_Cloud_Services.SpecificShop
             this.productList = new System.Windows.Forms.ListBox();
             this.PRODUCTS = new System.Windows.Forms.Label();
             this.homeBtn = new System.Windows.Forms.Button();
-            this.MainMap = new GMap.NET.WindowsForms.GMapControl();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -146,33 +144,6 @@ namespace Gariunai_Cloud_Services.SpecificShop
             this.homeBtn.UseVisualStyleBackColor = true;
             this.homeBtn.Click += new System.EventHandler(this.HomeBtn_Click);
             // 
-            // MainMap
-            // 
-            this.MainMap.Bearing = 0F;
-            this.MainMap.CanDragMap = false;
-            this.MainMap.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainMap.EmptyTileColor = System.Drawing.Color.Navy;
-            this.MainMap.GrayScaleMode = false;
-            this.MainMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.MainMap.LevelsKeepInMemory = 5;
-            this.MainMap.Location = new System.Drawing.Point(0, 378);
-            this.MainMap.MarkersEnabled = true;
-            this.MainMap.MaxZoom = 2;
-            this.MainMap.MinZoom = 2;
-            this.MainMap.MouseWheelZoomEnabled = false;
-            this.MainMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.MainMap.Name = "MainMap";
-            this.MainMap.NegativeMode = false;
-            this.MainMap.PolygonsEnabled = true;
-            this.MainMap.RetryLoadTile = 0;
-            this.MainMap.RoutesEnabled = true;
-            this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.MainMap.ShowTileGridLines = false;
-            this.MainMap.Size = new System.Drawing.Size(640, 136);
-            this.MainMap.TabIndex = 6;
-            this.MainMap.Zoom = 0D;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -199,7 +170,6 @@ namespace Gariunai_Cloud_Services.SpecificShop
             this.ClientSize = new System.Drawing.Size(640, 514);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.MainMap);
             this.Controls.Add(this.homeBtn);
             this.Controls.Add(this.PRODUCTS);
             this.Controls.Add(this.productList);
@@ -232,7 +202,6 @@ namespace Gariunai_Cloud_Services.SpecificShop
         private ListBox productList;
         private Label PRODUCTS;
         private Button homeBtn;
-        private GMapControl MainMap;
         private Label label1;
         private Label label2;
     }

@@ -1,0 +1,106 @@
+<!-- <header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+  >
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">Gariunai cloud services</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+        [ngClass]="{ show: isExpanded }"
+      >
+        <ul class="navbar-nav flex-grow">
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/counter']"
+              >Counter</a
+            >
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
+              >Fetch data</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header> -->
+<mat-toolbar color="primary" class="expanded-toolbar">
+      <span>
+  
+        <button mat-button routerLink="/">{{title}}</button>
+  
+        <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
+  
+      </span>
+  
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+  
+      <button mat-button routerLink="/login" *ngIf="!isExpanded">
+  
+        <mat-icon>power_settings_new</mat-icon>
+  
+        Login
+  
+      </button>
+  
+      <button mat-button *ngIf="isExpanded" (click)="logout()">
+  
+        <mat-icon>exit_to_app</mat-icon>
+  
+        Logout
+  
+      </button>
+  
+      <button mat-button routerLink="/fetch-data">
+  
+        <mat-icon>cached</mat-icon>
+  
+        Fetch data
+  
+      </button>
+  
+    </div>
+  
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+  
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+    
+      <button mat-menu-item routerLink="/">
+        <mat-icon>home</mat-icon>
+        Home
+      </button>
+      <button mat-menu-item routerLink="/fetch-data">
+        <mat-icon>gamepad</mat-icon>
+        Fetch data
+      </button>
+      <button mat-menu-item routerLink="/login" *ngIf="!isExpanded">
+        <mat-icon>power_settings_new</mat-icon>
+        Login
+      </button>
+      <button mat-menu-item *ngIf="isExpanded" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+    <router-outlet></router-outlet>

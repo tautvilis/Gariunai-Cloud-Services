@@ -13,8 +13,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Gariunai_Cloud_Services.Entities;
-using GMap.NET;
-using GMap.NET.MapProviders;
 using GoogleMaps.LocationServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

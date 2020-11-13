@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gariunai Cloud Services", "Gariunai Cloud Services\Gariunai Cloud Services.csproj", "{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "angularweb", "angularweb\angularweb.csproj", "{6E01FC58-F53B-42E9-A596-CA8399CE2A38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{4A2D1C7A-E7E0-4223-830A-E03AA21DA751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC9E6602-B4A1-4F78-8E1E-E5FDAE6C3408}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E01FC58-F53B-42E9-A596-CA8399CE2A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A2D1C7A-E7E0-4223-830A-E03AA21DA751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A2D1C7A-E7E0-4223-830A-E03AA21DA751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A2D1C7A-E7E0-4223-830A-E03AA21DA751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A2D1C7A-E7E0-4223-830A-E03AA21DA751}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
