@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
@@ -19,91 +19,35 @@ namespace WebApi.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Notifications
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Notification>>> GetNotification()
+        
+        
+        [HttpGet("{userName}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Notification>>> GetUsersNotification(string userName)
         {
-            return await _context.Notifications.ToListAsync();
-        }
 
-        // GET: api/Notifications/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Notification>> GetNotification(int id)
-        {
-            var notification = await _context.Notifications.FindAsync(id);
+            var user = _context.Users.FirstOrDefault(u => u.Name == userName);
 
-            if (notification == null)
+            if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
 
-            return notification;
-        }
-
-        // PUT: api/Notifications/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutNotification(int id, Notification notification)
-        {
-            if (id != notification.Id)
+            if (user.Id != AuthenticatedUserId())
             {
-                return BadRequest();
+                return Unauthorized();
             }
 
-            _context.Entry(notification).State = EntityState.Modified;
+            var notifications = _context.Notifications.Where(n =>
+                    _context.Follows.Where(f => f.UserId == user.Id).Select(f => f.ShopId).Contains(n.ShopId))
+                .ToListAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NotificationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await notifications;
         }
-
-        // POST: api/Notifications
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Notification>> PostNotification(Notification notification)
+        
+        private int AuthenticatedUserId()
         {
-            _context.Notifications.Add(notification);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetNotification", new { id = notification.Id }, notification);
-        }
-
-        // DELETE: api/Notifications/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Notification>> DeleteNotification(int id)
-        {
-            var notification = await _context.Notifications.FindAsync(id);
-            if (notification == null)
-            {
-                return NotFound();
-            }
-
-            _context.Notifications.Remove(notification);
-            await _context.SaveChangesAsync();
-
-            return notification;
-        }
-
-        private bool NotificationExists(int id)
-        {
-            return _context.Notifications.Any(e => e.Id == id);
+            return int.Parse(HttpContext.User.Identity.Name ?? "-1");
         }
     }
 }
