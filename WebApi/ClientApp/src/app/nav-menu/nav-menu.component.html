@@ -1,4 +1,5 @@
 <!-- <header>
+  
   <nav
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
@@ -42,18 +43,19 @@
     </div>
   </nav>
 </header> -->
-<mat-toolbar color="primary" class="expanded-toolbar">
-      <span>
+<div *ngIf="nav.visible">
+<mat-toolbar color="primary" class="expanded-toolbar" >
+      <div class="home">
   
         <button mat-button routerLink="/">{{title}}</button>
   
         <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
   
-      </span>
+      </div>
   
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
   
-      <button mat-button routerLink="/login" *ngIf="!isExpanded">
+      <button mat-button routerLink="/login" *ngIf="!isExpanded" class="login">
   
         <mat-icon>power_settings_new</mat-icon>
   
@@ -61,7 +63,7 @@
   
       </button>
   
-      <button mat-button *ngIf="isExpanded" (click)="logout()">
+      <button mat-button *ngIf="isExpanded" routerLink="/" (click)="toggle()" class="login">
   
         <mat-icon>exit_to_app</mat-icon>
   
@@ -69,7 +71,7 @@
   
       </button>
   
-      <button mat-button routerLink="/fetch-data">
+      <button mat-button *ngIf="isExpanded" routerLink="/fetch-data">
   
         <mat-icon>cached</mat-icon>
   
@@ -90,17 +92,18 @@
         <mat-icon>home</mat-icon>
         Home
       </button>
-      <button mat-menu-item routerLink="/fetch-data">
-        <mat-icon>gamepad</mat-icon>
+      <button *ngIf="isExpanded" mat-menu-item routerLink="/fetch-data">
+        <mat-icon>cached</mat-icon>
         Fetch data
       </button>
       <button mat-menu-item routerLink="/login" *ngIf="!isExpanded">
         <mat-icon>power_settings_new</mat-icon>
         Login
       </button>
-      <button mat-menu-item *ngIf="isExpanded" (click)="logout()">
+      <button mat-menu-item *ngIf="isExpanded" routerLink="/" (click)="toggle()">
         <mat-icon>exit_to_app</mat-icon>
         Logout
       </button>
     </mat-menu>
+  </div>
     <router-outlet></router-outlet>

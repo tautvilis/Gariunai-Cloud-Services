@@ -1,24 +1,21 @@
-import { Component } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {NavMenuComponent} from '../nav-menu/nav-menu.component';
+import {NavMenuService} from '../nav-menu/nav-menu.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['home.component.css']
 })
-export class HomeComponent {
-  username = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required, Validators.minLength(6)])
 
-  getErrorMessage() {
-    if (this.username.hasError('required')) {
-      return 'You must enter a value';
-    }
+export class HomeComponent implements OnInit {
 
-    if(this.password.hasError('required') || this.password.hasError('minLength')){
-      return 'You must enter a value that is longer than 6 symbols';
-    }
+  constructor(
+    public nav: NavMenuService
+) { }
 
-    return this.username.hasError('email') ? 'Not a valid email' : '';
+  ngOnInit(){
   }
+
 }

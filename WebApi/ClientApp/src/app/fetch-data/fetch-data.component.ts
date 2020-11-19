@@ -14,6 +14,8 @@ export class FetchDataComponent {
     }, error => console.error(error));
   }
 
+  getUserByName(username){
+  }
 
 }
 
