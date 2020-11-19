@@ -15,7 +15,10 @@ using WebApi.Models;
 using System.IO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.OpenApi.Models;
 using WebApi.Handlers;
+using  Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.Swagger;
 
 namespace WebApi
 {
@@ -44,6 +47,11 @@ namespace WebApi
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "API docs", Version = "v1"});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +68,13 @@ namespace WebApi
                 app.UseHsts();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                c.RoutePrefix = "docs";
+            });
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
