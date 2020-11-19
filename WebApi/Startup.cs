@@ -13,7 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
 using System.IO;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using WebApi.Handlers;
 
 namespace WebApi
 {
@@ -29,10 +31,14 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddDbContext<WebApiContext>(options =>
-                options.UseSqlServer($"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\tautvilis\\source\\repos\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Integrated Security=True"));
+                options.UseSqlServer($"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\marty\\Desktop\\lol\\Gariunai Cloud Services\\Backend\\Database\\GariunaiCloudDB.mdf;Integrated Security=True"));
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -62,6 +68,9 @@ namespace WebApi
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
