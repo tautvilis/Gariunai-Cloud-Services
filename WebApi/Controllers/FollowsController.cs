@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FollowsController : ControllerBase
     {
         private readonly WebApiContext _context;
@@ -24,7 +26,9 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Follow>>> GetFollow()
         {
-            return await _context.Follows.ToListAsync();
+            return  await _context.Follows
+                .Where(f => f.UserId == AuthenticatedUserId())
+                .ToListAsync();
         }
 
         // GET: api/Follows/5
@@ -38,48 +42,24 @@ namespace WebApi.Controllers
                 return NotFound();
             }
 
+            if (follow.Id != AuthenticatedUserId())
+            {
+                return Unauthorized();
+            }
+            
             return follow;
         }
-
-        // PUT: api/Follows/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFollow(int id, Follow follow)
-        {
-            if (id != follow.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(follow).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FollowExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+        
         // POST: api/Follows
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Follow>> PostFollow(Follow follow)
         {
-            _context.Follows.Add(follow);
+
+            follow.UserId = AuthenticatedUserId();
+            
+            await _context.Follows.AddAsync(follow);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFollow", new { id = follow.Id }, follow);
@@ -89,6 +69,11 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Follow>> DeleteFollow(int id)
         {
+            
+            if(id != AuthenticatedUserId())
+            {
+                return Unauthorized();
+            }
             var follow = await _context.Follows.FindAsync(id);
             if (follow == null)
             {
@@ -101,9 +86,9 @@ namespace WebApi.Controllers
             return follow;
         }
 
-        private bool FollowExists(int id)
+        private int AuthenticatedUserId()
         {
-            return _context.Follows.Any(e => e.Id == id);
+            return int.Parse(HttpContext.User.Identity.Name ?? "-1");
         }
     }
 }
