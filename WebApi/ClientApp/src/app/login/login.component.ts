@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {NavMenuComponent} from '../nav-menu/nav-menu.component';
-import { NavMenuService } from '../nav-menu/nav-menu.service';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import {Account} from '../_services/account.service';
+import { NavMenuComponent } from '../nav-menu/nav-menu.component';
+
 
 @Component({
   selector: 'app-login',
@@ -11,8 +14,8 @@ import { NavMenuService } from '../nav-menu/nav-menu.service';
 
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  loading = false;
   loggedIn = false;
+  IsEmptyUser: string;
 
 
   get LoggedIn(){
@@ -21,16 +24,17 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private navMenu: NavMenuComponent,
-    public nav: NavMenuService
+    private router: Router,
+    private http: HttpClient,
+    private accountService: Account,
+    private navMenu: NavMenuComponent
   ) { }
 
   ngOnInit(){
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required,Validators.minLength(6)]]
+      password: ['', [Validators.required,Validators.minLength(5)]]
   });
-  
   }
 
   get f() { return this.form.controls; }
@@ -49,14 +53,28 @@ export class LoginComponent implements OnInit {
       return 'You must enter a value that is longer than 6 symbols'
     }
   }
+
+
+
   onSubmit(){
     if (this.form.invalid) {
       return;
     }
-    this.loading = true;
     console.log("Logged in with:" + this.f.username.value + " " + this.f.password.value);
-    this.loading = false;
-    this.navMenu.toggle();
-    this.form.reset();
+    this.accountService.login(this.f.username.value, this.f.password.value)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/home');
+          this.navMenu.toggle();
+        },
+        error: error => {
+          console.log(error);
+        }
+      },)
+      this.form.reset();
   }
+}
+class User {
+  username: string;
+  password: string;
 }

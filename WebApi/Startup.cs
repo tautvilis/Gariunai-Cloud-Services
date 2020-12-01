@@ -41,7 +41,7 @@ namespace WebApi
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddDbContext<WebApiContext>(options =>
-                options.UseSqlServer($"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\marty\\Desktop\\lol\\Gariunai Cloud Services\\Backend\\Database\\GariunaiCloudDB.mdf;Integrated Security=True"));
+                options.UseSqlServer($"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\tautvilis\\source\\repos\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Integrated Security=True"));
 
             services.AddSpaStaticFiles(configuration =>
             {

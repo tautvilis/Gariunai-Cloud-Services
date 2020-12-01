@@ -1,4 +1,19 @@
-<div class="form-container">
-    <mat-card>hello please login </mat-card>
-    <button color="accent" routerLink="/login"> Login </button>
+<p>Hello,</p>
+
+<p *ngIf="!shop"><em>Loading...</em></p>
+
+<div *ngIf="shop" class="allShops">
+    <mat-card *ngFor="let shop of shop" class="shop" (click)="openModal(shop)">
+      <mat-card-header>
+        <mat-card-title> {{shop.name}} </mat-card-title>
+      </mat-card-header>
+      <img mat-card-avatar src="../../assets/GARIUNAICLOUD.png" alt="logo" class="logo">
+      <mat-card-content>
+        <p>{{shop.description}}</p>
+        <p>Address:{{shop.location}}</p>
+      </mat-card-content>
+      <mat-card-footer>
+        
+      </mat-card-footer>
+    </mat-card>
 </div>

@@ -1,0 +1,22 @@
+<div class="modal-body">
+  <div class="container-fluid">
+    <div class="model-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{shop.name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-2">
+            <img src="https://cdn.pixabay.com/photo/2020/11/06/05/33/woman-5716875_960_720.png">
+          </div>
+          <div class="col-xs-10">
+            {{shop.name}}   {{shop.description}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

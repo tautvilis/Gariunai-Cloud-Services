@@ -47,7 +47,7 @@
 <mat-toolbar color="primary" class="expanded-toolbar" >
       <div class="home">
   
-        <button mat-button routerLink="/">{{title}}</button>
+        <button mat-button routerLink="/">Gariunai cloud</button>
   
         <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
   
@@ -63,7 +63,7 @@
   
       </button>
   
-      <button mat-button *ngIf="isExpanded" routerLink="/" (click)="toggle()" class="login">
+      <button mat-button *ngIf="isExpanded" routerLink="/" (click)="toggle(); logout();" class="login">
   
         <mat-icon>exit_to_app</mat-icon>
   
