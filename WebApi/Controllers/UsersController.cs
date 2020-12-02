@@ -19,7 +19,8 @@ namespace WebApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly WebApiContext _context;
-        private ISalter _salter;
+        private readonly ISalter _salter;
+        private SaltAgorithm _saltAgorithm;
 
         public UsersController(WebApiContext context, ISalter salter)
         {
@@ -68,7 +69,10 @@ namespace WebApi.Controllers
                 if (CheckIfUsernameTaken(user.Name))
                     return StatusCode(406);
                 var salt = _salter.CreateSalt();
-                var hash = _salter.GenerateSaltedHash(password, salt);
+                if(_saltAgorithm == null)
+                    _saltAgorithm = new SaltAgorithm();
+                BasicAuthenticationHandler.Hashing hashdelegate = _saltAgorithm.Hash;
+                var hash = _salter.GenerateSaltedHash(password, salt,hashdelegate);
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 var fetcheduser = _context.Users.FirstOrDefault(u => u.Name == user.Name);
