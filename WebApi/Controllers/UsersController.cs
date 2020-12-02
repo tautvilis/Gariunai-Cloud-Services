@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Handlers;
 using WebApi.Models;
 
 
@@ -18,10 +19,12 @@ namespace WebApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly WebApiContext _context;
+        private ISalter _salter;
 
-        public UsersController(WebApiContext context)
+        public UsersController(WebApiContext context, ISalter salter)
         {
             _context = context;
+            _salter = salter;
         }
 
         // GET: api/Users
@@ -64,8 +67,8 @@ namespace WebApi.Controllers
                     throw new ArgumentNullException(nameof(password), "cannot be null or empty");
                 if (CheckIfUsernameTaken(user.Name))
                     return StatusCode(406);
-                var salt = CreateSalt();
-                var hash = GenerateSaltedHash(password, salt);
+                var salt = _salter.CreateSalt();
+                var hash = _salter.GenerateSaltedHash(password, salt);
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 var fetcheduser = _context.Users.FirstOrDefault(u => u.Name == user.Name);
@@ -78,6 +81,7 @@ namespace WebApi.Controllers
             {
                 return BadRequest();
             }
+            
         }
         private bool CheckIfUsernameTaken(string username)
         {
@@ -149,28 +153,6 @@ namespace WebApi.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
-        private static int saltsize = 20;
-        private static byte[] CreateSalt()
-        {
-            var rng = new RNGCryptoServiceProvider();
-            var buff = new byte[saltsize];
-            rng.GetBytes(buff);
-            return buff;
-        }
         
-        private static byte[] GenerateSaltedHash(string plainText, byte[] salt)
-        {
-            HashAlgorithm algorithm = new SHA256Managed();
-
-            var plainTextWithSaltBytes =
-                new byte[plainText.Length + salt.Length];
-
-            for (var i = 0; i < plainText.Length; i++) 
-                plainTextWithSaltBytes[i] = (byte) plainText[i];
-            for (var i = 0; i < salt.Length; i++) 
-                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
-
-            return algorithm.ComputeHash(plainTextWithSaltBytes);
-        }
     }
 }

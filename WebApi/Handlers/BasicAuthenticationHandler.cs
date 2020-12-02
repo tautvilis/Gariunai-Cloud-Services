@@ -16,8 +16,8 @@ namespace WebApi.Handlers
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
+        private Salter _salter;
         private readonly WebApiContext _context;
-        
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
             ILoggerFactory logger, 
@@ -71,8 +71,9 @@ namespace WebApi.Handlers
             {
                 return AuthenticateResult.Fail("Internal authentication error");
             }
-
-            var hashedAuthorizationPassword = GenerateSaltedHash(password, dbPassword.Salt);
+            if(_salter == null)
+                _salter = new Salter();
+            var hashedAuthorizationPassword = _salter.GenerateSaltedHash(password, dbPassword.Salt);
 
             if (dbPassword.Hash.SequenceEqual(hashedAuthorizationPassword))
             {

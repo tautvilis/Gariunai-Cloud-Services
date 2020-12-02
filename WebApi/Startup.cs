@@ -39,6 +39,7 @@ namespace WebApi
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
             
             services.AddControllersWithViews();
+            services.AddTransient<ISalter, Salter>();
             // In production, the Angular files will be served from this directory
             services.AddDbContext<WebApiContext>(options =>
                 options.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Simas\\RiderProjects\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Trusted_Connection=True;"));
