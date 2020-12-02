@@ -14,6 +14,5 @@ namespace WebApi.Models
         public List<Produce> Produce { get; set; }
         public List<Follow> Followers { get; set; }
         public List<Notification> Notifications { get; set; }
-        public byte[] Picture { get; set; }
     }
 }

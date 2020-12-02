@@ -54,26 +54,30 @@ namespace WebApi.Controllers
         }
         // POST: api/Users/RegisterUser
         [HttpPost("RegisterUser")]
-        public async Task<ActionResult<User>> RegisterUser(string username, [FromBody] string password)
+        public async Task<ActionResult<User>> RegisterUser([FromBody] User user, string password)
         {
-            if (string.IsNullOrEmpty(username))
-                throw new ArgumentNullException(nameof(username));
-
-            if (string.IsNullOrEmpty(password))
-                throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
-
-            if (CheckIfUsernameTaken(username))
-                return StatusCode(406);
-            var salt = CreateSalt();
-            var hash = GenerateSaltedHash(password, salt);
-            var newUser = new User {Name = username};
-            await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
-            var user = _context.Users.FirstOrDefault(u => u.Name == username);
-            var userPassword = new Password{Hash = hash, UserId = user.Id, Salt = salt};
-            await _context.Passwords.AddAsync(userPassword);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            try
+            {
+                if (string.IsNullOrEmpty(user.Name))
+                    throw new ArgumentNullException(nameof(user.Name));
+                if (string.IsNullOrEmpty(password))
+                    throw new ArgumentNullException(nameof(password), "cannot be null or empty");
+                if (CheckIfUsernameTaken(user.Name))
+                    return StatusCode(406);
+                var salt = CreateSalt();
+                var hash = GenerateSaltedHash(password, salt);
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                var fetcheduser = _context.Users.FirstOrDefault(u => u.Name == user.Name);
+                var userPassword = new Password {Hash = hash, UserId = fetcheduser.Id, Salt = salt};
+                await _context.Passwords.AddAsync(userPassword);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("GetUser", new {id = user.Id}, user);
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest();
+            }
         }
         private bool CheckIfUsernameTaken(string username)
         {
