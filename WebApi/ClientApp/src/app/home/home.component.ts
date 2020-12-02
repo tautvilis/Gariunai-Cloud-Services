@@ -17,6 +17,7 @@ export class HomeComponent {
     http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
     private modalService: NgbModal,
+
     )
     {
     http.get<Shops[]>(baseUrl + 'api/shops').subscribe(result => {
@@ -27,12 +28,13 @@ export class HomeComponent {
   openModal(shop:any) {
     const modal = this.modalService.open(ShopComponent);
     modal.componentInstance.shop = shop;
+
   }
 
   data(data: string){
-    
+
   }
-  
+
 
 }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -50,9 +52,34 @@ namespace WebApi.Controllers
         {
             return true;
         }
-        
-        
-        
+        // POST: api/Users/RegisterUser
+        [HttpPost("RegisterUser")]
+        public async Task<ActionResult<User>> RegisterUser(string username, [FromBody] string password)
+        {
+            if (string.IsNullOrEmpty(username))
+                throw new ArgumentNullException(nameof(username));
+
+            if (string.IsNullOrEmpty(password))
+                throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
+
+            if (CheckIfUsernameTaken(username))
+                return StatusCode(406);
+            var salt = CreateSalt();
+            var hash = GenerateSaltedHash(password, salt);
+            var newUser = new User {Name = username};
+            await _context.Users.AddAsync(newUser);
+            await _context.SaveChangesAsync();
+            var user = _context.Users.FirstOrDefault(u => u.Name == username);
+            var userPassword = new Password{Hash = hash, UserId = user.Id, Salt = salt};
+            await _context.Passwords.AddAsync(userPassword);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
+        private bool CheckIfUsernameTaken(string username)
+        {
+            return _context.Users.Count(user => user.Name == username) > 0;
+        }
+
 
         // PUT: api/Users/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -117,6 +144,29 @@ namespace WebApi.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+        private static int saltsize = 20;
+        private static byte[] CreateSalt()
+        {
+            var rng = new RNGCryptoServiceProvider();
+            var buff = new byte[saltsize];
+            rng.GetBytes(buff);
+            return buff;
+        }
+        
+        private static byte[] GenerateSaltedHash(string plainText, byte[] salt)
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+
+            var plainTextWithSaltBytes =
+                new byte[plainText.Length + salt.Length];
+
+            for (var i = 0; i < plainText.Length; i++) 
+                plainTextWithSaltBytes[i] = (byte) plainText[i];
+            for (var i = 0; i < salt.Length; i++) 
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+
+            return algorithm.ComputeHash(plainTextWithSaltBytes);
         }
     }
 }

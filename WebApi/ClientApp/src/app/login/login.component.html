@@ -8,14 +8,13 @@
       <mat-label>Enter your password</mat-label>
       <input type="password" matInput placeholder="Password" [formControl]="f.password" minlength="5" required>
       <mat-error *ngIf="f.password.invalid || f.password.untouched">{{getPassErrorMessage()}}</mat-error>
-      <mat-error *ngIf="f.password.errors?.minlength">{{"Password must be at least 6 characters long"}}</mat-error>
+      <mat-error *ngIf="f.password.errors?.minlength">{{"Password must be at least 5 characters long"}}</mat-error>
     </mat-form-field>
-    <form (ngSubmit)="onSubmit()" >  
+    <form (ngSubmit)="onSubmit()" >
       <button [disabled]="!form.valid" color="accent" mat-flat-button type="submit" class="buttons"> Login </button>
     </form>
-    <form (ngSubmit)="onSubmit()" >  
+    <form (ngSubmit)="onRegister()" >
       <button color="accent" mat-flat-button type="submit" class="buttons"> Register </button>
     </form>
   </div>
 
-  

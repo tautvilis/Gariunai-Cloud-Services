@@ -1,5 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {Binary} from "@angular/compiler";
 
 @Component({
   selector: 'app-shop',

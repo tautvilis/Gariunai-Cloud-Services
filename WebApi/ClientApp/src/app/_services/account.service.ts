@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class Account {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
-  
+
   constructor(
     private router: Router,
     private http: HttpClient
@@ -23,16 +23,19 @@ export class Account {
    }
 
    login(username,password) {
-     var auth = btoa(username +":"+ password);
+     let auth = btoa(username +":"+ password);
      const body = {Authorization: "Basic "+ auth};
      const requestOptions = {headers: new HttpHeaders(body)};
-    
+
      return this.http.get<User>('Api/Users/Authorize', requestOptions).pipe(map(user => {
        localStorage.setItem('authKey',JSON.stringify(auth));
        this.userSubject.next(user);
        return user;
      }))
     }
+  register(username,password) {
+    return this.http.post<User>('Api/Users/RegisterUser', username, password);
+  }
 
    logout() {
     localStorage.removeItem('authKey');

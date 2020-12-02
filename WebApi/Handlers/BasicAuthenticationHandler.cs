@@ -49,7 +49,6 @@ namespace WebApi.Handlers
 
             if (!Request.Headers.ContainsKey("Authorization"))
             {
-                Debug.Print("aaaaa?");
                 return AuthenticateResult.Fail("Authorization header was not found");
             }
             

@@ -29,19 +29,20 @@ namespace WebApi
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            var config2 = Configuration.GetConnectionString("Database");
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
             
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddDbContext<WebApiContext>(options =>
-                options.UseSqlServer($"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\tautvilis\\source\\repos\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Integrated Security=True"));
+                options.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Simas\\RiderProjects\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Trusted_Connection=True;"));
+
 
             services.AddSpaStaticFiles(configuration =>
             {
