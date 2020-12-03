@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -16,8 +17,11 @@ namespace WebApi.Handlers
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
+        private Salter _salter;
         private readonly WebApiContext _context;
-        
+
+        public delegate byte[] Hashing(string str, byte[] salt);
+        private SaltAgorithm _saltAgorithm;
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
             ILoggerFactory logger, 
@@ -28,22 +32,6 @@ namespace WebApi.Handlers
         {
             _context = context;
         }
-        
-        private static byte[] GenerateSaltedHash(string plainText, byte[] salt)
-        {
-            HashAlgorithm algorithm = new SHA256Managed();
-
-            var plainTextWithSaltBytes =
-                new byte[plainText.Length + salt.Length];
-
-            for (var i = 0; i < plainText.Length; i++) 
-                plainTextWithSaltBytes[i] = (byte) plainText[i];
-            for (var i = 0; i < salt.Length; i++) 
-                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
-
-            return algorithm.ComputeHash(plainTextWithSaltBytes);
-        }
-        
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
 
@@ -71,8 +59,12 @@ namespace WebApi.Handlers
             {
                 return AuthenticateResult.Fail("Internal authentication error");
             }
-
-            var hashedAuthorizationPassword = GenerateSaltedHash(password, dbPassword.Salt);
+            if(_salter == null)
+                _salter = new Salter();
+            if(_saltAgorithm == null)
+                _saltAgorithm = new SaltAgorithm();
+            Hashing hashdelegate = _saltAgorithm.Hash;
+            var hashedAuthorizationPassword = _salter.GenerateSaltedHash(password, dbPassword.Salt, hashdelegate);
 
             if (dbPassword.Hash.SequenceEqual(hashedAuthorizationPassword))
             {
