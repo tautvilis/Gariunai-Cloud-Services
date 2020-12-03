@@ -10,7 +10,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-2"> 
-            <agm-map style="height: 300px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom">  
+            <agm-map style="height: 300px;" [disableDefaultUI]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom">  
             <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>  
             </agm-map>  
           </div>

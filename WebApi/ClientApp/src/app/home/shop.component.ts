@@ -18,6 +18,7 @@ export class ShopComponent implements OnInit {
   address: string;
   private geoCoder;
   coordinates: [number,number];
+  disableDefaultUI: boolean;
 
   constructor(public activeModal: NgbActiveModal, private apiloader: MapsAPILoader) { }
   ngOnInit() {
@@ -26,17 +27,18 @@ export class ShopComponent implements OnInit {
       console.log(this.shop)
       this.setCurrentLocation();
       console.log(this.getCoords());
+      
     })
 
   }
-
 
   private setCurrentLocation() {
     if('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        this.zoom = 15;
+        this.zoom = 5;
+
       })
     }
   }
