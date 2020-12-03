@@ -1,0 +1,19 @@
+<div class="form-container">
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input type="email" matInput placeholder="john@email.com" [formControl]="f.email" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your userrname</mat-label>
+        <input type="text" matInput placeholder="John" [formControl]="f.username" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input type="password" matInput placeholder="Password" [formControl]="f.password" minlength="5" required>
+      <mat-error *ngIf="f.password.errors?.minlength">{{"Password must be at least 5 characters long"}}</mat-error>
+    </mat-form-field>
+    <form (ngSubmit)="onSubmit()" >
+      <button [disabled]="!form.valid" color="accent" mat-flat-button type="submit" class="buttons"> Register </button>
+    </form>
+  </div>
+

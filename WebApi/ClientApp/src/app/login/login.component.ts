@@ -74,11 +74,6 @@ export class LoginComponent implements OnInit {
       this.form.reset();
   }
 
-  onRegister() {
-    if (this.form.invalid) {
-      return;
-    }
-  }
 }
 class User {
   username: string;

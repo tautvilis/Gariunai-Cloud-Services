@@ -17,7 +17,6 @@ export class HomeComponent {
     http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
     private modalService: NgbModal,
-
     )
     {
     http.get<Shops[]>(baseUrl + 'api/shops').subscribe(result => {

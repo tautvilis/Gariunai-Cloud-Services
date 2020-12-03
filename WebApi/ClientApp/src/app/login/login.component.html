@@ -13,8 +13,6 @@
     <form (ngSubmit)="onSubmit()" >
       <button [disabled]="!form.valid" color="accent" mat-flat-button type="submit" class="buttons"> Login </button>
     </form>
-    <form (ngSubmit)="onRegister()" >
-      <button color="accent" mat-flat-button type="submit" class="buttons"> Register </button>
-    </form>
+      <a routerLink="../register"><button color="accent" mat-flat-button type="submit" > Register </button></a>
   </div>
 

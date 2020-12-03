@@ -9,11 +9,15 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-xs-2">
-            <img src="https://cdn.pixabay.com/photo/2020/11/06/05/33/woman-5716875_960_720.png">
+          <div class="col-xs-2"> 
+            <agm-map style="height: 300px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom">  
+            <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>  
+            </agm-map>  
           </div>
           <div class="col-xs-10">
-            {{shop.name}}   {{shop.description}}
+            {{shop.name}}   {{shop.description}} 
+            <a mat-raised-button href="tel:{{shop.contacts}}">CALL US </a>
+            
           </div>
         </div>
       </div>

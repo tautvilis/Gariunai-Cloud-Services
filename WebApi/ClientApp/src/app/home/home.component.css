@@ -17,3 +17,7 @@
   width: 100vh;
   font-size: 40px;
 }
+agm-map {
+  height: 300px;
+  width: 300px;
+}

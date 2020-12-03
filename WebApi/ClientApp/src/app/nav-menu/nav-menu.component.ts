@@ -1,5 +1,5 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavMenuService } from './nav-menu.service';
 import {Account} from '../_services/account.service';
 
@@ -8,11 +8,18 @@ import {Account} from '../_services/account.service';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
 
   constructor(public nav: NavMenuService, private accountService: Account,){}
-
   isExpanded = false;
+  ngOnInit(): void {
+    if(this.accountService.userValue) {
+      this.isExpanded = true;
+    }
+    this.isExpanded = true;
+  }
+
+  
 
   logout() {
     this.accountService.logout();

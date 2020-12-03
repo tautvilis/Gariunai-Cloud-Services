@@ -33,8 +33,9 @@ export class Account {
        return user;
      }))
     }
-  register(username,password) {
-    return this.http.post<User>('Api/Users/RegisterUser', username, password);
+  register(email,username,password) {
+    const body = {name: username,email: email};
+    return this.http.post('Api/Users/RegisterUser?password='+password,body);
   }
 
    logout() {
