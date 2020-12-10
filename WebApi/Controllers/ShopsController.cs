@@ -230,10 +230,10 @@ namespace WebApi.Controllers
                 return Unauthorized("Shop does not belong to you");
             }
 
-            var notification = _mapper.Map<Produce>(notificationDTO);
+            var notification = _mapper.Map<Notification>(notificationDTO);
             notification.ShopId = id;
 
-            await _context.Produce.AddAsync(notification);
+            await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
 
             return _mapper.Map<NotificationDTO>(notification);
