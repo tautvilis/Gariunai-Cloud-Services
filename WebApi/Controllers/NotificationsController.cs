@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
+using WebApi.Models.DataTransferObjects;
 
 namespace WebApi.Controllers
 {
@@ -14,35 +15,26 @@ namespace WebApi.Controllers
     public class NotificationsController : ControllerBase
     {
         private readonly WebApiContext _context;
+        private readonly IMapper _mapper;
 
-        public NotificationsController(WebApiContext context)
+        public NotificationsController(WebApiContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         
         
-        [HttpGet("{userName}")]
+        [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Notification>>> GetUsersNotification(string userName)
+        public async Task<ActionResult<List<NotificationDTO>>> GetUsersNotification()
         {
-
-            var user = _context.Users.FirstOrDefault(u => u.Name == userName);
-
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-
-            if (user.Id != AuthenticatedUserId())
-            {
-                return Unauthorized();
-            }
-
-            var notifications = _context.Notifications.Where(n =>
-                    _context.Follows.Where(f => f.UserId == user.Id).Select(f => f.ShopId).Contains(n.ShopId))
+            var notifications = _context.Notifications
+                .Where(
+                    n =>
+                        _context.Follows.Where(f => f.UserId == AuthenticatedUserId()).Select(f => f.ShopId).Contains(n.ShopId))
                 .ToListAsync();
 
-            return await notifications;
+            return _mapper.Map<List<NotificationDTO>>(await notifications);
         }
         
         private int AuthenticatedUserId()

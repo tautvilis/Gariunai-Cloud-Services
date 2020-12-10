@@ -15,13 +15,9 @@ namespace WebApi.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-
         public DbSet<Follow> Follows { get; set; }
-
         public DbSet<Password> Passwords { get; set; }
-
         public DbSet<Shop> Shops { get; set; }
-
         public DbSet<Produce> Produce { get; set; }
     }
 }
