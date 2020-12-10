@@ -1,25 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
-using System.IO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.OpenApi.Models;
 using WebApi.Handlers;
-using  Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.Swagger;
-
 namespace WebApi
 {
     public class Startup
@@ -42,7 +31,7 @@ namespace WebApi
             services.AddTransient<ISalter, Salter>();
             // In production, the Angular files will be served from this directory
             services.AddDbContext<WebApiContext>(options =>
-                options.UseSqlServer($"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\tautvilis\\source\\repos\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Integrated Security=True"));
+                options.UseSqlServer(Configuration.GetConnectionString("database")));
 
 
             services.AddSpaStaticFiles(configuration =>

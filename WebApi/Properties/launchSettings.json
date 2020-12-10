@@ -23,8 +23,5 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-  },
-  "ConnectionStrings": {
-    "Database": "Server=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Simas\\RiderProjects\\Gariunai-Cloud-Services\\WebApi\\Database\\GariunaiCloudDB.mdf;Trusted_Connection=True;"
   }
 }
