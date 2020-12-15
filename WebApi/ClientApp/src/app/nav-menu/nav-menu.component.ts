@@ -15,8 +15,10 @@ export class NavMenuComponent implements OnInit {
   ngOnInit(): void {
     if(this.accountService.userValue) {
       this.isExpanded = true;
+    }else{
+      this.isExpanded = false;
     }
-    this.isExpanded = true;
+
   }
 
   

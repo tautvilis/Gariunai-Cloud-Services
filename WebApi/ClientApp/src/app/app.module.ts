@@ -29,6 +29,8 @@ import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileComponent } from './user/profile/profile.component';
+import tt from '@tomtom-international/web-sdk-maps';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     LoginComponent,
     ShopComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,26 +1,41 @@
 <div class="modal-body">
-  <div class="container-fluid">
-    <div class="model-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">{{shop.name}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-xs-2"> 
-            <agm-map style="height: 300px;" [disableDefaultUI]="true" [latitude]="lat" [longitude]="lng" [zoom]="zoom">  
-            <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>  
-            </agm-map>  
-          </div>
-          <div class="col-xs-10">
-            {{shop.name}}   {{shop.description}} 
-            <a mat-raised-button href="tel:{{shop.contacts}}">CALL US </a>
-            
-          </div>
+  <div class="model-content">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-basic-title">{{shop.name}}</h3>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click');close();">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-grid-list cols="3" rowHeight="20vh">
+        <div class="pictures">
+          <mat-grid-tile [colspan]="1" [rowspan]="1">picture a</mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="1">picture b</mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="1">picture c</mat-grid-tile>
         </div>
-      </div>
+          <mat-grid-tile class="buttons" [colspan]="1" [rowspan]="1">
+            <a mat-raised-button href="tel:{{shop.contacts}}">CALL US </a><br/>
+            <a mat-raised-button (click) = "follow(shop.id, true);_isFollowing=true" *ngIf="!(_isFollowing)" >FOLLOW</a>
+            <a mat-raised-button (click) = "follow(shop.id, false);_isFollowing=false" *ngIf="_isFollowing" >UNFOLLOW</a>
+          </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">{{shop.name}} : {{shop.description}}</mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+          <table class="table table-striped">
+            <thead><tr><th>Produce</th></tr></thead>
+            <tbody><tr *ngFor="let produce of produce"><td>{{produce.name}}</td></tr></tbody>
+          </table>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+          </div>
+        </mat-grid-tile>
+        <div > 
+          <mat-grid-tile [colspan]="3" [rowspan]="2">
+            <div id="map"></div>
+          </mat-grid-tile>
+        </div>
+
+      </mat-grid-list>
     </div>
   </div>
 </div>

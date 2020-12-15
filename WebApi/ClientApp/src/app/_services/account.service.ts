@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -13,7 +13,8 @@ export class Account {
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject('BASE_URL') public baseUrl: string,
   ) {
     this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('authKey')));
    }
@@ -35,15 +36,27 @@ export class Account {
     }
   register(email,username,password) {
     const body = {name: username,email: email};
-    return this.http.post('Api/Users/RegisterUser?password='+password,body);
+    return this.http.post('Api/Users?password='+password,body);
   }
 
-   logout() {
+  logout() {
     localStorage.removeItem('authKey');
     this.userSubject.next(null);
     this.router.navigate(['/']);
-}
+    }
 
+  followShop(shopid: number, follow:string) {
+    this.http.post(this.baseUrl + 'api/shops/' + shopid + '/follow/'+follow,{},
+     {headers: new HttpHeaders({'Authorization':'Basic '+ JSON.parse(localStorage.getItem('authKey'))})})
+     .subscribe(result => { console.log(result);},
+      error => console.error(error));
+    }
+  unfollowShop(shopid: number) {
+      this.http.post(this.baseUrl + 'api/shops/' + shopid + '/follow/false',{},
+       {headers: new HttpHeaders({'Authorization':'Basic '+ JSON.parse(localStorage.getItem('authKey'))})})
+       .subscribe(result => { console.log(result);},
+        error => console.error(error));
+      }
 }
 
 export class User {

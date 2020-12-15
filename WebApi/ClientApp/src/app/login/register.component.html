@@ -2,18 +2,23 @@
     <mat-form-field appearance="fill">
         <mat-label>Enter your email</mat-label>
         <input type="email" matInput placeholder="john@email.com" [formControl]="f.email" required>
+        <mat-error *ngIf="f.email.invalid">{{getEmailErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-        <mat-label>Enter your userrname</mat-label>
+        <mat-label>Enter your username</mat-label>
         <input type="text" matInput placeholder="John" [formControl]="f.username" required>
+        <mat-error *ngIf="f.username.invalid">{{getUserErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
       <input type="password" matInput placeholder="Password" [formControl]="f.password" minlength="5" required>
+      <mat-error *ngIf="f.password.invalid || f.password.untouched">{{getPassErrorMessage()}}</mat-error>
       <mat-error *ngIf="f.password.errors?.minlength">{{"Password must be at least 5 characters long"}}</mat-error>
     </mat-form-field>
     <form (ngSubmit)="onSubmit()" >
       <button [disabled]="!form.valid" color="accent" mat-flat-button type="submit" class="buttons"> Register </button>
+      
     </form>
+    <mat-error *ngIf="hasError">USERNAME IS ALREADY USED, PLEASE CHANGE IT</mat-error>
   </div>
 

@@ -1,4 +1,11 @@
-.allShops  {
+@import "@tomtom-international/web-sdk-maps";
+#map {
+    height: 100vh;
+    width: 100vw;
+}
+
+
+.allShops, .allNotifications  {
     margin-top: 18px;
     margin-left: 8px;
     display: flex;
@@ -9,15 +16,11 @@
 
   }
 
-.allShops .shop {
+.allShops .shop, .allNotifications .notifications {
   text-align: center;
   margin-top: 5px;
   margin-bottom: 10px;
   border: 2px solid #000;
   width: 100vh;
   font-size: 40px;
-}
-agm-map {
-  height: 300px;
-  width: 300px;
 }

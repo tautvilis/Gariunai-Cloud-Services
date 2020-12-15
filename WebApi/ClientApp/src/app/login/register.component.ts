@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
+  hasError = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +31,27 @@ export class RegisterComponent implements OnInit {
   });
   }
   get f() { return this.form.controls; }
+
+  getEmailErrorMessage() {
+    if(this.f.email.hasError('required')){
+      return 'you must enter a value';
+    }
+    return this.f.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  getUserErrorMessage() {
+    if (this.f.username.hasError('required')) {
+      return 'You must enter a value';
+    }
+  }
+  getPassErrorMessage() {
+    if(this.f.password.hasError('required')){
+      return 'You must enter a value';
+    }
+    if(this.f.password.hasError('minLength')){
+      return 'You must enter a value that is longer than 6 symbols'
+    }
+  }
   
   onSubmit() {
     this.submitted = true;
@@ -43,6 +65,7 @@ export class RegisterComponent implements OnInit {
       },
       error: error => {
         console.log(error);
+        this.hasError = true;
       }
     },)
     this.form.reset();
