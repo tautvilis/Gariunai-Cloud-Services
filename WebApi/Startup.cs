@@ -14,12 +14,14 @@ namespace WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
             Configuration = configuration;
+            _contentRootPath = environment.ContentRootPath;
         }
 
         private IConfiguration Configuration { get; }
+        private string _contentRootPath;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,7 +34,8 @@ namespace WebApi
             services.AddTransient<ISalter, Salter>();
             // In production, the Angular files will be served from this directory
             services.AddDbContext<WebApiContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("database")));
+                options.UseSqlServer(Configuration.GetConnectionString("database")
+                    .Replace("%CONTENTROOTPATH%", _contentRootPath)));
 
 
             services.AddSpaStaticFiles(configuration =>
