@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WebApi.Models
 {
@@ -15,5 +16,10 @@ namespace WebApi.Models
         public List<Produce> Produce { get; set; }
         public List<Follow> Followers { get; set; }
         public List<Notification> Notifications { get; set; }
+
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public string Image4 { get; set; }
     }
 }

@@ -25,15 +25,15 @@ namespace WebApi.Controllers
 
         // GET: api/Shops
         [HttpGet]
-        public async Task<ActionResult<List<ShopDTO>>> GetShops()
+        public async Task<ActionResult<List<ShopDto>>> GetShops()
         {
             var shops =  await _context.Shops.Include(s => s.Produce).ToListAsync();
-            return _mapper.Map<List<ShopDTO>>(shops);
+            return _mapper.Map<List<ShopDto>>(shops);
         }
 
         // GET: api/Shops/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ShopDTO>> GetShop(int id)
+        public async Task<ActionResult<ShopDto>> GetShop(int id)
         {
             var shop = await _context.Shops
                 .Where(s => s.Id == id)
@@ -44,13 +44,13 @@ namespace WebApi.Controllers
                 return NotFound();
             }
             
-            return _mapper.Map<ShopDTO>(shop);
+            return _mapper.Map<ShopDto>(shop);
         }
         
         // POST: api/Shops
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Shop>> PostShop(ShopDTO shop)
+        public async Task<ActionResult<Shop>> PostShop(ShopDto shop)
         {
 
             if (shop.OwnerId != AuthenticatedUserId())
@@ -67,7 +67,7 @@ namespace WebApi.Controllers
         // PUT: api/Shops/5
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutShop(int id, [FromBody] ShopDTO shop)
+        public async Task<IActionResult> PutShop(int id, [FromBody] ShopDto shop)
         {
             if (id != shop.Id)
             {
@@ -124,7 +124,7 @@ namespace WebApi.Controllers
         
         // GET: api/Shops/{id}/Produce
         [HttpGet("{id}/Produce")]
-        public async Task<ActionResult<List<ProduceDTO>>> GetProduce(int id)
+        public async Task<ActionResult<List<ProduceDto>>> GetProduce(int id)
         {
             if (!ShopExists(id))
             {
@@ -132,13 +132,13 @@ namespace WebApi.Controllers
             }
 
             var produce = await _context.Produce.Where(p => p.ShopId == id).ToListAsync();
-            return _mapper.Map<List<ProduceDTO>>(produce);
+            return _mapper.Map<List<ProduceDto>>(produce);
         }
         
         // POST: api/Shops/{id}/Produce
         [HttpPost("{id}/Produce")]
         [Authorize]
-        public async Task<ActionResult<ProduceDTO>> PostProduce(int id, [FromBody] ProduceDTO produceDTO)
+        public async Task<ActionResult<ProduceDto>> PostProduce(int id, [FromBody] ProduceDto produceDTO)
         {
             var shop = await _context.Shops.FindAsync(id);
             
@@ -163,13 +163,13 @@ namespace WebApi.Controllers
             await _context.Produce.AddAsync(produce);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<ProduceDTO>(produce);
+            return _mapper.Map<ProduceDto>(produce);
         }
         
         // DELETE: api/Shops/{id}/Produce
         [HttpDelete("{id}/Produce")]
         [Authorize]
-        public async Task<IActionResult> RemoveProduce(int id, [FromBody] ProduceDTO produceDTO)
+        public async Task<IActionResult> RemoveProduce(int id, [FromBody] ProduceDto produceDTO)
         {
             var shop = await _context.Shops.FindAsync(id);
             
@@ -202,7 +202,7 @@ namespace WebApi.Controllers
         
          // GET: api/Shops/{id}/Notifications
         [HttpGet("{id}/Notifications")]
-        public async Task<ActionResult<List<NotificationDTO>>> GetNotifications(int id)
+        public async Task<ActionResult<List<NotificationDto>>> GetNotifications(int id)
         {
             if (!ShopExists(id))
             {
@@ -210,13 +210,13 @@ namespace WebApi.Controllers
             }
 
             var notifications = await _context.Notifications.Where(n => n.ShopId == id).ToListAsync();
-            return _mapper.Map<List<NotificationDTO>>(notifications);
+            return _mapper.Map<List<NotificationDto>>(notifications);
         }
         
         // POST: api/Shops/{id}/Produce
         [HttpPost("{id}/Notifications")]
         [Authorize]
-        public async Task<ActionResult<NotificationDTO>> PostNotification(int id, [FromBody] NotificationDTO notificationDTO)
+        public async Task<ActionResult<NotificationDto>> PostNotification(int id, [FromBody] NotificationDto notificationDTO)
         {
             var shop = await _context.Shops.FindAsync(id);
             
@@ -236,13 +236,13 @@ namespace WebApi.Controllers
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<NotificationDTO>(notification);
+            return _mapper.Map<NotificationDto>(notification);
         }
         
         // PUT: api/Shops/{id}/Produce
         [HttpPut("{id}/Notifications")]
         [Authorize]
-        public async Task<ActionResult<NotificationDTO>> PutNotification(int id, [FromBody] NotificationDTO notificationDTO)
+        public async Task<ActionResult<NotificationDto>> PutNotification(int id, [FromBody] NotificationDto notificationDTO)
         {
             var shop = await _context.Shops.FindAsync(id);
             
