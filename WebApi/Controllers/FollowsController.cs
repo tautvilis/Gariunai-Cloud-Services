@@ -27,13 +27,13 @@ namespace WebApi.Controllers
         // GET: api/Follows
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<FollowDTO>>> GetFollow()
+        public async Task<ActionResult<List<FollowDto>>> GetFollow()
         {
             var follows =  _context.Follows
                 .Where(f => f.UserId == AuthenticatedUserId())
                 .ToListAsync();
 
-            return _mapper.Map<List<FollowDTO>>(await follows);
+            return _mapper.Map<List<FollowDto>>(await follows);
         }
         
         private int AuthenticatedUserId()

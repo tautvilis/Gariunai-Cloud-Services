@@ -42,14 +42,14 @@ namespace WebApi.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<List<UserDTO>>> GetUsers()
+        public async Task<ActionResult<List<UserDto>>> GetUsers()
         {
-            return _mapper.Map<List<UserDTO>>(await _context.Users.ToListAsync());
+            return _mapper.Map<List<UserDto>>(await _context.Users.ToListAsync());
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUser(int id)
+        public async Task<ActionResult<UserDto>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -58,12 +58,12 @@ namespace WebApi.Controllers
                 return NotFound("User not found");
             }
 
-            return _mapper.Map<UserDTO>(user);
+            return _mapper.Map<UserDto>(user);
         }
 
         // POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> RegisterUser([FromBody] UserDTO userDto, string password)
+        public async Task<ActionResult<UserDto>> RegisterUser([FromBody] UserDto userDto, string password)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace WebApi.Controllers
                 await _context.Passwords.AddAsync(userPassword);
                 await _context.SaveChangesAsync();
                 
-                return CreatedAtAction("GetUser", new {id = user.Id}, _mapper.Map<UserDTO>(user));
+                return CreatedAtAction("GetUser", new {id = user.Id}, _mapper.Map<UserDto>(user));
             }
             catch (ArgumentNullException e)
             {
@@ -115,7 +115,7 @@ namespace WebApi.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutUser(int id, UserDTO userDto)
+        public async Task<IActionResult> PutUser(int id, UserDto userDto)
         {
             if (id != userDto.Id)
             {
@@ -148,7 +148,7 @@ namespace WebApi.Controllers
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<UserDTO>> DeleteUser(int id)
+        public async Task<ActionResult<UserDto>> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             
@@ -165,7 +165,7 @@ namespace WebApi.Controllers
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<UserDTO>(user);
+            return _mapper.Map<UserDto>(user);
         }
 
         private bool UserExists(int id)

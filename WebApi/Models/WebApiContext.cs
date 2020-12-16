@@ -19,5 +19,6 @@ namespace WebApi.Models
         public DbSet<Password> Passwords { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Produce> Produce { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

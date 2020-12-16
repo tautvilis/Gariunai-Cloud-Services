@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<NotificationDTO>>> GetUsersNotification()
+        public async Task<ActionResult<List<NotificationDto>>> GetUsersNotification()
         {
             var notifications = _context.Notifications
                 .Where(
@@ -34,7 +34,7 @@ namespace WebApi.Controllers
                         _context.Follows.Where(f => f.UserId == AuthenticatedUserId()).Select(f => f.ShopId).Contains(n.ShopId))
                 .ToListAsync();
 
-            return _mapper.Map<List<NotificationDTO>>(await notifications);
+            return _mapper.Map<List<NotificationDto>>(await notifications);
         }
         
         private int AuthenticatedUserId()
