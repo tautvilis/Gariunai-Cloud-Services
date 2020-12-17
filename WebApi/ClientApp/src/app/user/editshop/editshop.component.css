@@ -1,0 +1,29 @@
+.table-responsive {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-direction: row;
+    padding-left:10px;
+  }
+mat-form-field {
+    margin-top:2px;
+    padding-bottom:5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-left:10px;
+}
+mat-raised-button {
+    padding-left:10px;
+}
+
+#table, #info {
+    display: inline;
+}
+.table {overflow-y:auto; height: 300px; width: 100%;}
+.table thead th {position: sticky; top:0;}
+
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }

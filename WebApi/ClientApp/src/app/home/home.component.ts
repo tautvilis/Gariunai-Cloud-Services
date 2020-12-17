@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShopComponent } from './shop.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Account} from '../_services/account.service';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -15,6 +16,10 @@ import {Account} from '../_services/account.service';
 export class HomeComponent implements OnInit {
   public shop: Shops[];
   public notifications: Notifications[];
+  pageEvent: PageEvent;
+  length:number;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5,10,50];
 
   constructor(
     public http: HttpClient,
@@ -25,6 +30,7 @@ export class HomeComponent implements OnInit {
     {  
       http.get<Shops[]>(baseUrl + 'api/shops').subscribe(result => {
         this.shop = result;
+        this.length = this.shop.length;
         }, error => console.error(error));
 
       const body = {Authorization: "Basic "+ JSON.parse(localStorage.getItem('authKey'))};

@@ -1,0 +1,67 @@
+<p>edit show works</p>
+<div class="table-responsive">
+    <div class="shopList" >
+        <div class="table">
+            <table id="shops">
+                <thead>
+                    <tr><th> Name </th></tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let shop of shop" (click)="setInfo(shop.id)">
+                        <td >
+                            {{shop.name}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button mat-raised-button type="submit" color="accent" (click) = "newShop();" id="newShop" >Create a new shop</button>
+    </div>
+    
+    <div class="info">
+        <form class="shopInfo" [style.fontSize.px]="13" >
+            <mat-form-field appearance="fill">
+                <mat-label>Shop name</mat-label>
+                <input id="shopName" matInput [formControl]="f.shopName" placeholder="shop name">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Short description</mat-label>
+                <input id="shopDesc" matInput [formControl]="f.shopDesc" placeholder="short description">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Long description</mat-label>
+                <textarea id="shopLongDesc" matInput [formControl]="f.shopLongDesc" placeholder="long description"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <input id="shopLocation" matInput [formControl]="f.shopLocation" placeholder="Address">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input id="shopNumber" matInput [formControl]="f.shopNumber" placeholder="Shop number">
+            </mat-form-field>
+            <button mat-raised-button type="submit" color="accent" (click) = "updateShop();" [disabled]="!form.valid" id="updateShop"  >Update shop</button>
+        </form>
+    </div>
+    <div class="produceTable">
+        <table id="produce">
+            <thead>
+                <tr><th>Product</th></tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let produce of produce">
+                    <td>
+                        {{produce.name}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-form-field appearance="fill">
+            <mat-label> product name</mat-label>
+            <input id="produceName" matInput  placeholder="produce name">
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="accent" (click) = "addProduce();" id="addProduce" >Add Product</button>
+    </div>
+
+
+</div>

@@ -35,9 +35,10 @@ namespace WebApi.Controllers
         // GET: api/Users/Authorize
         [HttpGet("Authorize")]
         [Authorize]
-        public bool CheckAuthorization()
+        public async Task<ActionResult<UserDto>> CheckAuthorization()
         {
-            return true;
+            var user = _context.Users.FindAsync(AuthenticatedUserId());
+            return _mapper.Map<UserDto>(await user);
         }
 
         // GET: api/Users

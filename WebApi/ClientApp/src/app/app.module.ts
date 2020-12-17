@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import {AgmMap,MapsAPILoader  } from '@agm/core';  
-import {AgmCoreModule} from '@agm/core';
 
 
 import { AppComponent } from './app.component';
@@ -30,7 +28,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './user/profile/profile.component';
-import tt from '@tomtom-international/web-sdk-maps';
+import { EditshopComponent } from './user/editshop/editshop.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 
 @NgModule({
@@ -41,7 +41,8 @@ import tt from '@tomtom-international/web-sdk-maps';
     LoginComponent,
     ShopComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditshopComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,9 +64,8 @@ import tt from '@tomtom-international/web-sdk-maps';
     MatGridListModule,
     MatDialogModule,
     MatTabsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBo0Tf233OveoTmX67JMDNE4YkiJ13umZk'
-    }),
+    //FlexLayoutModule,
+    JwPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

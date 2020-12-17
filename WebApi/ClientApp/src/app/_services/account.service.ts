@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 
 
@@ -15,9 +15,7 @@ export class Account {
     private router: Router,
     private http: HttpClient,
     @Inject('BASE_URL') public baseUrl: string,
-  ) {
-    this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('authKey')));
-   }
+  ) {this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('authKey')));}
 
    public get userValue(): User {
      return this.userSubject.value;
@@ -31,6 +29,8 @@ export class Account {
      return this.http.get<User>('Api/Users/Authorize', requestOptions).pipe(map(user => {
        localStorage.setItem('authKey',JSON.stringify(auth));
        this.userSubject.next(user);
+       let id = JSON.parse(JSON.stringify(user));
+       localStorage.setItem('id',JSON.stringify(id.id));
        return user;
      }))
     }
@@ -51,12 +51,7 @@ export class Account {
      .subscribe(result => { console.log(result);},
       error => console.error(error));
     }
-  unfollowShop(shopid: number) {
-      this.http.post(this.baseUrl + 'api/shops/' + shopid + '/follow/false',{},
-       {headers: new HttpHeaders({'Authorization':'Basic '+ JSON.parse(localStorage.getItem('authKey'))})})
-       .subscribe(result => { console.log(result);},
-        error => console.error(error));
-      }
+    
 }
 
 export class User {

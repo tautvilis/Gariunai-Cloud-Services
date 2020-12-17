@@ -1,23 +1,28 @@
 <p *ngIf="!shop"><em>Loading...</em></p>
 <mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="refreshNotifications()">
   <mat-tab label="Local feed">
-    <ng-template matTabContent>
-    <div *ngIf="shop" class="allShops">
-      <mat-card *ngFor="let shop of shop" class="shop" (click)="openModal(shop)">
-        <mat-card-header>
-          <mat-card-title> {{shop.name}} </mat-card-title>
-        </mat-card-header>
-        <img mat-card-avatar src="../../assets/GARIUNAICLOUD.png" alt="logo" class="logo">
-        <mat-card-content>
-          <p>{{shop.description}}</p>
-          <p>Address:{{shop.location}}</p>
-        </mat-card-content>
-        <mat-card-footer>
-          
-        </mat-card-footer>
-      </mat-card>
+    <mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="[5,10,25]" >
+
+    </mat-paginator>
+    <div *ngIf="pageEvent">
+      <ng-template matTabContent>
+        <div *ngIf="shop" class="allShops">
+          <mat-card *ngFor="let shop of shop" class="shop" (click)="openModal(shop)">
+            <mat-card-header>
+              <mat-card-title> {{shop.name}} </mat-card-title>
+            </mat-card-header>
+            <img mat-card-avatar src="../../assets/GARIUNAICLOUD.png" alt="logo" class="logo">
+            <mat-card-content>
+              <p>{{shop.description}}</p>
+              <p>Address:{{shop.location}}</p>
+            </mat-card-content>
+            <mat-card-footer>
+              
+            </mat-card-footer>
+          </mat-card>
+        </div>   
+      </ng-template>
     </div>
-</ng-template>
 </mat-tab>
   <mat-tab label="Follow feed">
     <ng-template matTabContent >

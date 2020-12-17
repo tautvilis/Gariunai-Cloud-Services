@@ -18,14 +18,6 @@ export class ShopComponent implements OnInit {
   @Input() public shop:Shop;
   public produce: Produce[];
 
-  map:any;
-  marker:any;
-
-  currLat:any;
-  currLng:any;
-
-  coords: number;
-
   page = 1;
   pageSize= 4;
   collectionSize: number;
@@ -34,55 +26,15 @@ export class ShopComponent implements OnInit {
   
   
 
-  constructor(public activeModal: NgbActiveModal, private apiloader: MapsAPILoader,private http: HttpClient,
+  constructor(public activeModal: NgbActiveModal,private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,private accountService: Account,) { }
   ngOnInit() {
-    //this.getShopCoords();
-    this.map = tt.map({
-      key: 'jIvAmA6BfA1XvrNGFT7ZTld7hZ7PLin1',
-      container: 'map',
-      style: 'tomtom://vector/1/basic-main',
-      zoom:1.2
-    });
-    this.getUserLocation().then(pos=>
-    {
-       console.log(`Positon: ${pos.lng} ${pos.lat}`);
-       var coords = [pos.lng,pos.lat];
-       var marker = new tt.Marker().setLngLat(coords).addTo(this.map);
-    });
     
     this.isFollowing(this.shop.id);
     this.getProduce();
     
   }
-
-  getUserLocation(): Promise<any>
-  {
-    return new Promise((resolve, reject) => {
-
-      navigator.geolocation.getCurrentPosition(resp => {
-
-          resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
-        },
-        err => {
-          reject(err);
-        });
-    });
-  }
-  getShopCoords(){
-    console.log(keys.tomtom);
-    this.http.get("https://api.tomtom.com/search/2/geocode/"+encodeURI(this.shop.location)+".json?countrySet=LT&key=" + keys.tomtom).subscribe((result) => {
-      console.log(JSON.stringify(result));
-      this.coords = result[0].results[0].position;
-      console.log(this.coords);
-    }, error => console.error(error));
-  }
   
-
-  
-  private error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
 
   public getProduce(){
     this.http.get<Produce[]>(this.baseUrl + 'api/shops/'+ this.shop.id + '/Produce').subscribe((result) => {
