@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import {AgmMap,MapsAPILoader  } from '@agm/core';  
+import {AgmMap,MapsAPILoader  } from '@agm/core';
 import {AgmCoreModule} from '@agm/core';
 
 
@@ -15,7 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopComponent } from './home/shop.component';
 import { RegisterComponent } from './login/register.component';
- 
+
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,8 +30,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './user/profile/profile.component';
-import tt from '@tomtom-international/web-sdk-maps';
-
 
 @NgModule({
   declarations: [
@@ -64,7 +62,7 @@ import tt from '@tomtom-international/web-sdk-maps';
     MatDialogModule,
     MatTabsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBo0Tf233OveoTmX67JMDNE4YkiJ13umZk'
+      apiKey: 'AIzaSyABBHE0z7PuKgYYMIjHrRrbtT_Y3eaGxqs'
     }),
   ],
   providers: [],

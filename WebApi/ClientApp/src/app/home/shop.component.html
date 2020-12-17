@@ -29,13 +29,12 @@
             </ngb-pagination>
           </div>
         </mat-grid-tile>
-        <div > 
-          <mat-grid-tile [colspan]="3" [rowspan]="2">
-            <div id="map"></div>
-          </mat-grid-tile>
-        </div>
-
       </mat-grid-list>
+      <div>
+        <agm-map [latitude]=lats [longitude]=lngs>
+          <agm-marker [latitude]=lats [longitude]=lngs></agm-marker>
+        </agm-map>
+      </div>
     </div>
   </div>
 </div>

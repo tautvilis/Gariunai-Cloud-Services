@@ -60,10 +60,8 @@ namespace WebApi.Handlers
                 return AuthenticateResult.Fail("Internal authentication error");
             }
             
-            if(_salter == null)
-                _salter = new Salter();
-            if(_saltAgorithm == null)
-                _saltAgorithm = new SaltAgorithm();
+            _salter ??= new Salter();
+            _saltAgorithm ??= new SaltAgorithm();
             Hashing hashdelegate = _saltAgorithm.Hash;
             
             var hashedAuthorizationPassword = _salter.GenerateSaltedHash(password, dbPassword.Salt, hashdelegate);

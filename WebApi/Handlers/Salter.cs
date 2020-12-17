@@ -14,7 +14,6 @@ namespace WebApi.Handlers
     public class Salter : ISalter
     {
         private static int saltsize = 20;
-        private ISalter _salterImplementation;
 
         public byte[] CreateSalt()
         {
