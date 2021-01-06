@@ -30,11 +30,17 @@
           </div>
         </mat-grid-tile>
       </mat-grid-list>
-      <div>
-        <agm-map [latitude]=lats [longitude]=lngs>
-          <agm-marker [latitude]=lats [longitude]=lngs></agm-marker>
-        </agm-map>
-      </div>
+      <google-map *ngIf="isGeolocated"
+        height="500px"
+        width="100%"
+        [zoom]="zoom"
+        [center]="center">
+        <map-marker
+          [position]="marker"
+          [label]="shop.name"
+        >
+        </map-marker>
+      </google-map>
     </div>
   </div>
 </div>

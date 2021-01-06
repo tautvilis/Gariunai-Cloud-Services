@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {AgmMap,MapsAPILoader  } from '@agm/core';
 import {AgmCoreModule} from '@agm/core';
 
-
+import { GoogleMapsModule } from '@angular/google-maps'
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -61,9 +61,8 @@ import { ProfileComponent } from './user/profile/profile.component';
     MatGridListModule,
     MatDialogModule,
     MatTabsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyABBHE0z7PuKgYYMIjHrRrbtT_Y3eaGxqs'
-    }),
+    GoogleMapsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

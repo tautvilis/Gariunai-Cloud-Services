@@ -1,13 +1,9 @@
 import {Component, OnInit, Input, ViewChild, Inject, ViewEncapsulation, NgModule} from '@angular/core';
 import { NgbActiveModal, NgbPaginationNumber } from '@ng-bootstrap/ng-bootstrap';
-import {AgmCoreModule, AgmMap, MapsAPILoader} from '@agm/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Account} from '../_services/account.service';
 import keys from '../_other/keys.json';
-import {BrowserModule} from "@angular/platform-browser";
-import LatLng = google.maps.LatLng;
-
 
 @Component({
   selector: 'app-shop',
@@ -19,32 +15,30 @@ export class ShopComponent implements OnInit {
   @Input() public shop:Shop;
   public produce: Produce[];
 
-  map:any;
-  marker:any;
-
-  coords: number;
-  lats :any;
-  lngs : any;
   page = 1;
   pageSize= 4;
   collectionSize: number;
+  isGeolocated : boolean = false;
   _isFollowing: boolean = false;
-  private geoCoder;
-  apiLoaded : boolean;
-
-
-  constructor(public activeModal: NgbActiveModal, private mapsAPILoader: MapsAPILoader,private http: HttpClient,
+  marker: google.maps.LatLngLiteral;
+  zoom = 12;
+  center: google.maps.LatLngLiteral;
+  constructor(public activeModal: NgbActiveModal, private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,private accountService: Account,) {
 
   }
   ngOnInit() {
-    this.mapsAPILoader.load().then(() => {
-      this.apiLoaded = true;
-      this.geoCoder = new google.maps.Geocoder;
-      this.codeAddress(this.shop.location);
-      this.isFollowing(this.shop.id);
-      this.getProduce();
-    });
+    const geocoder = new google.maps.Geocoder();
+    this.isFollowing(this.shop.id);
+    this.getProduce();
+    this.geocodeAddress(geocoder);
+  }
+  addMarker(lat, lng) {
+    this.marker = {
+        lat: lat,
+        lng: lng,
+    }
+    this.center = this.marker;
   }
 
 
@@ -79,20 +73,18 @@ export class ShopComponent implements OnInit {
   close(){
     this._isFollowing== false;
   }
-  public codeAddress(address) {
-    this.geoCoder.geocode({ 'address': address }, function (results, status) {
-      let latLng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
-      if (status == 'OK') {
-        this.lats = latLng.lat;
-        this.lngs = latLng.lng;
-        console.log (latLng.lat);
+  public geocodeAddress(geocoder: google.maps.Geocoder) {
+    const address = this.shop.location;
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK") {
+          this.addMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng())
+          this.isGeolocated = true;
       }
       else {
-        alert('Geocode was not successful for the following reason: ' + status);
+        alert("Geocode was not successful for the following reason: " + status);
       }
     });
   }
-
 
 }
 
