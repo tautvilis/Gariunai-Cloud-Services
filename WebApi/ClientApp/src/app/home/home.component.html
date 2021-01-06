@@ -1,17 +1,13 @@
 <p *ngIf="!shop"><em>Loading...</em></p>
 <mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedTabChange)="refreshNotifications()">
   <mat-tab label="Local feed">
-    <mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="[5,10,25]" >
-
-    </mat-paginator>
-    <div *ngIf="pageEvent">
       <ng-template matTabContent>
         <div *ngIf="shop" class="allShops">
-          <mat-card *ngFor="let shop of shop" class="shop" (click)="openModal(shop)">
+          <mat-card *ngFor="let shop of shop | slice: (page-1) * pageSize : page * pageSize" class="shop" (click)="openModal(shop)">
             <mat-card-header>
               <mat-card-title> {{shop.name}} </mat-card-title>
             </mat-card-header>
-            <img mat-card-avatar src="../../assets/GARIUNAICLOUD.png" alt="logo" class="logo">
+            <img mat-card-lg-image src="/api/images/{{shop.image1}}" alt="logo" onerror="this.src='../../assets/storefront1.png'" class="logo">
             <mat-card-content>
               <p>{{shop.description}}</p>
               <p>Address:{{shop.location}}</p>
@@ -20,22 +16,27 @@
               
             </mat-card-footer>
           </mat-card>
+          <ngb-pagination [collectionSize]="shop.length" [(page)]="page" [pageSize]="pageSize">
+          </ngb-pagination>
         </div>   
       </ng-template>
-    </div>
+
 </mat-tab>
   <mat-tab label="Follow feed">
     <ng-template matTabContent >
       <div *ngIf="notifications" class="allNotifications" >
-        <mat-card *ngFor="let notifications of notifications" class="notifications">
+        <mat-card *ngFor="let notifications of notifications  | slice: (page-1) * pageSize : page * pageSize" class="notifications">
           <mat-card-header>
             <mat-card-title >{{getShopNameById(notifications.shopId)}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <h3>{{notifications.title}}</h3>
             <p>{{notifications.description}}</p>
+            <img mat-card-lg-image src="/api/images/{{notifications.image}}" alt="logo" onerror="this.src='../../assets/storefront1.png'" class="logo">
           </mat-card-content>
         </mat-card>
+        <ngb-pagination [collectionSize]="notifications.length" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
       </div>
     </ng-template>
   </mat-tab>

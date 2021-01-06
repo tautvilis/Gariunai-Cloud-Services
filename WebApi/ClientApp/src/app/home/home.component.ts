@@ -18,8 +18,9 @@ export class HomeComponent implements OnInit {
   public notifications: Notifications[];
   pageEvent: PageEvent;
   length:number;
+  page = 1;
   pageSize = 10;
-  pageSizeOptions: number[] = [5,10,50];
+  collectionSize: number;
 
   constructor(
     public http: HttpClient,
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
     {  
       http.get<Shops[]>(baseUrl + 'api/shops').subscribe(result => {
         this.shop = result;
-        this.length = this.shop.length;
+        this.collectionSize = this.shop.length;
         }, error => console.error(error));
 
       const body = {Authorization: "Basic "+ JSON.parse(localStorage.getItem('authKey'))};
@@ -78,6 +79,7 @@ interface Shops {
   location: string;
   longDescription: string;
   contacts: string;
+  image1:string;
 }
 
 

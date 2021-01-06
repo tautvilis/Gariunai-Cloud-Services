@@ -25,7 +25,7 @@
             <tbody><tr *ngFor="let produce of produce"><td>{{produce.name}}</td></tr></tbody>
           </table>
           <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            <ngb-pagination [collectionSize]="produce.length" [(page)]="page" [pageSize]="pageSize">
             </ngb-pagination>
           </div>
         </mat-grid-tile>

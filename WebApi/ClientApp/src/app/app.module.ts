@@ -30,7 +30,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './user/profile/profile.component';
 import { EditshopComponent } from './user/editshop/editshop.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { JwPaginationModule } from 'jw-angular-pagination';
 
 
 @NgModule({
@@ -65,7 +64,6 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     MatDialogModule,
     MatTabsModule,
     //FlexLayoutModule,
-    JwPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

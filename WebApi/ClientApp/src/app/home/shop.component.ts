@@ -4,7 +4,6 @@ import {AgmMap,MapsAPILoader  } from '@agm/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Account} from '../_services/account.service';
-import tt from '@tomtom-international/web-sdk-maps';
 import keys from '../_other/keys.json';
 
 @Component({
