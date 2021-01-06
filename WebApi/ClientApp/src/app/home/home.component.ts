@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     private modalService: NgbModal,
     private accountService: Account,
     )
-    {  
+    {
       http.get<Shops[]>(baseUrl + 'api/shops').subscribe(result => {
         this.shop = result;
         }, error => console.error(error));
@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit {
         this.notifications = result;
         }, error => console.error(error));
   }
+
 
 
 
@@ -81,5 +82,5 @@ interface Notifications {
   description: string;
   image: string;
   shopName: string;
-  
+
 }
