@@ -32,6 +32,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './user/profile/profile.component';
 import { EditshopComponent } from './user/editshop/editshop.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDialogModule,
     MatTabsModule,
     GoogleMapsModule,
+    NgxDropzoneModule,
 
   ],
   providers: [],

@@ -70,11 +70,19 @@
         </mat-form-field>
         <button mat-raised-button type="submit" color="accent" (click) = "addProduce();" id="addProduce" >Add Product</button>
     </div>
+    <div class="imagesMultiple">
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Ikelkite nuotruakas</ngx-dropzone-label>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)"> 
+                <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+            </ngx-dropzone-image-preview>
+        </ngx-dropzone>
+    </div>
 
 
 </div>
 <div class="notifications">
-    <div class="table">
+    <div class="Notificationtable">
         <table id="notifications">
             <thead>
                 <tr><th> Title </th><th> Information </th></tr>
@@ -104,10 +112,8 @@
             <mat-label>Notification info</mat-label>
             <input id="notificationInfo" matInput  placeholder="Info">
         </mat-form-field>
-        <input #imageInput  id="imageNotificationInput" 
-        type="file"
-        accept="image/*">
 
-        <button mat-raised-button type="submit" color="accent" (click) = "saveImage(3);"   >Send notification</button>
+        <button mat-raised-button type="submit" color="accent" (click) = "saveImage(3);" [disabled]="!uploaded"  >Send notification</button>
     </form>
+
 </div>

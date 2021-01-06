@@ -18,6 +18,25 @@ mat-raised-button {
     padding-left:10px;
 }
 
+.notifications {
+    padding-top: 5%;
+    display:flex;
+
+}
+.Notificationtable {
+    width: 50%!important;
+}
+.sendNotification {
+    align-content: flex-start;
+    flex-wrap: wrap;
+    display: flex;
+}
+.sendNotification mat-form-field {
+    justify-content: left!important;
+    padding-left: 5px!important;
+
+}
+
 
 #table, #info {
     display: inline;
