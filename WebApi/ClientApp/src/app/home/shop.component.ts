@@ -1,9 +1,8 @@
 import {Component, OnInit, Input, ViewChild, Inject, ViewEncapsulation, NgModule} from '@angular/core';
 import { NgbActiveModal, NgbPaginationNumber } from '@ng-bootstrap/ng-bootstrap';
-import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Account} from '../_services/account.service';
-import keys from '../_other/keys.json';
+
 
 @Component({
   selector: 'app-shop',
@@ -26,7 +25,7 @@ export class ShopComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,private accountService: Account,) {
 
-    
+
   }
   ngOnInit() {
     const geocoder = new google.maps.Geocoder();

@@ -2,11 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import {AgmMap,MapsAPILoader  } from '@agm/core';
-import {AgmCoreModule} from '@agm/core';
-
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -15,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopComponent } from './home/shop.component';
 import { RegisterComponent } from './login/register.component';
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,8 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './user/profile/profile.component';
 import { EditshopComponent } from './user/editshop/editshop.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { WavesModule, TableModule } from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -68,6 +63,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     MatTabsModule,
     GoogleMapsModule,
     NgxDropzoneModule,
+    TableModule,
+    WavesModule,
 
   ],
   providers: [],

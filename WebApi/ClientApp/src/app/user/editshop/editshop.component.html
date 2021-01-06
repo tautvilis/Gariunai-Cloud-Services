@@ -1,4 +1,3 @@
-<p>edit show works</p>
 <div class="table-responsive">
     <div class="shopList" >
         <div class="table">
@@ -7,12 +6,11 @@
                     <tr><th> Name </th></tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let shop of shop" (click)="setInfo(shop.id)">
-                        <td >
+                    <tr *ngFor="let shop of shop; let i = index" (click)="ClickedRow(i);setInfo(shop.id)" [class.active]="i == HighlightRow" >
+                        <td>
                             <button mat-mini-fab color="accent" (click)="delShop(shop.id)">
                                 <mat-icon>delete_forever</mat-icon>
                             </button>
-                            
                             {{shop.name}}
                         </td>
                     </tr>
@@ -21,7 +19,6 @@
         </div>
         <button mat-raised-button type="submit" color="accent" (click) = "saveImage(1);" id="newShop" >Create a new shop</button>
     </div>
-    
     <div class="info">
         <form class="shopInfo" [formGroup]="form" [style.fontSize.px]="13" >
             <mat-form-field appearance="fill">
@@ -44,7 +41,7 @@
                 <mat-label>Phone number</mat-label>
                 <input id="shopNumber" matInput [formControl]="f.shopNumber" placeholder="Shop number">
             </mat-form-field>
-                <input #imageInput [formControl]="f.image" id="imageInput" 
+                <input #imageInput [formControl]="f.image" id="imageInput"
                        type="file"
                        accept="image/*">
 
@@ -54,7 +51,7 @@
     <div class="produceTable">
         <table id="produce">
             <thead>
-                <tr><th>Product</th></tr>
+                <tr><th>Products</th></tr>
             </thead>
             <tbody>
                 <tr *ngFor="let produce of produce">
@@ -73,13 +70,11 @@
     <div class="imagesMultiple">
         <ngx-dropzone (change)="onSelect($event)">
             <ngx-dropzone-label>Ikelkite nuotruakas</ngx-dropzone-label>
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)"> 
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
                 <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
             </ngx-dropzone-image-preview>
         </ngx-dropzone>
     </div>
-
-
 </div>
 <div class="notifications">
     <div class="Notificationtable">
@@ -93,7 +88,6 @@
                         <button mat-mini-fab color="accent" (click)="delNotification(notification.id)">
                             <mat-icon>delete_forever</mat-icon>
                         </button>
-                        
                         {{notification.title}}
                     </td>
                     <td>
