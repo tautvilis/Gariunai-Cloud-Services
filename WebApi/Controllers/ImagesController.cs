@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,12 +51,32 @@ namespace WebApi.Controllers
         {
             
             var image = await _context.Images.FirstOrDefaultAsync(i => i.Id == guid);
+            
             if (image == null)
             {
                 return NotFound("Image not found" + guid);
             }
             
             return File(image.Data, $"image/{image.Suffix.Replace(".", "").ToLower()}");
+        }
+        
+        [HttpDelete("{guid}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteImage(Guid guid)
+        {
+
+            if (_context.Users.First(u => u.Id == AuthenticatedUserId()).Name != "Admin")
+            {
+                return Unauthorized("Must be an admin to perform this action");
+            }
+
+            await _context.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM dbo.Images WHERE id = {guid}");
+
+            return Ok();
+        }
+        private int AuthenticatedUserId()
+        {
+            return int.Parse(HttpContext.User.Identity.Name ?? "-1");
         }
     }
 }
