@@ -50,7 +50,9 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetImage(Guid guid)
         {
             
-            var image = await _context.Images.FirstOrDefaultAsync(i => i.Id == guid);
+            var image = await _context.Images
+                .FromSqlInterpolated($"SELECT * from dbo.Images WHERE id = {guid}")
+                .FirstOrDefaultAsync();
             
             if (image == null)
             {
