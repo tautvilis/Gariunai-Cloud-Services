@@ -99,7 +99,7 @@ namespace WebApi.Controllers
                 
                 return CreatedAtAction("GetUser", new {id = user.Id}, _mapper.Map<UserDto>(user));
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
                 return BadRequest();
             }

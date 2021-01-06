@@ -29,13 +29,18 @@
             </ngb-pagination>
           </div>
         </mat-grid-tile>
-        <div > 
-          <mat-grid-tile [colspan]="3" [rowspan]="2">
-            <div id="map"></div>
-          </mat-grid-tile>
-        </div>
-
       </mat-grid-list>
+      <google-map *ngIf="isGeolocated"
+        height="500px"
+        width="100%"
+        [zoom]="zoom"
+        [center]="center">
+        <map-marker
+          [position]="marker"
+          [label]="shop.name"
+        >
+        </map-marker>
+      </google-map>
     </div>
   </div>
 </div>
