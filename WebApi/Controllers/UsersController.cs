@@ -32,14 +32,14 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
         
-        /*// GET: api/Users/Authorize
+        // GET: api/Users/Authorize
         [HttpGet("Authorize")]
         [Authorize]
         public async Task<ActionResult<UserDto>> CheckAuthorization()
         {
             var user = _context.Users.FindAsync(AuthenticatedUserId());
             return _mapper.Map<UserDto>(await user);
-        }*/
+        }
 
         // GET: api/Users
         [HttpGet]
