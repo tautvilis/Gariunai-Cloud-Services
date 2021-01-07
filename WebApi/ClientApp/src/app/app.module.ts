@@ -28,6 +28,9 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { EditshopComponent } from './user/editshop/editshop.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { WavesModule, TableModule } from 'angular-bootstrap-md';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { AngularFileUploaderModule } from "angular-file-uploader";
+
 
 
 @NgModule({
@@ -65,6 +68,8 @@ import { WavesModule, TableModule } from 'angular-bootstrap-md';
     NgxDropzoneModule,
     TableModule,
     WavesModule,
+    IvyCarouselModule,
+    AngularFileUploaderModule,
 
   ],
   providers: [],

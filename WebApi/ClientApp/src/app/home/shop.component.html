@@ -8,7 +8,20 @@
     </div>
     <div class="modal-body">
       <mat-card>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <carousel [cellsToShow]="4" [height]="200" [arrows]=false>
+          <div class="carousel-cell">
+            <img mat-card-lg-image src="/api/images/{{shop.image2}}" alt="logo" onerror="this.src='../../assets/storefront1.png'" class="logo">
+          </div>
+          <div class="carousel-cell">
+            <img mat-card-lg-image src="/api/images/{{shop.image3}}" alt="logo" onerror="this.src='../../assets/storefront1.png'" class="logo">
+          </div>
+          <div class="carousel-cell">
+            <img mat-card-lg-image src="/api/images/{{shop.image4}}" alt="logo" onerror="this.src='../../assets/storefront1.png'" class="logo">
+          </div>
+          <div class="carousel-cell">
+            <img mat-card-lg-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="logo" onerror="this.src='../../assets/storefront1.png'" class="logo">
+          </div>
+        </carousel>
         <mat-card-content>
           <p>
             {{shop.description}}

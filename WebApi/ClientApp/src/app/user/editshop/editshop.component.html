@@ -68,12 +68,9 @@
         <button mat-raised-button type="submit" color="accent" (click) = "addProduce();" id="addProduce" >Add Product</button>
     </div>
     <div class="imagesMultiple">
-        <ngx-dropzone (change)="onSelect($event)">
-            <ngx-dropzone-label>Ikelkite nuotruakas</ngx-dropzone-label>
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
-            </ngx-dropzone-image-preview>
-        </ngx-dropzone>
+        <angular-file-uploader
+        [config]="afuConfig">
+        </angular-file-uploader>
     </div>
 </div>
 <div class="notifications">

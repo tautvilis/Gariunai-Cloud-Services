@@ -23,6 +23,20 @@ export class EditshopComponent implements OnInit {
   ClickedRow:any;
   HighlightRow : Number;
 
+  public afuConfig = {
+    multiple: true,
+    formatsAllowed: ".jpg,.png",
+    maxSize: "2",
+    uploadAPI : {
+      url:this.baseUrl + 'api/images',
+      method: "POST",
+    },
+    replaceTexts: {
+      selectFileBtn: 'Pasirinkite failus',
+      uploadBtn: 'ikelkite'
+    }
+  }
+
 
   constructor(
     public http: HttpClient,
