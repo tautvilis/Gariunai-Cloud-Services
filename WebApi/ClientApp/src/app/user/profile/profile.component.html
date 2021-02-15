@@ -1,4 +1,44 @@
-<p>profile works!</p>
-<button  routerLink="/editshop">
-    editShop
-  </button>
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="/api/images/{{user.profilePicture}}"  onerror="this.src='../../../assets/default-icon.jpg'" class="avatar img-circle" style="width: 100px; height: 100px;" alt="avatar">
+        <input type="file" class="form-control" id="image">
+      </div>
+      <button type="button" class="btn btn-primary w-100" routerLink="/editshop">
+        Edit Shops
+      </button>
+    </div>
+    <div class="col-md-9 personal-info">
+      <h3>Personal info</h3>
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Username:</label>
+          <div class="col-lg-8">
+            <input id="userName" class="form-control" type="text" value="{{user.name}}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input id="userEmail" class="form-control" type="text" value="{{user.email}}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Description:
+            <textarea id="userDesc" class="form-control" rows="5" value = "{{user.description}}"></textarea>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input type="submit" class="btn btn-primary" value="Save Changes" (click)="saveImage()">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
