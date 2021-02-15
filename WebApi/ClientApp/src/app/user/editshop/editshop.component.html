@@ -1,0 +1,110 @@
+<div class="table-responsive">
+    <div class="shopList" >
+        <div class="table">
+            <table id="shops">
+                <thead>
+                    <tr><th> Name </th></tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let shop of shop; let i = index" (click)="ClickedRow(i);setInfo(shop.id)" [class.active]="i == HighlightRow" >
+                        <td>
+                            <button mat-mini-fab color="accent" (click)="delShop(shop.id)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                            {{shop.name}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button mat-raised-button type="submit" color="accent" (click) = "saveImage(1);" id="newShop" >Create a new shop</button>
+    </div>
+    <div class="info">
+        <form class="shopInfo" [formGroup]="form" [style.fontSize.px]="13" >
+            <mat-form-field appearance="fill">
+                <mat-label>Shop name</mat-label>
+                <input id="shopName" matInput [formControl]="f.shopName" placeholder="shop name">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Short description</mat-label>
+                <input id="shopDesc" matInput [formControl]="f.shopDesc" placeholder="short description">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Long description</mat-label>
+                <textarea id="shopLongDesc" matInput [formControl]="f.shopLongDesc" placeholder="long description"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <input id="shopLocation" matInput [formControl]="f.shopLocation" placeholder="Address">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input id="shopNumber" matInput [formControl]="f.shopNumber" placeholder="Shop number">
+            </mat-form-field>
+                <input #imageInput [formControl]="f.image" id="imageInput"
+                       type="file"
+                       accept="image/*">
+
+            <button mat-raised-button type="submit" color="accent" (click) = "saveImage(2);" [disabled]="!form.valid" id="updateShop"  >Update shop</button>
+        </form>
+    </div>
+    <div class="produceTable">
+        <table id="produce">
+            <thead>
+                <tr><th>Products</th></tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let produce of produce">
+                    <td>
+                        {{produce.name}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-form-field appearance="fill">
+            <mat-label> product name</mat-label>
+            <input id="produceName" matInput  placeholder="produce name">
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="accent" (click) = "addProduce();" id="addProduce" >Add Product</button>
+    </div>
+    <div class="imagesMultiple">
+        <angular-file-uploader
+        [config]="afuConfig">
+        </angular-file-uploader>
+    </div>
+</div>
+<div class="notifications">
+    <div class="Notificationtable">
+        <table id="notifications">
+            <thead>
+                <tr><th> Title </th><th> Information </th></tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let notification of notification">
+                    <td >
+                        <button mat-mini-fab color="accent" (click)="delNotification(notification.id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                        {{notification.title}}
+                    </td>
+                    <td>
+                        {{notification.description}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <form class="sendNotification" [formGroup]="form" [style.fontSize.px]="13" >
+        <mat-form-field appearance="fill">
+            <mat-label>Notification title</mat-label>
+            <input id="notificationTitle" matInput  placeholder="Title">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Notification info</mat-label>
+            <input id="notificationInfo" matInput  placeholder="Info">
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" color="accent" (click) = "saveImage(3);" [disabled]="!uploaded"  >Send notification</button>
+    </form>
+
+</div>

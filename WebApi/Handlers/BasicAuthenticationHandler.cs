@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApi.Models;
@@ -47,7 +48,7 @@ namespace WebApi.Handlers
             var username = credentials[0];
             var password = credentials[1];
 
-            var user = _context.Users.FirstOrDefault(u => u.Name == username);
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Name == username);
             if (user == null)
             {
                 return AuthenticateResult.Fail("User not found");

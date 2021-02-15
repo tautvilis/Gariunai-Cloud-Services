@@ -7,6 +7,7 @@ import { AnonymousGuard } from './_services/anonymousguard.guard'
 import { RegisterComponent } from './login/register.component';
 //import { WrongrouteComponent } from './_other/wrongroute/wrongroute.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { EditshopComponent } from './user/editshop/editshop.component';
 
 const routes: Routes = [
     { path: '', component: LoginComponent, pathMatch: 'full',canActivate:[AnonymousGuard]},
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent},
     { path: 'home', component: HomeComponent,  canActivate: [AuthGuard]},
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    { path: 'editshop', component: EditshopComponent, canActivate: [AuthGuard]},
 
 ];
 
