@@ -1,0 +1,46 @@
+<div class="modal-body">
+  <div class="model-content">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-basic-title">{{shop.name}}</h3>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click');close();">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-grid-list cols="3" rowHeight="20vh">
+        <div class="pictures">
+          <mat-grid-tile [colspan]="1" [rowspan]="1">picture a</mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="1">picture b</mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="1">picture c</mat-grid-tile>
+        </div>
+          <mat-grid-tile class="buttons" [colspan]="1" [rowspan]="1">
+            <a mat-raised-button href="tel:{{shop.contacts}}">CALL US </a><br/>
+            <a mat-raised-button (click) = "follow(shop.id, true);_isFollowing=true" *ngIf="!(_isFollowing)" >FOLLOW</a>
+            <a mat-raised-button (click) = "follow(shop.id, false);_isFollowing=false" *ngIf="_isFollowing" >UNFOLLOW</a>
+          </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">{{shop.name}} : {{shop.description}}</mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+          <table class="table table-striped">
+            <thead><tr><th>Produce</th></tr></thead>
+            <tbody><tr *ngFor="let produce of produce"><td>{{produce.name}}</td></tr></tbody>
+          </table>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+            </ngb-pagination>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <google-map *ngIf="isGeolocated"
+        height="500px"
+        width="100%"
+        [zoom]="zoom"
+        [center]="center">
+        <map-marker
+          [position]="marker"
+          [label]="shop.name"
+        >
+        </map-marker>
+      </google-map>
+    </div>
+  </div>
+</div>

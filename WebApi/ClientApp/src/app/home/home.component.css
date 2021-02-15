@@ -1,0 +1,19 @@
+.allShops, .allNotifications  {
+    margin-top: 18px;
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+  }
+
+.allShops .shop, .allNotifications .notifications {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 2px solid #000;
+  width: 100vh;
+  font-size: 40px;
+}

@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Device.Location;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Gariunai_Cloud_Services.Account;
+using Gariunai_Cloud_Services.Backend;
 using Gariunai_Cloud_Services.LocalProduce;
-using Microsoft.VisualBasic;
 
-namespace Gariunai_Cloud_Services
+namespace Gariunai_Cloud_Services.LocalProduce
 {
     public partial class LocalProduceForm : Form
     {
@@ -24,53 +18,45 @@ namespace Gariunai_Cloud_Services
 
         private void PopulateShops()
         {
-            List<Gariunai_Cloud_Services.Entities.Business> res = DatabaseHelper.GetBusinesses();
-            var listShops = new ListShop[res.Count()];
-
-            var count = 0;
-            foreach (var shop in DatabaseHelper.GetBusinesses())
+            flowLayoutPanel1.Controls.Clear();
+            foreach (var newShop in DatabaseHelper.GetBusinesses().Select(shop => new ListShop(this)
             {
-                listShops[count] = new ListShop
-                {
-                    Title = shop.Name, Description = shop.Description, Owner = shop.Owner.Name
-                };
-                flowLayoutPanel1.Controls.Add(listShops[count]);
-                count++;
+                Shop = shop,
+                Distance = ListShop.CalculateDistance(shop.Location)
+            }))
+            {
+                flowLayoutPanel1.Controls.Add(newShop);
             }
-
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void Button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             Form followFeedForm = new FollowFeedForm(this);
             followFeedForm.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-
         }
 
-        //public void button5_Click(object sender, EventArgs e)
-        //{
-        //    this.Hide();
-        //    Form specificShopForm = new SpecificShopForm(this);
-        //    specificShopForm.Show();
-        //}
 
-        private void accountButton_Click(object sender, EventArgs e)
+        private void AccountButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             Form accountForm = new AccountForm(this);
             accountForm.Show();
         }
 
-        public static void OpenSpecificForm()
+        private void LocalProduceForm_Load(object sender, EventArgs e)
         {
-            Form specificShopForm = new SpecificShopForm();
-            specificShopForm.Show();
+            PopulateShops();
         }
 
+        private void LocalProduceForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

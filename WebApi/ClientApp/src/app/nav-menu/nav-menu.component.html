@@ -1,0 +1,68 @@
+<div *ngIf="nav.visible">
+<mat-toolbar color="primary" class="expanded-toolbar" >
+      <div class="home">
+  
+        <button mat-button routerLink="/">Gariunai cloud</button>
+  
+        <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
+  
+      </div>
+  
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+  
+      <button mat-button routerLink="/login" *ngIf="!isExpanded" class="login">
+  
+        <mat-icon>power_settings_new</mat-icon>
+  
+        Login
+  
+      </button>
+  
+      <button mat-button *ngIf="isExpanded" routerLink="/" (click)="toggle(); logout();" class="login">
+  
+        <mat-icon>exit_to_app</mat-icon>
+  
+        Logout
+  
+      </button>
+  
+      <button mat-button *ngIf="isExpanded" routerLink="/fetch-data">
+  
+        <mat-icon>cached</mat-icon>
+  
+        Fetch data
+  
+      </button>
+  
+    </div>
+  
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+  
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-menu x-position="before" #menu="matMenu">
+    
+      <button mat-menu-item routerLink="/">
+        <mat-icon>home</mat-icon>
+        Home
+      </button>
+      <button *ngIf="isExpanded" mat-menu-item routerLink="/fetch-data">
+        <mat-icon>cached</mat-icon>
+        Fetch data
+      </button>
+      <button *ngIf="isExpanded" mat-menu-item routerLink="/profile">
+        <mat-icon>account_box</mat-icon>
+        Profile
+      </button>
+      <button mat-menu-item routerLink="/login" *ngIf="!isExpanded">
+        <mat-icon>power_settings_new</mat-icon>
+        Login
+      </button>
+      <button mat-menu-item *ngIf="isExpanded" routerLink="/" (click)="toggle();logout();">
+        <mat-icon>exit_to_app</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+  </div>
+    <router-outlet></router-outlet>

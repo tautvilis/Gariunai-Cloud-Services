@@ -1,11 +1,14 @@
-﻿namespace Gariunai_Cloud_Services
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Gariunai_Cloud_Services.LocalProduce
 {
     partial class LocalProduceForm
     {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -45,7 +48,7 @@
             this.localProduceButton.Text = "Local Produce";
             this.localProduceButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.localProduceButton.UseVisualStyleBackColor = true;
-            this.localProduceButton.Click += new System.EventHandler(this.button1_Click);
+            this.localProduceButton.Click += new System.EventHandler(this.Button1_Click);
             // 
             // followFeedButton
             // 
@@ -57,7 +60,7 @@
             this.followFeedButton.Text = "Follow Feed";
             this.followFeedButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.followFeedButton.UseVisualStyleBackColor = true;
-            this.followFeedButton.Click += new System.EventHandler(this.button2_Click);
+            this.followFeedButton.Click += new System.EventHandler(this.Button2_Click);
             // 
             // homeButton
             // 
@@ -79,7 +82,7 @@
             this.accountButton.TabIndex = 3;
             this.accountButton.Text = "Account";
             this.accountButton.UseVisualStyleBackColor = true;
-            this.accountButton.Click += new System.EventHandler(this.accountButton_Click);
+            this.accountButton.Click += new System.EventHandler(this.AccountButton_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -104,17 +107,19 @@
             this.Controls.Add(this.localProduceButton);
             this.Name = "LocalProduceForm";
             this.Text = "Support Your Locals";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LocalProduceForm_FormClosed);
+            this.Load += new System.EventHandler(this.LocalProduceForm_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button localProduceButton;
-        private System.Windows.Forms.Button followFeedButton;
-        private System.Windows.Forms.Button homeButton;
-        private System.Windows.Forms.Button accountButton;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Button localProduceButton;
+        private Button followFeedButton;
+        private Button homeButton;
+        private Button accountButton;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

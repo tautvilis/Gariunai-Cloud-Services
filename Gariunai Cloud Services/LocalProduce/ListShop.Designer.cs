@@ -1,14 +1,17 @@
-﻿namespace Gariunai_Cloud_Services.LocalProduce
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Gariunai_Cloud_Services.LocalProduce
 {
     partial class ListShop
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary> 
-        /// Clean up any resources being used.
+        /// Clean up any ssssresources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
@@ -33,6 +36,7 @@
             this.ListShopDesc = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ListShopOwner = new System.Windows.Forms.Label();
+            this.ListShopDistance = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ListShopImg)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -40,7 +44,7 @@
             // ListShopImg
             // 
             this.ListShopImg.BackColor = System.Drawing.Color.Black;
-            this.ListShopImg.Location = new System.Drawing.Point(19, 12);
+            this.ListShopImg.Location = new System.Drawing.Point(20, 16);
             this.ListShopImg.Name = "ListShopImg";
             this.ListShopImg.Size = new System.Drawing.Size(89, 90);
             this.ListShopImg.TabIndex = 0;
@@ -60,11 +64,11 @@
             // 
             // ListShopDesc
             // 
-            this.ListShopDesc.Location = new System.Drawing.Point(147, 37);
+            this.ListShopDesc.Location = new System.Drawing.Point(147, 80);
             this.ListShopDesc.Name = "ListShopDesc";
-            this.ListShopDesc.Size = new System.Drawing.Size(368, 54);
+            this.ListShopDesc.Size = new System.Drawing.Size(39, 21);
             this.ListShopDesc.TabIndex = 3;
-            this.ListShopDesc.Text = "Short Description of the shop";
+            this.ListShopDesc.Text = "Distance";
             this.ListShopDesc.Click += new System.EventHandler(this.ListShop_Click);
             // 
             // panel1
@@ -86,6 +90,14 @@
             this.ListShopOwner.TabIndex = 5;
             this.ListShopOwner.Text = "Owner";
             // 
+            // ListShopDistance
+            // 
+            this.ListShopDistance.Location = new System.Drawing.Point(445, 95);
+            this.ListShopDistance.Name = "ListShopDistance";
+            this.ListShopDistance.Size = new System.Drawing.Size(103, 15);
+            this.ListShopDistance.TabIndex = 6;
+            this.ListShopDistance.Text = "Distance";
+            // 
             // ListShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -94,6 +106,7 @@
             this.Controls.Add(this.ListShopTitle);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ListShopDesc);
+            this.Controls.Add(this.ListShopDistance);
             this.Name = "ListShop";
             this.Size = new System.Drawing.Size(573, 116);
             this.Click += new System.EventHandler(this.ListShop_Click);
@@ -106,10 +119,11 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox ListShopImg;
-        private System.Windows.Forms.Label ListShopTitle;
-        private System.Windows.Forms.Label ListShopDesc;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label ListShopOwner;
+        private PictureBox ListShopImg;
+        private Label ListShopTitle;
+        private Label ListShopDesc;
+        private Panel panel1;
+        private Label ListShopOwner;
+        private Label ListShopDistance;
     }
 }
