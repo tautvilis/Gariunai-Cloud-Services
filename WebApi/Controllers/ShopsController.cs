@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
 using WebApi.Models.DataTransferObjects;
@@ -165,7 +169,7 @@ namespace WebApi.Controllers
 
             return _mapper.Map<ProduceDto>(produce);
         }
-        
+
         // DELETE: api/Shops/{id}/Produce
         [HttpDelete("{id}/Produce")]
         [Authorize]
@@ -324,18 +328,22 @@ namespace WebApi.Controllers
                 .Where(f => f.UserId == AuthenticatedUserId() && f.ShopId == id)
                 .FirstOrDefaultAsync();
 
-            if (currentFollow == null)
+            if (status && currentFollow == null)
             {
                 var newFollow = new Follow()
                 {
                     ShopId = id,
                     UserId = AuthenticatedUserId()
                 };
-
-                _context.Add(newFollow);
-                await _context.SaveChangesAsync();
+            
+                Debug.WriteLine("aaaaaaaaaaaaa");
+                var xd = await _context.Database.ExecuteSqlRawAsync("INSERT INTO dbo.Follows (UserId, ShopId, CreatedTime) VALUES (@p1, @p2, @p3);",
+                    new SqlParameter("@p1", newFollow.UserId),
+                    new SqlParameter("@p2", newFollow.ShopId),
+                    new SqlParameter("@p3", DateTime.Now));
+                Debug.WriteLine("aaaaaaaaaaaaa" + xd);
             }
-            else
+            else if(!status && currentFollow != null)
             {
                 _context.Remove(currentFollow);
                 await _context.SaveChangesAsync();
@@ -343,7 +351,6 @@ namespace WebApi.Controllers
 
             return status;
         }
-
 
         private bool ShopExists(int id)
         {
